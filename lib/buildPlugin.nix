@@ -6,7 +6,11 @@ let
   treesitterGrammars = prev.tree-sitter.withPlugins (_: prev.tree-sitter.allGrammars);
 
   plugins = builtins.filter (s: (builtins.match "plugin:.*" s) != null) (builtins.attrNames inputs);
-  plugName = input: builtins.substring 0 (builtins.stringLength "plugin:") input;
+  plugName = input:
+    builtins.substring
+      (builtins.stringLength "plugin:")
+      (builtins.stringLength input)
+      input;
 
   buildPlug = name: buildVimPluginFrom2Nix {
     pname = plugName name;
