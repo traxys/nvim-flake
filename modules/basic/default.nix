@@ -134,23 +134,23 @@ in
     };
     vim.matchup.enable = mkDefault false;
     vim.editorconfig.enable = mkDefault false;
-	vim.headerguard.enable = mkDefault false;
+    vim.headerguard.enable = mkDefault false;
 
     vim.startPlugins = with pkgs.neovimPlugins; [
       (if cfg.plenary then plenary else null)
       (if cfg.matchup.enable then vim-matchup else null)
       (if cfg.kommentary.enable then kommentary else null)
       (if cfg.editorconfig.enable then editorconfig else null)
-	  (if cfg.headerguard.enable then headerguard else null)
+      (if cfg.headerguard.enable then headerguard else null)
     ];
 
     vim.luaConfigRC =
       let
         kommentaryLangConfig = config: ''{
-			${writeIf (config.prefer != null)
-				"${if config == "single_line" then "prefer_single_line_comments" else "prefer_multi_line_comments"} = true,"
-			}
-		}'';
+      ${writeIf (config.prefer != null)
+        "${if config == "single_line" then "prefer_single_line_comments" else "prefer_multi_line_comments"} = true,"
+      }
+    }'';
         kommentaryConfigs = langs: concatStringsSep "\n" (map
           (lang: ''
             require('kommentary.config').configure_language("${lang}", ${kommentaryLangConfig (getAttr lang langs)})

@@ -4,9 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils = {
-		inputs.nixpkgs.follows = "nixpkgs";
-		url = "github:numtide/flake-utils";
-	};
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:numtide/flake-utils";
+    };
     neovim-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";

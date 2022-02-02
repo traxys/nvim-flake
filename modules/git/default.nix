@@ -20,7 +20,7 @@ in
       if (cfg.signs.enable) then [ gitsigns ] else [ ];
 
     vim.luaConfigRC = mkIf (cfg.signs.enable) ''
-      	require("gitsigns").setup()
+      require("gitsigns").setup()
     '';
   };
 }

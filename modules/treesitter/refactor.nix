@@ -90,29 +90,29 @@ in
 
       vim.treesitter.setup = ''
         refactor = {
-        	highlight_definitions = {
-        		enable = ${luaBool refcfg.highlightDefinitions.enable},
-        		clear_on_cursor_move = ${luaBool refcfg.highlightDefinitions.clearOnCursorMove},
-        	},
-        	smart_rename = {
-        		enable = ${luaBool refcfg.smartRename.enable},
-        		keymaps = {
-        			smart_rename = "${refcfg.smartRename.keymap}",
-        		},
-        	},
-        	highlight_current_scope = {
-        		enable = ${luaBool refcfg.highlightScope},
-        	},
-        	navigation = {
-        		enable = ${luaBool refcfg.navigation.enable},
-        		keymaps = {
-        			${if refcfg.navigation.lspFallback then "goto_definition_lsp_fallback" else "goto_definition"} = "${refcfg.navigation.gotoDefinition}",
-        			list_definitions = "${refcfg.navigation.listDefinitions}",
-        			list_definitions_toc = "${refcfg.navigation.listDefinitionsToc}",
-        			goto_next_usage = "${refcfg.navigation.gotoNextUsage}",
-        			goto_previous_usage = "${refcfg.navigation.gotoPreviousUsage}",
-        		},
-        	},
+          highlight_definitions = {
+            enable = ${luaBool refcfg.highlightDefinitions.enable},
+            clear_on_cursor_move = ${luaBool refcfg.highlightDefinitions.clearOnCursorMove},
+          },
+          smart_rename = {
+            enable = ${luaBool refcfg.smartRename.enable},
+            keymaps = {
+              smart_rename = "${refcfg.smartRename.keymap}",
+            },
+          },
+          highlight_current_scope = {
+            enable = ${luaBool refcfg.highlightScope},
+          },
+          navigation = {
+            enable = ${luaBool refcfg.navigation.enable},
+            keymaps = {
+              ${if refcfg.navigation.lspFallback then "goto_definition_lsp_fallback" else "goto_definition"} = "${refcfg.navigation.gotoDefinition}",
+              list_definitions = "${refcfg.navigation.listDefinitions}",
+              list_definitions_toc = "${refcfg.navigation.listDefinitionsToc}",
+              goto_next_usage = "${refcfg.navigation.gotoNextUsage}",
+              goto_previous_usage = "${refcfg.navigation.gotoPreviousUsage}",
+            },
+          },
         }
       '';
     };

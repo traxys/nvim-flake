@@ -35,10 +35,10 @@ in
 
     vim.luaConfigRC = ''
       require("filetype").setup({
-      	overrides = {
-      		extensions = ${luaAttr cfg.extensions},
-      		literal = ${luaAttr cfg.literal},
-      	}
+        overrides = {
+          extensions = ${luaAttr cfg.extensions},
+          literal = ${luaAttr cfg.literal},
+        }
       })
     '';
   };

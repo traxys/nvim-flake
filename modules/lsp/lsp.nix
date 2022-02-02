@@ -101,12 +101,12 @@ in
         };
       };
 
-	  nix = {
-		enable = mkOption {
-			type = types.bool;
-			description = "Enable rnix-lsp";
-		};
-	  };
+      nix = {
+        enable = mkOption {
+          type = types.bool;
+          description = "Enable rnix-lsp";
+        };
+      };
 
       rust = {
         enable = mkOption {
@@ -151,20 +151,20 @@ in
       makeServer = name: options:
         "${writeIf options.enable ''
         require("lspconfig")["${name}"].setup({
-        	${writeIf (options.cmd != null) ''
-        		cmd = {${luaList options.cmd}},
-        	''}
-        	${writeIf (options.handlers != null) ''
-        		handlers = ${options.handlers},
-        	''}
-        	${writeIf (options.initOptions != null) ''
-        		init_options = ${options.initOptions},
-        	''}
-        	${writeIf (options.settings != null) ''
-        		settings = {${options.settings}},
-        	''}
-        	capabilities = ${if options.capabilities != null then options.capabilities else "capabilities"},
-			on_attach = on_attach,
+          ${writeIf (options.cmd != null) ''
+            cmd = {${luaList options.cmd}},
+          ''}
+          ${writeIf (options.handlers != null) ''
+            handlers = ${options.handlers},
+          ''}
+          ${writeIf (options.initOptions != null) ''
+            init_options = ${options.initOptions},
+          ''}
+          ${writeIf (options.settings != null) ''
+            settings = {${options.settings}},
+          ''}
+          capabilities = ${if options.capabilities != null then options.capabilities else "capabilities"},
+      on_attach = on_attach,
         });
       ''}";
       makeServers = servers: map (server: makeServer server (getAttr server servers)) (attrNames servers);
@@ -193,19 +193,19 @@ in
           end
 
           ${writeIf cfg.null-ls.enable ''
-          	local null_ls = require("null-ls")
-          	local sources = {
-            	${nullLsSources cfg.null-ls.sources}
-          	}
+            local null_ls = require("null-ls")
+            local sources = {
+              ${nullLsSources cfg.null-ls.sources}
+            }
             null_ls.setup({
-            	sources = sources,
-            	on_attach = on_attach,
+              sources = sources,
+              on_attach = on_attach,
             })
           ''}
 
           local capabilities = (function(capabilities)
               ${cfg.capabilities}
-          	return capabilities
+            return capabilities
           end)(vim.lsp.protocol.make_client_capabilities())
 
           ${cfg.luaLocals}

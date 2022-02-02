@@ -9,7 +9,7 @@ in
   options.vim.telescope.enable = mkOption {
     type = types.bool;
     description = "Enable telescope.nvim";
-	default = false;
+    default = false;
   };
 
   config = mkIf cfg.enable {

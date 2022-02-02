@@ -37,14 +37,14 @@ in
     vim.filetree.diagnostics.enable = mkDefault false;
     vim.filetree.diagnostics.showOnDirs = mkDefault false;
 
-	vim.startPlugins = with pkgs.neovimPlugins; [ nvim-tree-lua ];
+    vim.startPlugins = with pkgs.neovimPlugins; [ nvim-tree-lua ];
 
     vim.luaConfigRC = ''
-      	require("nvim-tree").setup({
+        require("nvim-tree").setup({
           auto_close = ${luaBool cfg.autoClose},
           diagnostics = {
               enable = ${luaBool cfg.diagnostics.enable},
-      	      show_on_dirs = ${luaBool cfg.diagnostics.showOnDirs},
+              show_on_dirs = ${luaBool cfg.diagnostics.showOnDirs},
           },
       })
     '';

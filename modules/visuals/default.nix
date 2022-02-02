@@ -41,7 +41,7 @@ in
     vim.visuals.nvimWebDevicons.enable = mkDefault false;
     vim.visuals.nvimWebDevicons.default = mkDefault false;
     vim.visuals.indentline.enable = mkDefault false;
-	vim.visuals.plantumlSyntax.enable = mkDefault false;
+    vim.visuals.plantumlSyntax.enable = mkDefault false;
 
     vim.startPlugins = with pkgs.neovimPlugins; [
       (if cfg.nvimWebDevicons.enable then nvim-web-devicons else null)
@@ -56,7 +56,7 @@ in
       vim.g.indentLine_fileTypeExclude = { "markdown", "json" }
       '' /* Don't hide quotes in json or markdown for example */ }
       ${writeIf cfg.nvimWebDevicons.enable ''
-      	require("nvim-web-devicons").setup({ default = ${luaBool cfg.nvimWebDevicons.default} })
+        require("nvim-web-devicons").setup({ default = ${luaBool cfg.nvimWebDevicons.default} })
       ''}
     '';
   };

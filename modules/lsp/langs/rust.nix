@@ -22,12 +22,12 @@ in
         enable = true;
         settings = ''
           ["rust-analyzer"] = {
-          	cargo = {
-          		allFeatures = ${luaBool cfg.rust.settings.cargo.allFeatures},
-          	},
-          	checkOnSave = {
-          		command = "${cfg.rust.settings.checkOnSave.command}"
-          	},
+            cargo = {
+              allFeatures = ${luaBool cfg.rust.settings.cargo.allFeatures},
+            },
+            checkOnSave = {
+              command = "${cfg.rust.settings.checkOnSave.command}"
+            },
           }
         '';
       };

@@ -12,6 +12,6 @@
     ./lsp
     ./statusline
     ./telescope
-	./completion
+    ./completion
   ];
 }

@@ -29,7 +29,7 @@
       navigation = {
         enable = true;
         gotoDefinition = "gd";
-		lspFallback = true;
+        lspFallback = true;
       };
     };
   };

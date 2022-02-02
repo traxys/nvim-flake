@@ -19,7 +19,7 @@ in
 
       local clangd_caps = table.shallow_copy(capabilities)
       clangd_caps.offsetEncoding = { "utf-16" }
-      	'';
+    '';
 
     servers.clangd = {
       enable = true;

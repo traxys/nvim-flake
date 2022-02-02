@@ -19,15 +19,15 @@ let
 
   constantProvider = cst: ''
     function()
-    	return ${cst}
+      return ${cst}
     end
   '';
   eitherProvider = cond: tr: fl: ''
     function()
-    	if ${cond} then
-    		return ${tr}
-    	end
-    	return ${fl}
+      if ${cond} then
+        return ${tr}
+      end
+      return ${fl}
     end
   '';
 in

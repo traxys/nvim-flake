@@ -45,7 +45,7 @@ in
 
     vim.treesitter.setup = ''
       indent = {
-      	enable = ${luaBool cfg.indent},
+        enable = ${luaBool cfg.indent},
       },
       ensure_installed = {${luaList cfg.ensureInstalled}},
       highlight = {
@@ -56,7 +56,7 @@ in
 
     vim.luaConfigRC = ''
       require("nvim-treesitter.configs").setup({
-      	${cfg.setup}
+        ${cfg.setup}
       })
     '';
   };

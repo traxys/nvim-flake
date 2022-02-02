@@ -9,8 +9,8 @@ with lib;
 
     icons = {
       enable = mkDefault false;
-	  withText = mkDefault true;
-	  maxWidth = mkDefault null;
+      withText = mkDefault true;
+      maxWidth = mkDefault null;
     };
   };
 }

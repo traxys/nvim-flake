@@ -154,9 +154,9 @@
         enable = true;
       };
 
-	  nix = {
-		enable = true;
-	  };
+      nix = {
+        enable = true;
+      };
 
       rust = {
         enable = true;

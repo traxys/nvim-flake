@@ -7,6 +7,6 @@ with builtin;
   imports = [
     ./config.nix
     ./lsp.nix
-	./langs
+    ./langs
   ];
 }

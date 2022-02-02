@@ -8,6 +8,6 @@ let
 in
 {
   config.vim.lsp.servers.rnix = mkIf cfg.nix.enable {
-      enable = true;
+    enable = true;
   };
 }

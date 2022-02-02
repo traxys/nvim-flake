@@ -84,8 +84,8 @@ in
     ] ++ enabledSourcesPkgs;
 
     vim.lsp.capabilities = mkIf (config.vim.lsp.enable && hasLspSource) ''
-      		capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-      	'';
+      capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+    '';
 
     vim.luaConfigRC =
       let
@@ -108,27 +108,27 @@ in
         cmp.setup({
           ${writeIf cfg.icons.enable ''
           formatting = {
-          	format = lspkind.cmp_format({
-           	    with_text = ${luaBool cfg.icons.withText},
+            format = lspkind.cmp_format({
+                 with_text = ${luaBool cfg.icons.withText},
                 ${writeIf (cfg.icons.maxWidth != null) "maxwidth = ${toString cfg.icons.maxWidth},"}
 
                 before = function (entry, vim_item)
-          		    return vim_item
+                  return vim_item
                 end
             })
           },
           ''}
-        	snippet = {
-        		expand = function(args)
-        			vim.fn["vsnip#anonymous"](args.body)
-        		end,
-        	},
-        	mapping = {
-        	   ${mappingCfg cfg.mapping}
-        	},
-        	sources = {
-        		${sourcesCfg enabledSources}
-        	}
+          snippet = {
+            expand = function(args)
+              vim.fn["vsnip#anonymous"](args.body)
+            end,
+          },
+          mapping = {
+             ${mappingCfg cfg.mapping}
+          },
+          sources = {
+            ${sourcesCfg enabledSources}
+          }
         })
       '';
   };

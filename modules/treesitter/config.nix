@@ -32,7 +32,7 @@ with lib;
           gotoNextUsage = mkDefault "<a-*>";
           gotoPreviousUsage = mkDefault "<a-#>";
 
-		  lspFallback = mkDefault false;
+          lspFallback = mkDefault false;
         };
       };
     };

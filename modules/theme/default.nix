@@ -2,6 +2,6 @@
 {
   imports = [
     ./theme.nix
-	./config.nix
+    ./config.nix
   ];
 }

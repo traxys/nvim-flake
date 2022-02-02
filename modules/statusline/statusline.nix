@@ -125,14 +125,14 @@ in
         writeIf = cond: msg: if cond then msg else "";
         genHighlight = hi: "{${hi.fg}, ${hi.bg} ${writeIf (hi.style != null) '', "${hi.style}"''}}";
         genComponent = component: ''
-                    { ["${component.name}"] = {
-                      provider = ${component.provider},
-                      highlight = ${genHighlight component.highlight},
-                      ${writeIf (component.separator != null) "separator = ${component.separator},"}
-                      ${writeIf (component.separatorHighlight != null) "separator_highlight = ${genHighlight component.separatorHighlight},"}
-          			  ${writeIf (component.condition != null) "condition = ${component.condition},"}
-          			  ${writeIf (component.icon != null) "icon = ${component.icon},"}
-                    }}
+            { ["${component.name}"] = {
+              provider = ${component.provider},
+              highlight = ${genHighlight component.highlight},
+              ${writeIf (component.separator != null) "separator = ${component.separator},"}
+              ${writeIf (component.separatorHighlight != null) "separator_highlight = ${genHighlight component.separatorHighlight},"}
+          ${writeIf (component.condition != null) "condition = ${component.condition},"}
+          ${writeIf (component.icon != null) "icon = ${component.icon},"}
+            }}
         '';
         genSection = section: "{${concatStringsSep "," (map genComponent section)}}";
       in
