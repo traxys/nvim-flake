@@ -24,7 +24,8 @@ pkgs.wrapNeovim myNeovimUnwrapped {
   viAlias = vim.viAlias;
   vimAlias = vim.vimAlias;
   configure = {
-    customRC = builtins.trace vim.configRC vim.configRC;
+    # customRC = builtins.trace vim.configRC vim.configRC;
+	customRC = vim.configRC;
 
     packages.myVimPackage = with neovimPlugins; {
       start = builtins.filter (f: f != null) vim.startPlugins;
