@@ -4,5 +4,5 @@ with lib;
 with builtins;
 
 {
-  imports = [ ./c.nix ./rust.nix ];
+  imports = [ ./c.nix ./rust.nix ./nix.nix ];
 }

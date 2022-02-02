@@ -101,6 +101,13 @@ in
         };
       };
 
+	  nix = {
+		enable = mkOption {
+			type = types.bool;
+			description = "Enable rnix-lsp";
+		};
+	  };
+
       rust = {
         enable = mkOption {
           type = types.bool;
