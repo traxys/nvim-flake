@@ -37,6 +37,8 @@ in
     vim.filetree.diagnostics.enable = mkDefault false;
     vim.filetree.diagnostics.showOnDirs = mkDefault false;
 
+	vim.startPlugins = with pkgs.neovimPlugins; [ nvim-tree-lua ];
+
     vim.luaConfigRC = ''
       	require("nvim-tree").setup({
           auto_close = ${luaBool cfg.autoClose},
