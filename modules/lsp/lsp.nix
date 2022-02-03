@@ -108,6 +108,13 @@ in
         };
       };
 
+	  bash = {
+        enable = mkOption {
+          type = types.bool;
+          description = "Enable bash-language-server";
+        };
+	  };
+
       rust = {
         enable = mkOption {
           type = types.bool;

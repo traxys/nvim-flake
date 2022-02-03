@@ -158,6 +158,10 @@
         enable = true;
       };
 
+      bash = {
+        enable = true;
+      };
+
       rust = {
         enable = true;
         crates = {
