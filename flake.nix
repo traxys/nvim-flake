@@ -8,7 +8,7 @@
       url = "github:numtide/flake-utils";
     };
     neovim-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
+      url = "github:traxys/neovim-nightly-overlay";
       #inputs.nixpkgs.follows = "nixpkgs";
     };
 
