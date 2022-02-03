@@ -181,6 +181,7 @@ in
         nvim-lspconfig
         (if cfg.signatures.enable then lsp_signature else null)
         (if cfg.null-ls.enable then null-ls else null)
+		(if cfg.lightbulb then nvim-lightbulb else null)
       ];
 
       vim.configRC = ''
