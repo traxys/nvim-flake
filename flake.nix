@@ -120,8 +120,8 @@
       url = "github:kyazdani42/nvim-web-devicons";
       flake = false;
     };
-    "plugin:indentLine" = {
-      url = "github:Yggdroot/indentLine";
+    "plugin:indent-blankline" = {
+      url = "github:lukas-reineke/indent-blankline.nvim";
       flake = false;
     };
 

@@ -92,6 +92,12 @@
     plantumlSyntax = {
       enable = true;
     };
+
+    indentline = {
+      enable = true;
+      showContext = true;
+      showContextStart = true;
+    };
   };
 
   vim.filetree = {
