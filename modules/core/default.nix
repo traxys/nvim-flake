@@ -104,13 +104,15 @@ in
         description = "Keymaps";
         default = [ ];
         type = with types; submodule {
-          options = {
-            n = mkOption {
-              type = attrsOf (submodule keymapModule);
-              description = "Keymapping";
-              default = { };
+          options = let modeOption = mode: mkOption {
+            type = attrsOf (submodule keymapModule);
+            description = "Keymaps for mode ${mode}";
+            default = { };
+          }; in
+            {
+              n = modeOption "normal";
+              v = modeOption "visual";
             };
-          };
         };
       };
   };

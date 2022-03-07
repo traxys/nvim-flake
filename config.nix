@@ -132,6 +132,10 @@
         "K" = nrsilent "<cmd>lua vim.lsp.buf.hover()<CR>";
         "ff" = nrsilent "<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>";
       };
+
+      v = {
+        "<space>f" = nrsilent "<cmd>lua vim.lsp.buf.range_formatting()<CR>";
+      };
     };
 
   vim.lsp = {
