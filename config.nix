@@ -10,6 +10,7 @@
   vim.cmdheight = 2;
   vim.completeopt = [ "menu" "menuone" "noselect" ];
   vim.updatetime = 300;
+  vim.colorcolumn = "100";
   vim.commands = {
     "SpellFr" = "setlocal spell spelllang=fr";
   };

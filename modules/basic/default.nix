@@ -39,6 +39,11 @@ in
       description = "When and how to draw the signcolumn";
     };
 
+    colorcolumn = mkOption {
+      type = types.str;
+      description = "Color column";
+    };
+
     cmdheight = mkOption {
       type = types.int;
       description = "Number of screen lines to use for the command-line";
@@ -123,6 +128,7 @@ in
     vim.scrolloff = mkDefault 0;
     vim.signcolumn = mkDefault "auto";
     vim.cmdheight = mkDefault 1;
+	vim.colorcolumn = mkDefault "";
     vim.completeopt = mkDefault [ "menu" "preview" ];
     vim.omnifunc = mkDefault null;
     vim.updatetime = mkDefault 4000;
@@ -173,6 +179,7 @@ in
         set signcolumn=${cfg.signcolumn}
         set cmdheight=${toString cfg.cmdheight}
         set completeopt=${comma cfg.completeopt}
+		set colorcolumn=${cfg.colorcolumn}
         ${writeIfNotNull cfg.omnifunc (omni: ''
           set omnifunc="${omni}"
         '')}
