@@ -101,6 +101,22 @@
         "type": "github"
       }
     },
+    "plugin:clangd_extensions": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1646242539,
+        "narHash": "sha256-QI9DXYr6C6EoiU2uvV2QpdXeDZnoBucj9KOv9M3WCEk=",
+        "owner": "p00f",
+        "repo": "clangd_extensions.nvim",
+        "rev": "d8a387bfd3aebd3f421300b5ec1a20749a1dbf18",
+        "type": "github"
+      },
+      "original": {
+        "owner": "p00f",
+        "repo": "clangd_extensions.nvim",
+        "type": "github"
+      }
+    },
     "plugin:cmp-source-buffer": {
       "flake": false,
       "locked": {
@@ -325,19 +341,19 @@
         "type": "github"
       }
     },
-    "plugin:indentLine": {
+    "plugin:indent-blankline": {
       "flake": false,
       "locked": {
-        "lastModified": 1644895654,
-        "narHash": "sha256-5Qoj6XFH7HPaqwjrahsYrHfvDjIWOKL6kDWHL+loBtI=",
-        "owner": "Yggdroot",
-        "repo": "indentLine",
-        "rev": "7753505f3c500ec88d11e9373d05250f49c1d900",
+        "lastModified": 1642829036,
+        "narHash": "sha256-ik7GDbctby+fzk+TX2A3NQNN7zq2smOxDcEeWsc88sE=",
+        "owner": "lukas-reineke",
+        "repo": "indent-blankline.nvim",
+        "rev": "2e35f7dcdc72f39b37c21e43cdb538d7a41c7e07",
         "type": "github"
       },
       "original": {
-        "owner": "Yggdroot",
-        "repo": "indentLine",
+        "owner": "lukas-reineke",
+        "repo": "indent-blankline.nvim",
         "type": "github"
       }
     },
@@ -635,6 +651,7 @@
         "naersk": "naersk",
         "neovim-flake": "neovim-flake",
         "nixpkgs": "nixpkgs_2",
+        "plugin:clangd_extensions": "plugin:clangd_extensions",
         "plugin:cmp-source-buffer": "plugin:cmp-source-buffer",
         "plugin:cmp-source-calc": "plugin:cmp-source-calc",
         "plugin:cmp-source-crates": "plugin:cmp-source-crates",
@@ -649,7 +666,7 @@
         "plugin:galaxyline": "plugin:galaxyline",
         "plugin:gitsigns": "plugin:gitsigns",
         "plugin:headerguard": "plugin:headerguard",
-        "plugin:indentLine": "plugin:indentLine",
+        "plugin:indent-blankline": "plugin:indent-blankline",
         "plugin:kommentary": "plugin:kommentary",
         "plugin:lsp-status": "plugin:lsp-status",
         "plugin:lsp_signature": "plugin:lsp_signature",

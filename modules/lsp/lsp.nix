@@ -93,6 +93,11 @@ in
       };
     };
 
+    afterLSP = mkOption {
+      type = types.lines;
+      description = "After LSP lua lines";
+    };
+
     lang = {
       c = {
         enable = mkOption {
@@ -108,12 +113,12 @@ in
         };
       };
 
-	  bash = {
+      bash = {
         enable = mkOption {
           type = types.bool;
           description = "Enable bash-language-server";
         };
-	  };
+      };
 
       rust = {
         enable = mkOption {
@@ -181,7 +186,7 @@ in
         nvim-lspconfig
         (if cfg.signatures.enable then lsp_signature else null)
         (if cfg.null-ls.enable then null-ls else null)
-		(if cfg.lightbulb then nvim-lightbulb else null)
+        (if cfg.lightbulb then nvim-lightbulb else null)
       ];
 
       vim.configRC = ''
@@ -194,31 +199,33 @@ in
           nullLsSources = sources: concatStringsSep "," (map (source: "null_ls.${source}") sources);
         in
         ''
-          ${writeIf cfg.signatures.enable "require'lsp_signature'.setup()"}
+                    ${writeIf cfg.signatures.enable "require'lsp_signature'.setup()"}
 
-          local on_attach = function(client,buffer)
-             ${cfg.onAttach}
-          end
+                    local on_attach = function(client,buffer)
+                       ${cfg.onAttach}
+                    end
 
-          ${writeIf cfg.null-ls.enable ''
-            local null_ls = require("null-ls")
-            local sources = {
-              ${nullLsSources cfg.null-ls.sources}
-            }
-            null_ls.setup({
-              sources = sources,
-              on_attach = on_attach,
-            })
-          ''}
+                    ${writeIf cfg.null-ls.enable ''
+                      local null_ls = require("null-ls")
+                      local sources = {
+                        ${nullLsSources cfg.null-ls.sources}
+                      }
+                      null_ls.setup({
+                        sources = sources,
+                        on_attach = on_attach,
+                      })
+                    ''}
 
-          local capabilities = (function(capabilities)
-              ${cfg.capabilities}
-            return capabilities
-          end)(vim.lsp.protocol.make_client_capabilities())
+                    local capabilities = (function(capabilities)
+                        ${cfg.capabilities}
+                      return capabilities
+                    end)(vim.lsp.protocol.make_client_capabilities())
 
-          ${cfg.luaLocals}
+                    ${cfg.luaLocals}
 
-          ${concatStringsSep "\n" (makeServers cfg.servers)}
+                    ${concatStringsSep "\n" (makeServers cfg.servers)}
+
+          		  ${cfg.afterLSP}
         '';
     };
 }

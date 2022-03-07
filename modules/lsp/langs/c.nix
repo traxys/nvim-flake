@@ -7,24 +7,27 @@ let
   cfg = config.vim.lsp.lang;
 in
 {
-  config.vim.lsp = mkIf cfg.c.enable {
-    luaLocals = ''
-      function table.shallow_copy(t)
-        local t2 = {}
-        for k,v in pairs(t) do
-          t2[k] = v
-        end
-        return t2
-      end
+  config.vim = mkIf cfg.c.enable {
+    startPlugins = with pkgs.neovimPlugins; [ clangd_extensions ];
 
-      local clangd_caps = table.shallow_copy(capabilities)
-      clangd_caps.offsetEncoding = { "utf-16" }
+    lsp.afterLSP = ''
+       function table.shallow_copy(t)
+         local t2 = {}
+         for k,v in pairs(t) do
+           t2[k] = v
+         end
+         return t2
+       end
+
+       local clangd_caps = table.shallow_copy(capabilities)
+       clangd_caps.offsetEncoding = { "utf-16" }
+
+       require("clangd_extensions").setup {
+         server = {
+       		capabilities = clangd_caps,
+       		init_options = {clangdFileStatus = true},
+      	 },
+       }
     '';
-
-    servers.clangd = {
-      enable = true;
-      initOptions = mkDefault "{clangdFileStatus = true}";
-      capabilities = mkDefault "clangd_caps";
-    };
   };
 }
