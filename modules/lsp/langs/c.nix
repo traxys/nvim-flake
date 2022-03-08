@@ -25,6 +25,7 @@ in
        require("clangd_extensions").setup {
          server = {
        		capabilities = clangd_caps,
+			on_attach = on_attach,
        		init_options = {clangdFileStatus = true},
       	 },
        }
