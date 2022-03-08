@@ -50,6 +50,10 @@
       url = "github:p00f/clangd_extensions.nvim";
       flake = false;
     };
+    "plugin:rust-tools" = {
+      url = "github:simrat39/rust-tools.nvim";
+      flake = false;
+    };
 
     # Completion
     "plugin:nvim-cmp" = {
@@ -132,6 +136,10 @@
     # Telescope
     "plugin:telescope" = {
       url = "github:nvim-telescope/telescope.nvim";
+      flake = false;
+    };
+    "plugin:telescope-ui-select" = {
+      url = "github:nvim-telescope/telescope-ui-select.nvim";
       flake = false;
     };
 

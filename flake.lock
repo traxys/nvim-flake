@@ -581,6 +581,22 @@
         "type": "github"
       }
     },
+    "plugin:rust-tools": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1646606688,
+        "narHash": "sha256-Uw9At3NFhGEDkhm+shLnYlUg4Mtog9hc52bQe0Lf3Lk=",
+        "owner": "simrat39",
+        "repo": "rust-tools.nvim",
+        "rev": "9aa2d2da7f485336c5d97aa47c0acb0544ace768",
+        "type": "github"
+      },
+      "original": {
+        "owner": "simrat39",
+        "repo": "rust-tools.nvim",
+        "type": "github"
+      }
+    },
     "plugin:telescope": {
       "flake": false,
       "locked": {
@@ -594,6 +610,22 @@
       "original": {
         "owner": "nvim-telescope",
         "repo": "telescope.nvim",
+        "type": "github"
+      }
+    },
+    "plugin:telescope-ui-select": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1646451539,
+        "narHash": "sha256-6N8PeTEixYCYZe+b5P8K1gqCqddmDfg9Rt9jUyCV97w=",
+        "owner": "nvim-telescope",
+        "repo": "telescope-ui-select.nvim",
+        "rev": "eadc72ef0962c605662fe43cf3e2eca8357ed0ef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-telescope",
+        "repo": "telescope-ui-select.nvim",
         "type": "github"
       }
     },
@@ -681,7 +713,9 @@
         "plugin:nvim-web-devicons": "plugin:nvim-web-devicons",
         "plugin:plantuml-syntax": "plugin:plantuml-syntax",
         "plugin:plenary": "plugin:plenary",
+        "plugin:rust-tools": "plugin:rust-tools",
         "plugin:telescope": "plugin:telescope",
+        "plugin:telescope-ui-select": "plugin:telescope-ui-select",
         "plugin:vim-matchup": "plugin:vim-matchup",
         "plugin:vim-moonfly-colors": "plugin:vim-moonfly-colors",
         "plugin:vim-vsnip": "plugin:vim-vsnip",
