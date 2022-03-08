@@ -8,7 +8,7 @@
       url = "github:numtide/flake-utils";
     };
     neovim-flake.url = "github:neovim/neovim?dir=contrib";
-    neovim-flake.inputs.nixpkgs.follows = "nixpkgs";
+    #neovim-flake.inputs.nixpkgs.follows = "nixpkgs";
 
     # Inputs used by the home-manager module
     stylua = {
