@@ -14,6 +14,12 @@ let
 in
 {
   options.vim = {
+    runtimeDir = mkOption {
+      type = types.nullOr types.path;
+      description = "Add the directory to runtimepath";
+      default = null;
+    };
+
     number = mkOption {
       type = types.bool;
       description = "Print the line number in front of each line";
@@ -167,6 +173,9 @@ in
 
     vim.configRC =
       ''
+	  	${writeIf (cfg.runtimeDir != null) ''
+			let &runtimepath.=',${cfg.runtimeDir}'
+		''}
         ${writeIf cfg.number ''
             set number
           ''}
