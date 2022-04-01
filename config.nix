@@ -1,6 +1,8 @@
 {
   imports = [ ./treesitter.nix ./statusline.nix ];
 
+  vim.runtimeDir = ./nvim;
+
   vim.termguicolors = true;
   vim.number = true;
   vim.tabstop = 4;
