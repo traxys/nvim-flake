@@ -39,9 +39,12 @@ in
 
     vim.startPlugins = with pkgs.neovimPlugins; [ nvim-tree-lua ];
 
+    vim.configRC = mkIf cfg.autoClose ''
+      	autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
+    '';
+
     vim.luaConfigRC = ''
         require("nvim-tree").setup({
-          auto_close = ${luaBool cfg.autoClose},
           diagnostics = {
               enable = ${luaBool cfg.diagnostics.enable},
               show_on_dirs = ${luaBool cfg.diagnostics.showOnDirs},
