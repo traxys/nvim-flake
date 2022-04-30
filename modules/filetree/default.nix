@@ -1,13 +1,17 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-with builtins;
-
-let
-  cfg = config.vim.filetree;
-  luaBool = b: if b then "true" else "false";
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib;
+with builtins; let
+  cfg = config.vim.filetree;
+  luaBool = b:
+    if b
+    then "true"
+    else "false";
+in {
   options.vim.filetree = {
     enable = mkOption {
       type = types.bool;
@@ -37,10 +41,10 @@ in
     vim.filetree.diagnostics.enable = mkDefault false;
     vim.filetree.diagnostics.showOnDirs = mkDefault false;
 
-    vim.startPlugins = with pkgs.neovimPlugins; [ nvim-tree-lua ];
+    vim.startPlugins = with pkgs.neovimPlugins; [nvim-tree-lua];
 
     vim.configRC = mkIf cfg.autoClose ''
-      	autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
+      autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
     '';
 
     vim.luaConfigRC = ''

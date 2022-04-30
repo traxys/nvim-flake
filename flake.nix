@@ -184,9 +184,15 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
+  outputs =
+    { self
+    , nixpkgs
+    , flake-utils
+    , ...
+    } @ inputs:
     flake-utils.lib.eachDefaultSystem
-      (system:
+      (
+        system:
         let
           pluginOverlay = lib.buildPluginOverlay;
 
@@ -214,17 +220,23 @@
           defaultApp = apps.nvim;
           defaultPackage = packages.neovimTraxys;
 
-          home-managerModule = { config, lib, pkgs, ... }: import ./home-manager.nix {
-            inherit config lib pkgs;
-            stylua = inputs.stylua;
-            naersk-lib = inputs.naersk.lib."${system}";
-          };
+          home-managerModule =
+            { config
+            , lib
+            , pkgs
+            , ...
+            }:
+            import ./home-manager.nix {
+              inherit config lib pkgs;
+              stylua = inputs.stylua;
+              naersk-lib = inputs.naersk.lib."${system}";
+            };
 
-          overlay = (self: super: {
+          overlay = self: super: {
             inherit neovimBuilder;
             neovimTraxys = packages.neovimTraxys;
             neovimPlugins = pkgs.neovimPlugins;
-          });
+          };
 
           packages.neovimTraxys = neovimBuilder {
             config = import ./config.nix;

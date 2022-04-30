@@ -1,14 +1,15 @@
-{ config, lib, pkgs, ... }:
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with builtins;
-
-let
+with builtins; let
   cfg = config.vim.filetype;
   luaAttrArgs = attr: map (key: ''["${key}"] = "${getAttr key attr}"'') (attrNames attr);
   luaAttr = attr: "{${concatStringsSep "," (luaAttrArgs attr)}}";
-in
-{
+in {
   options.vim.filetype = {
     enable = mkOption {
       type = types.bool;
@@ -28,10 +29,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    vim.filetype.extensions = mkDefault { };
-    vim.filetype.literal = mkDefault { };
+    vim.filetype.extensions = mkDefault {};
+    vim.filetype.literal = mkDefault {};
 
-    vim.startPlugins = with pkgs.neovimPlugins; [ filetype-nvim ];
+    vim.startPlugins = with pkgs.neovimPlugins; [filetype-nvim];
 
     vim.luaConfigRC = ''
       require("filetype").setup({

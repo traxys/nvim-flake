@@ -1,16 +1,23 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-with builtins;
-
-let
-  cfg = config.vim.treesitter;
-  writeIf = cond: msg: if cond then msg else "";
-  luaList = l: concatStringsSep "," (map (s: ''"${s}"'') l);
-  luaBool = b: if b then "true" else "false";
-in
 {
-  imports = [ ./config.nix ./refactor.nix ];
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib;
+with builtins; let
+  cfg = config.vim.treesitter;
+  writeIf = cond: msg:
+    if cond
+    then msg
+    else "";
+  luaList = l: concatStringsSep "," (map (s: ''"${s}"'') l);
+  luaBool = b:
+    if b
+    then "true"
+    else "false";
+in {
+  imports = [./config.nix ./refactor.nix];
 
   options.vim.treesitter = {
     enable = mkOption {
@@ -46,7 +53,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    vim.startPlugins = with pkgs.neovimPlugins; [ nvim-treesitter ];
+    vim.startPlugins = with pkgs.neovimPlugins; [nvim-treesitter];
 
     vim.treesitter.setup = ''
       indent = {

@@ -1,12 +1,13 @@
-{ pkgs, config, lib, ... }:
-with lib;
-with builtins;
-
-let
-  cfg = config.vim.theme;
-in
 {
-
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+with lib;
+with builtins; let
+  cfg = config.vim.theme;
+in {
   options.vim.theme = {
     enable = mkOption {
       type = types.bool;
@@ -14,24 +15,25 @@ in
     };
 
     name = mkOption {
-      type = types.enum [ "moonfly" ];
+      type = types.enum ["moonfly"];
       description = ''Name of theme to use: "moonfly"'';
     };
   };
 
-  config = mkIf cfg.enable
+  config =
+    mkIf cfg.enable
     (
       let
-        mkVimBool = val: if val then "1" else "0";
-      in
-      {
-
+        mkVimBool = val:
+          if val
+          then "1"
+          else "0";
+      in {
         vim.configRC = ''
           colorscheme ${cfg.name}
         '';
 
-        vim.startPlugins = with pkgs.neovimPlugins;
-          [ vim-moonfly-colors ];
+        vim.startPlugins = with pkgs.neovimPlugins; [vim-moonfly-colors];
       }
     );
 }

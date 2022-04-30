@@ -1,13 +1,17 @@
-{ config, lib, pkgs, ... }:
-with lib;
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
   config = {
     vim.treesitter = {
       enable = mkDefault false;
       indent = mkDefault false;
-	  completion = mkDefault false;
-      ensureInstalled = mkDefault [ ];
-      highlightDisabled = mkDefault [ ];
+      completion = mkDefault false;
+      ensureInstalled = mkDefault [];
+      highlightDisabled = mkDefault [];
 
       refactor = {
         enable = mkDefault false;

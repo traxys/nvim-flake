@@ -1,9 +1,11 @@
-{ config, lib, pkgs, ... }:
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with builtins;
-
-let
+with builtins; let
   cfg = config.vim.statusline;
   highlightModule = with types; {
     options = {
@@ -72,8 +74,7 @@ let
       };
     };
   };
-in
-{
+in {
   options.vim.statusline = {
     enable = mkOption {
       type = types.bool;
@@ -106,7 +107,11 @@ in
   config = mkIf cfg.enable {
     vim.startPlugins = with pkgs.neovimPlugins; [
       galaxyline
-      (if cfg.lspIntegration then lsp-status else null)
+      (
+        if cfg.lspIntegration
+        then lsp-status
+        else null
+      )
     ];
 
     vim.lsp = mkIf (config.vim.lsp.enable && cfg.lspIntegration) {
@@ -120,30 +125,31 @@ in
       onAttach = ''require("lsp-status").on_attach(client, buffer)'';
     };
 
-    vim.luaConfigRC =
-      let
-        writeIf = cond: msg: if cond then msg else "";
-        genHighlight = hi: "{${hi.fg}, ${hi.bg} ${writeIf (hi.style != null) '', "${hi.style}"''}}";
-        genComponent = component: ''
-            { ["${component.name}"] = {
-              provider = ${component.provider},
-              highlight = ${genHighlight component.highlight},
-              ${writeIf (component.separator != null) "separator = ${component.separator},"}
-              ${writeIf (component.separatorHighlight != null) "separator_highlight = ${genHighlight component.separatorHighlight},"}
-          ${writeIf (component.condition != null) "condition = ${component.condition},"}
-          ${writeIf (component.icon != null) "icon = ${component.icon},"}
-            }}
-        '';
-        genSection = section: "{${concatStringsSep "," (map genComponent section)}}";
-      in
-      ''
-        local gl = require("galaxyline")
-
-        ${cfg.helpers}
-
-        gl.section.left = ${genSection cfg.sections.left}
-
-        gl.section.right = ${genSection cfg.sections.right}
+    vim.luaConfigRC = let
+      writeIf = cond: msg:
+        if cond
+        then msg
+        else "";
+      genHighlight = hi: "{${hi.fg}, ${hi.bg} ${writeIf (hi.style != null) '', "${hi.style}"''}}";
+      genComponent = component: ''
+          { ["${component.name}"] = {
+            provider = ${component.provider},
+            highlight = ${genHighlight component.highlight},
+            ${writeIf (component.separator != null) "separator = ${component.separator},"}
+            ${writeIf (component.separatorHighlight != null) "separator_highlight = ${genHighlight component.separatorHighlight},"}
+        ${writeIf (component.condition != null) "condition = ${component.condition},"}
+        ${writeIf (component.icon != null) "icon = ${component.icon},"}
+          }}
       '';
+      genSection = section: "{${concatStringsSep "," (map genComponent section)}}";
+    in ''
+      local gl = require("galaxyline")
+
+      ${cfg.helpers}
+
+      gl.section.left = ${genSection cfg.sections.left}
+
+      gl.section.right = ${genSection cfg.sections.right}
+    '';
   };
 }

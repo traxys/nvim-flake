@@ -1,7 +1,10 @@
-{config, lib, pkgs, ...}:
-
 {
-  imports = [ ./treesitter.nix ./statusline.nix ];
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [./treesitter.nix ./statusline.nix];
 
   vim.runtimeDir = ./nvim;
 
@@ -12,7 +15,7 @@
   vim.scrolloff = 7;
   vim.signcolumn = "yes";
   vim.cmdheight = 2;
-  vim.completeopt = [ "menu" "menuone" "noselect" ];
+  vim.completeopt = ["menu" "menuone" "noselect"];
   vim.updatetime = 300;
   vim.colorcolumn = "100";
   vim.commands = {
@@ -114,34 +117,38 @@
     };
   };
 
-  vim.keymaps =
-    let
-      nrsilent = rhs: { rhs = rhs; opts = { noremap = true; silent = true; }; };
-    in
-    {
-      n = {
-        "ft" = nrsilent "<cmd>NvimTreeToggle<CR>";
-
-        "bp" = nrsilent "<cmd>Telescope buffers<CR>";
-        "ca" = nrsilent "<cmd>Telescope lsp_code_actions<CR>";
-        "gr" = nrsilent "<cmd>Telescope lsp_references<CR>";
-        "gW" = nrsilent "<cmd>Telescope lsp_workspace_symbols<CR>";
-        "gF" = nrsilent "<cmd>Telescope lsp_document_symbols<CR>";
-        "ge" = nrsilent "<cmd>Telescope diagnostics bufnr=0<CR>";
-        "gE" = nrsilent "<cmd>Telescope diagnostics<CR>";
-        "mn" = nrsilent "<cmd>Telescope man_pages sections=1,3,5<CR>";
-        "fg" = nrsilent "<cmd>Telescope git_files<CR>";
-        "<C-s>" = nrsilent "<cmd>Telescope spell_suggest<CR>";
-        "mk" = nrsilent "<cmd>Telescope keymaps<CR>";
-
-        "K" = nrsilent "<cmd>lua vim.lsp.buf.hover()<CR>";
-        "ff" = nrsilent "<cmd>${config.vim.lsp.format.command}<CR>";
-      };
-
-      v = {
-        "<space>f" = nrsilent "<cmd>lua vim.lsp.buf.range_formatting()<CR>";
+  vim.keymaps = let
+    nrsilent = rhs: {
+      rhs = rhs;
+      opts = {
+        noremap = true;
+        silent = true;
       };
     };
+  in {
+    n = {
+      "ft" = nrsilent "<cmd>NvimTreeToggle<CR>";
+
+      "bp" = nrsilent "<cmd>Telescope buffers<CR>";
+      "ca" = nrsilent "<cmd>Telescope lsp_code_actions<CR>";
+      "gr" = nrsilent "<cmd>Telescope lsp_references<CR>";
+      "gW" = nrsilent "<cmd>Telescope lsp_workspace_symbols<CR>";
+      "gF" = nrsilent "<cmd>Telescope lsp_document_symbols<CR>";
+      "ge" = nrsilent "<cmd>Telescope diagnostics bufnr=0<CR>";
+      "gE" = nrsilent "<cmd>Telescope diagnostics<CR>";
+      "mn" = nrsilent "<cmd>Telescope man_pages sections=1,3,5<CR>";
+      "fg" = nrsilent "<cmd>Telescope git_files<CR>";
+      "<C-s>" = nrsilent "<cmd>Telescope spell_suggest<CR>";
+      "mk" = nrsilent "<cmd>Telescope keymaps<CR>";
+
+      "K" = nrsilent "<cmd>lua vim.lsp.buf.hover()<CR>";
+      "ff" = nrsilent "<cmd>${config.vim.lsp.format.command}<CR>";
+    };
+
+    v = {
+      "<space>f" = nrsilent "<cmd>lua vim.lsp.buf.range_formatting()<CR>";
+    };
+  };
 
   vim.lsp = {
     enable = true;
@@ -153,16 +160,16 @@
       enable = true;
     };
 
-	format = {
-		enable = true;
-		disabledClients = [ "rnix" ];
-	};
+    format = {
+      enable = true;
+      disabledClients = ["rnix"];
+    };
 
     null-ls = {
       enable = true;
 
       sources = [
-	  	"builtins.formatting.alejandra"
+        "builtins.formatting.alejandra"
         "builtins.formatting.stylua"
         "builtins.formatting.trim_whitespace"
         "builtins.diagnostics.shellcheck"

@@ -3,7 +3,7 @@
     enable = true;
 
     indent = true;
-	completion = true;
+    completion = true;
 
     ensureInstalled = [
       "rust"
@@ -19,8 +19,8 @@
       "javascript"
       "dart"
       "make"
-	  "query"
-	  "lalrpop"
+      "query"
+      "lalrpop"
     ];
 
     refactor = {

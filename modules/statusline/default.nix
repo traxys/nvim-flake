@@ -1,5 +1,8 @@
-{ config, lib, pkgs, ... }:
-
 {
-  imports = [ ./config.nix ./statusline.nix ];
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [./config.nix ./statusline.nix];
 }

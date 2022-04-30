@@ -1,14 +1,15 @@
-{ config
-, lib
-, pgks
-, ...
+{
+  config,
+  lib,
+  pgks,
+  ...
 }:
 with lib; {
   config.vim.lsp = {
     enable = mkDefault false;
     capabilities = mkDefault "";
     onAttach = mkDefault "";
-    servers = mkDefault { };
+    servers = mkDefault {};
     lightbulb = mkDefault false;
     diagnosticsPopup = mkDefault false;
     signatures = {
@@ -16,15 +17,15 @@ with lib; {
     };
     null-ls = {
       enable = mkDefault false;
-      sources = mkDefault [ ];
+      sources = mkDefault [];
     };
     luaLocals = mkDefault "";
 
-	format = {
-		enable = mkDefault false;
-		disabledClients = mkDefault [];
-		command = mkDefault "LspFormatting";
-	};
+    format = {
+      enable = mkDefault false;
+      disabledClients = mkDefault [];
+      command = mkDefault "LspFormatting";
+    };
 
     lang = {
       c = {

@@ -1,11 +1,12 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
-  cfg = config.vim.telescope;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.vim.telescope;
+in {
   options.vim.telescope.enable = mkOption {
     type = types.bool;
     description = "Enable telescope.nvim";
@@ -32,6 +33,6 @@ in
       -- To get fzf loaded and working with telescope, you need to call
       -- load_extension, somewhere after setup function:
       require("telescope").load_extension("ui-select")
-      	'';
+    '';
   };
 }

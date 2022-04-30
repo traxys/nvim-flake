@@ -30,9 +30,7 @@ let
       return ${fl}
     end
   '';
-in
-
-{
+in {
   vim.statusline = {
     enable = true;
 
@@ -49,7 +47,10 @@ in
         {
           name = "FirstElement";
           provider = constantProvider (quote "▋");
-          highlight = { fg = colors.blue; bg = colors.yellow; };
+          highlight = {
+            fg = colors.blue;
+            bg = colors.yellow;
+          };
         }
 
         {
@@ -60,14 +61,21 @@ in
             fg = colors.yellow;
             bg = eitherProvider "not buffer_not_empty()" colors.purple colors.darkblue;
           };
-          highlight = { fg = colors.violet; bg = colors.yellow; style = "bold"; };
+          highlight = {
+            fg = colors.violet;
+            bg = colors.yellow;
+            style = "bold";
+          };
         }
 
         {
           name = "FileIcon";
           provider = quote "FileIcon";
           condition = "buffer_not_empty";
-          highlight = { fg = "fileinfo.get_file_icon_color"; bg = colors.darkblue; };
+          highlight = {
+            fg = "fileinfo.get_file_icon_color";
+            bg = colors.darkblue;
+          };
         }
 
         {
@@ -75,36 +83,57 @@ in
           provider = quote "FileName";
           condition = "buffer_not_empty";
           separator = quote "";
-          separatorHighlight = { fg = colors.purple; bg = colors.darkblue; };
-          highlight = { fg = colors.magenta; bg = colors.darkblue; };
+          separatorHighlight = {
+            fg = colors.purple;
+            bg = colors.darkblue;
+          };
+          highlight = {
+            fg = colors.magenta;
+            bg = colors.darkblue;
+          };
         }
 
         {
           name = "GitIcon";
           provider = constantProvider (quote "  ");
           condition = "buffer_not_empty";
-          highlight = { fg = colors.orange; bg = colors.purple; };
+          highlight = {
+            fg = colors.orange;
+            bg = colors.purple;
+          };
         }
 
         {
           name = "GitBranch";
           provider = quote "GitBranch";
           condition = "buffer_not_empty";
-          highlight = { fg = colors.grey; bg = colors.purple; };
+          highlight = {
+            fg = colors.grey;
+            bg = colors.purple;
+          };
         }
 
         {
           name = "GitModified";
           provider = "is_file_diff";
-          highlight = { fg = colors.green; bg = colors.purple; };
+          highlight = {
+            fg = colors.green;
+            bg = colors.purple;
+          };
         }
 
         {
           name = "LeftEnd";
           provider = constantProvider (quote "");
-          highlight = { fg = colors.purple; bg = colors.purple; };
+          highlight = {
+            fg = colors.purple;
+            bg = colors.purple;
+          };
           separator = quote "";
-          separatorHighlight = { fg = colors.purple; bg = colors.bg; };
+          separatorHighlight = {
+            fg = colors.purple;
+            bg = colors.bg;
+          };
         }
       ];
 
@@ -113,8 +142,14 @@ in
           name = "LspText";
           provider = constantProvider (quote "");
           separator = quote "";
-          separatorHighlight = { fg = colors.darkblue; bg = colors.bg; };
-          highlight = { fg = colors.grey; bg = colors.darkblue; };
+          separatorHighlight = {
+            fg = colors.darkblue;
+            bg = colors.bg;
+          };
+          highlight = {
+            fg = colors.grey;
+            bg = colors.darkblue;
+          };
         }
 
         {
@@ -122,7 +157,10 @@ in
           provider = "lsp_diag_error";
           condition = "has_lsp";
           icon = quote " ";
-          highlight = { fg = colors.grey; bg = colors.darkblue; };
+          highlight = {
+            fg = colors.grey;
+            bg = colors.darkblue;
+          };
         }
 
         {
@@ -130,7 +168,10 @@ in
           provider = "lsp_diag_warn";
           condition = "has_lsp";
           icon = quote " ";
-          highlight = { fg = colors.grey; bg = colors.darkblue; };
+          highlight = {
+            fg = colors.grey;
+            bg = colors.darkblue;
+          };
         }
 
         {
@@ -138,7 +179,10 @@ in
           provider = "lsp_diag_info";
           condition = "has_lsp";
           icon = quote " ";
-          highlight = { fg = colors.grey; bg = colors.darkblue; };
+          highlight = {
+            fg = colors.grey;
+            bg = colors.darkblue;
+          };
         }
 
         {
@@ -146,37 +190,61 @@ in
           provider = "lsp_current_func";
           condition = "has_lsp";
           icon = quote "𝒇";
-          highlight = { fg = colors.grey; bg = colors.darkblue; };
+          highlight = {
+            fg = colors.grey;
+            bg = colors.darkblue;
+          };
         }
 
         {
           name = "FileFormat";
           provider = quote "FileFormat";
           separator = quote "";
-          separatorHighlight = { fg = colors.darkblue; bg = colors.purple; };
-          highlight = { fg = colors.grey; bg = colors.purple; };
+          separatorHighlight = {
+            fg = colors.darkblue;
+            bg = colors.purple;
+          };
+          highlight = {
+            fg = colors.grey;
+            bg = colors.purple;
+          };
         }
 
         {
           name = "LineInfo";
           provider = quote "LineColumn";
           separator = quote " | ";
-          separatorHighlight = { fg = colors.darkblue; bg = colors.purple; };
-          highlight = { fg = colors.grey; bg = colors.purple; };
+          separatorHighlight = {
+            fg = colors.darkblue;
+            bg = colors.purple;
+          };
+          highlight = {
+            fg = colors.grey;
+            bg = colors.purple;
+          };
         }
 
         {
           name = "PerCent";
           provider = quote "LinePercent";
           separator = quote "";
-          separatorHighlight = { fg = colors.darkblue; bg = colors.purple; };
-          highlight = { fg = colors.grey; bg = colors.darkblue; };
+          separatorHighlight = {
+            fg = colors.darkblue;
+            bg = colors.purple;
+          };
+          highlight = {
+            fg = colors.grey;
+            bg = colors.darkblue;
+          };
         }
 
         {
           name = "ScrollBar";
           provider = quote "ScrollBar";
-          highlight = { fg = colors.yellow; bg = colors.purple; };
+          highlight = {
+            fg = colors.yellow;
+            bg = colors.purple;
+          };
         }
       ];
     };

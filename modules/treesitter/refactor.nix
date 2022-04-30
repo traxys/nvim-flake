@@ -1,15 +1,22 @@
-{ config, lib, pkgs, ... }:
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-with builtins;
-
-let
+with builtins; let
   cfg = config.vim.treesitter;
   refcfg = cfg.refactor;
-  writeIf = cond: msg: if cond then msg else "";
-  luaBool = b: if b then "true" else "false";
-in
-{
+  writeIf = cond: msg:
+    if cond
+    then msg
+    else "";
+  luaBool = b:
+    if b
+    then "true"
+    else "false";
+in {
   options.vim.treesitter.refactor = {
     enable = mkOption {
       type = types.bool;
@@ -83,10 +90,10 @@ in
     };
   };
 
-  config = mkIf (cfg.enable && refcfg.enable)
+  config =
+    mkIf (cfg.enable && refcfg.enable)
     {
-      vim.startPlugins = with pkgs.neovimPlugins;
-        [ nvim-treesitter-refactor ];
+      vim.startPlugins = with pkgs.neovimPlugins; [nvim-treesitter-refactor];
 
       vim.treesitter.setup = ''
         refactor = {
@@ -106,7 +113,11 @@ in
           navigation = {
             enable = ${luaBool refcfg.navigation.enable},
             keymaps = {
-              ${if refcfg.navigation.lspFallback then "goto_definition_lsp_fallback" else "goto_definition"} = "${refcfg.navigation.gotoDefinition}",
+              ${
+          if refcfg.navigation.lspFallback
+          then "goto_definition_lsp_fallback"
+          else "goto_definition"
+        } = "${refcfg.navigation.gotoDefinition}",
               list_definitions = "${refcfg.navigation.listDefinitions}",
               list_definitions_toc = "${refcfg.navigation.listDefinitionsToc}",
               goto_next_usage = "${refcfg.navigation.gotoNextUsage}",
