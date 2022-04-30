@@ -1,3 +1,5 @@
+{config, lib, pkgs, ...}:
+
 {
   imports = [ ./treesitter.nix ./statusline.nix ];
 
@@ -133,7 +135,7 @@
         "mk" = nrsilent "<cmd>Telescope keymaps<CR>";
 
         "K" = nrsilent "<cmd>lua vim.lsp.buf.hover()<CR>";
-        "ff" = nrsilent "<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>";
+        "ff" = nrsilent "<cmd>${config.vim.lsp.format.command}<CR>";
       };
 
       v = {
@@ -150,6 +152,11 @@
     signatures = {
       enable = true;
     };
+
+	format = {
+		enable = true;
+		disabledClients = [ "rnix" ];
+	};
 
     null-ls = {
       enable = true;
