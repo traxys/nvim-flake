@@ -81,6 +81,23 @@ in
       };
     };
 
+	format = {
+		enable = mkOption {
+			type = types.bool;
+			description = "Enable formatting options";
+		};
+
+		command = mkOption {
+			type = types.str;
+			description = "Command to trigger formatting";
+		};
+
+		disabledClients = mkOption {
+			type = types.listOf types.str;
+			description = "Disable formatting for certain clients";
+		};
+	};
+
     null-ls = {
       enable = mkOption {
         type = types.bool;
@@ -197,8 +214,33 @@ in
       vim.luaConfigRC =
         let
           nullLsSources = sources: concatStringsSep "," (map (source: "null_ls.${source}") sources);
+		  disabledClientsCheck = 
+		  	if cfg.format.disabledClients == [] then 
+				"false" 
+			else 
+				concatStringsSep " or " (map (client: ''client.name == "${client}"'') cfg.format.disabledClients);
         in
         ''
+					${writeIf cfg.format.enable ''
+						local lsp_formatting = function(bufnr)
+							vim.lsp.buf.format({
+								filter = function(clients)
+									return vim.tbl_filter(function(client)
+										--print(client.name)
+										return ${disabledClientsCheck}
+									end, clients)
+								end,
+								bufnr = bufnr,
+							})
+						end
+
+						local lsp_formatting_cmd = function()
+							lsp_formatting(nil)
+						end
+
+						vim.api.nvim_create_user_command('${cfg.format.command}', lsp_formatting_cmd, {})
+					''}
+
                     ${writeIf cfg.signatures.enable "require'lsp_signature'.setup()"}
 
                     local on_attach = function(client,buffer)

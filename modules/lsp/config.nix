@@ -1,8 +1,9 @@
-{ config, lib, pgks, ... }:
-
-with lib;
-
-{
+{ config
+, lib
+, pgks
+, ...
+}:
+with lib; {
   config.vim.lsp = {
     enable = mkDefault false;
     capabilities = mkDefault "";
@@ -18,6 +19,12 @@ with lib;
       sources = mkDefault [ ];
     };
     luaLocals = mkDefault "";
+
+	format = {
+		enable = mkDefault false;
+		disabledClients = mkDefault [];
+		command = mkDefault "LspFormatting";
+	};
 
     lang = {
       c = {
