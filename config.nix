@@ -155,6 +155,7 @@
       enable = true;
 
       sources = [
+	  	"builtins.formatting.alejandra"
         "builtins.formatting.stylua"
         "builtins.formatting.trim_whitespace"
         "builtins.diagnostics.shellcheck"

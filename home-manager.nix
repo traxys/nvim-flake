@@ -7,7 +7,7 @@
     clang-tools
     nodePackages.bash-language-server
     rnix-lsp
-    nixpkgs-fmt
+	alejandra
     (naersk-lib.buildPackage {
       pname = "stylua";
       root = stylua;
