@@ -233,15 +233,14 @@ in {
         nullLsSources = sources: concatStringsSep "," (map (source: "null_ls.${source}") sources);
         disabledClientsCheck =
           if cfg.format.disabledClients == []
-          then "false"
-          else concatStringsSep " or " (map (client: ''client.name == "${client}"'') cfg.format.disabledClients);
+          then "true"
+          else concatStringsSep " and " (map (client: ''client.name ~= "${client}"'') cfg.format.disabledClients);
       in ''
         ${writeIf cfg.format.enable ''
           local lsp_formatting = function(bufnr)
           	vim.lsp.buf.format({
           		filter = function(clients)
           			return vim.tbl_filter(function(client)
-          				--print(client.name)
           				return ${disabledClientsCheck}
           			end, clients)
           		end,
