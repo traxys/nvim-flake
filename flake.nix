@@ -118,10 +118,6 @@
       url = "github:NTBBloodbath/galaxyline.nvim";
       flake = false;
     };
-    "plugin:lsp-status" = {
-      url = "github:nvim-lua/lsp-status.nvim";
-      flake = false;
-    };
 
     # Visuals
     "plugin:nvim-web-devicons" = {

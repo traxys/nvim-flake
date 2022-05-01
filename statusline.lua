@@ -18,19 +18,34 @@ local is_file_diff = function()
 	end
 end
 
+local levels = {
+	errors = vim.diagnostic.severity.ERROR,
+  	warnings = vim.diagnostic.severity.WARN,
+  	info = vim.diagnostic.severity.INFO,
+ 	hints = vim.diagnostic.severity.HINT,
+}
+
+local diagnostics = function()
+	local result = {}
+  	for k, level in pairs(levels) do
+    	result[k] = #vim.diagnostic.get(vim.fn.bufnr(), { severity = level })
+  	end
+
+  	return result
+end
 
 -- LSP Helpers
 
 local lsp_diag_error = function()
-    local diagnostics = require("lsp-status/diagnostics")
     local buf_diagnostics = diagnostics()
+
+	print(buf_diagnostics.errors)
 
     if buf_diagnostics.errors and buf_diagnostics.errors > 0 then
         return buf_diagnostics.errors .. " "
     end
 end
 local lsp_diag_warn = function()
-    local diagnostics = require("lsp-status/diagnostics")
     local buf_diagnostics = diagnostics()
 
     if buf_diagnostics.warnings and buf_diagnostics.warnings > 0 then
@@ -38,7 +53,6 @@ local lsp_diag_warn = function()
     end
 end
 local lsp_diag_info = function()
-    local diagnostics = require("lsp-status/diagnostics")
     local buf_diagnostics = diagnostics()
 
     if buf_diagnostics.info and buf_diagnostics.info > 0 then

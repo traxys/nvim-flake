@@ -107,23 +107,7 @@ in {
   config = mkIf cfg.enable {
     vim.startPlugins = with pkgs.neovimPlugins; [
       galaxyline
-      (
-        if cfg.lspIntegration
-        then lsp-status
-        else null
-      )
     ];
-
-    vim.lsp = mkIf (config.vim.lsp.enable && cfg.lspIntegration) {
-      luaLocals = ''
-        local lsp_status = require("lsp-status")
-        lsp_status.register_progress()
-      '';
-
-      capabilities = ''capabilities = vim.tbl_extend("keep", capabilities, require("lsp-status").capabilities)'';
-
-      onAttach = ''require("lsp-status").on_attach(client, buffer)'';
-    };
 
     vim.luaConfigRC = let
       writeIf = cond: msg:

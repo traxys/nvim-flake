@@ -373,22 +373,6 @@
         "type": "github"
       }
     },
-    "plugin:lsp-status": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1638992828,
-        "narHash": "sha256-5K7AtqAAiuma1bHba2ijbfHKWr9r7Dxd8BfGU2zxLKo=",
-        "owner": "nvim-lua",
-        "repo": "lsp-status.nvim",
-        "rev": "4073f766f1303fb602802075e558fe43e382cc92",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nvim-lua",
-        "repo": "lsp-status.nvim",
-        "type": "github"
-      }
-    },
     "plugin:lsp_signature": {
       "flake": false,
       "locked": {
@@ -700,7 +684,6 @@
         "plugin:headerguard": "plugin:headerguard",
         "plugin:indent-blankline": "plugin:indent-blankline",
         "plugin:kommentary": "plugin:kommentary",
-        "plugin:lsp-status": "plugin:lsp-status",
         "plugin:lsp_signature": "plugin:lsp_signature",
         "plugin:lspkind": "plugin:lspkind",
         "plugin:null-ls": "plugin:null-ls",
