@@ -184,64 +184,62 @@
     };
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , flake-utils
-    , ...
-    } @ inputs:
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+    ...
+  } @ inputs:
     flake-utils.lib.eachDefaultSystem
-      (
-        system:
-        let
-          pluginOverlay = lib.buildPluginOverlay;
+    (
+      system: let
+        pluginOverlay = lib.buildPluginOverlay;
 
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [
-              pluginOverlay
-              (final: prev: {
-                neovim-unwrapped = inputs.neovim-flake.packages.${prev.system}.neovim;
-              })
-            ];
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            pluginOverlay
+            (final: prev: {
+              neovim-unwrapped = inputs.neovim-flake.packages.${prev.system}.neovim;
+            })
+          ];
+        };
+
+        lib = import ./lib {inherit pkgs inputs;};
+        neovimBuilder = lib.neovimBuilder;
+      in rec {
+        apps = {
+          nvim = {
+            type = "app";
+            program = "${defaultPackage}/bin/nvim";
+          };
+        };
+
+        defaultApp = apps.nvim;
+        defaultPackage = packages.neovimTraxys;
+
+        home-managerModule = {
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
+          import ./home-manager.nix {
+            inherit config lib pkgs;
+            stylua = inputs.stylua;
+            naersk-lib = inputs.naersk.lib."${system}";
           };
 
-          lib = import ./lib { inherit pkgs inputs; };
-          neovimBuilder = lib.neovimBuilder;
-        in
-        rec {
-          apps = {
-            nvim = {
-              type = "app";
-              program = "${defaultPackage}/bin/nvim";
-            };
-          };
+        overlay = self: super: {
+          inherit neovimBuilder;
+          neovimTraxys = packages.neovimTraxys;
+          neovimPlugins = pkgs.neovimPlugins;
+        };
 
-          defaultApp = apps.nvim;
-          defaultPackage = packages.neovimTraxys;
-
-          home-managerModule =
-            { config
-            , lib
-            , pkgs
-            , ...
-            }:
-            import ./home-manager.nix {
-              inherit config lib pkgs;
-              stylua = inputs.stylua;
-              naersk-lib = inputs.naersk.lib."${system}";
-            };
-
-          overlay = self: super: {
-            inherit neovimBuilder;
-            neovimTraxys = packages.neovimTraxys;
-            neovimPlugins = pkgs.neovimPlugins;
-          };
-
-          packages.neovimTraxys = neovimBuilder {
-            config = import ./config.nix;
-            debug = false;
-          };
-        }
-      );
+        packages.neovimTraxys = neovimBuilder {
+          config = import ./config.nix;
+          debug = false;
+        };
+      }
+    );
 }
