@@ -39,8 +39,6 @@ end
 local lsp_diag_error = function()
     local buf_diagnostics = diagnostics()
 
-	print(buf_diagnostics.errors)
-
     if buf_diagnostics.errors and buf_diagnostics.errors > 0 then
         return buf_diagnostics.errors .. " "
     end
