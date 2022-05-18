@@ -132,7 +132,7 @@
       "ft" = nrsilent "<cmd>NvimTreeToggle<CR>";
 
       "bp" = nrsilent "<cmd>Telescope buffers<CR>";
-      "ca" = nrsilent "<cmd>Telescope lsp_code_actions<CR>";
+      "ca" = nrsilent "<cmd>lua vim.lsp.buf.code_action()<CR>";
       "gr" = nrsilent "<cmd>Telescope lsp_references<CR>";
       "gW" = nrsilent "<cmd>Telescope lsp_workspace_symbols<CR>";
       "gF" = nrsilent "<cmd>Telescope lsp_document_symbols<CR>";
