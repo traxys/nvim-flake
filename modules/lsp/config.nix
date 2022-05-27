@@ -21,6 +21,10 @@ with lib; {
     };
     luaLocals = mkDefault "";
 
+	lspLoading = {
+		enable = mkDefault false;
+	};
+
     format = {
       enable = mkDefault false;
       disabledClients = mkDefault [];

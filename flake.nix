@@ -54,6 +54,10 @@
       url = "github:simrat39/rust-tools.nvim";
       flake = false;
     };
+    "plugin:fidget" = {
+      url = "github:j-hui/fidget.nvim";
+      flake = false;
+    };
 
     # Completion
     "plugin:nvim-cmp" = {

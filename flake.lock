@@ -277,6 +277,22 @@
         "type": "github"
       }
     },
+    "plugin:fidget": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1653063468,
+        "narHash": "sha256-0Z2fIEqDQzR8iNQtX+J7qE8TVg7xhvenYbUdOkUPC/g=",
+        "owner": "j-hui",
+        "repo": "fidget.nvim",
+        "rev": "37d536bbbee47222ddfeca0e8186e8ee6884f9a2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "j-hui",
+        "repo": "fidget.nvim",
+        "type": "github"
+      }
+    },
     "plugin:filetype-nvim": {
       "flake": false,
       "locked": {
@@ -678,6 +694,7 @@
         "plugin:cmp-source-vsnip": "plugin:cmp-source-vsnip",
         "plugin:crates": "plugin:crates",
         "plugin:editorconfig": "plugin:editorconfig",
+        "plugin:fidget": "plugin:fidget",
         "plugin:filetype-nvim": "plugin:filetype-nvim",
         "plugin:galaxyline": "plugin:galaxyline",
         "plugin:gitsigns": "plugin:gitsigns",

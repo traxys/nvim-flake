@@ -70,6 +70,13 @@ in {
       description = "Enable nvim-lightbulb: show a lightbulb when a code action is availaible";
     };
 
+    lspLoading = {
+      enable = mkOption {
+        type = types.bool;
+        description = "Show lsp loading information as virtual text";
+      };
+    };
+
     diagnosticsPopup = mkOption {
       type = types.bool;
       description = "Enable a diagnostics popup";
@@ -222,6 +229,11 @@ in {
           then nvim-lightbulb
           else null
         )
+		(
+		  if cfg.lspLoading.enable
+		  then fidget
+		  else null
+		)
       ];
 
       vim.configRC = ''
@@ -280,6 +292,8 @@ in {
                        ${cfg.luaLocals}
 
                        ${concatStringsSep "\n" (makeServers cfg.servers)}
+
+					   ${writeIf cfg.lspLoading.enable ''require"fidget".setup{}''}
 
              		  ${cfg.afterLSP}
       '';

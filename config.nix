@@ -36,8 +36,8 @@
       "<C-e>" = "cmp.mapping.close()";
       "<Tab>" = ''cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" })'';
       "<CR>" = "cmp.mapping.confirm({ select = true })";
-	  "<Down>" = "cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), {'i'})";
-	  "<Up>" = "cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), {'i'})";
+      "<Down>" = "cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), {'i'})";
+      "<Up>" = "cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), {'i'})";
     };
 
     icons = {
@@ -165,6 +165,10 @@
     format = {
       enable = true;
       disabledClients = ["rnix"];
+    };
+
+    lspLoading = {
+      enable = true;
     };
 
     null-ls = {
