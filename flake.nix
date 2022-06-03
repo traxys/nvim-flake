@@ -28,6 +28,10 @@
       url = "github:lewis6991/gitsigns.nvim";
       flake = false;
     };
+    "plugin:git-messenger" = {
+      url = "github:rhysd/git-messenger.vim";
+      flake = false;
+    };
 
     # Lsp
     "plugin:null-ls" = {

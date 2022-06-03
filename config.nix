@@ -24,7 +24,10 @@
 
   vim.theme.enable = true;
 
-  vim.git.signs.enable = true;
+  vim.git = {
+    signs.enable = true;
+    messenger.enable = true;
+  };
 
   vim.completion = {
     enable = true;

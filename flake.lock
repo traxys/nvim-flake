@@ -325,6 +325,22 @@
         "type": "github"
       }
     },
+    "plugin:git-messenger": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1651502623,
+        "narHash": "sha256-8yv0xRyepvrNqwaZMhzrtMDnnNa+F7b0cQFqXmdhGL4=",
+        "owner": "rhysd",
+        "repo": "git-messenger.vim",
+        "rev": "6c0b55fb38d0e0633127823aab89b0676d13e509",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rhysd",
+        "repo": "git-messenger.vim",
+        "type": "github"
+      }
+    },
     "plugin:gitsigns": {
       "flake": false,
       "locked": {
@@ -697,6 +713,7 @@
         "plugin:fidget": "plugin:fidget",
         "plugin:filetype-nvim": "plugin:filetype-nvim",
         "plugin:galaxyline": "plugin:galaxyline",
+        "plugin:git-messenger": "plugin:git-messenger",
         "plugin:gitsigns": "plugin:gitsigns",
         "plugin:headerguard": "plugin:headerguard",
         "plugin:indent-blankline": "plugin:indent-blankline",
