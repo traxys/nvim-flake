@@ -179,6 +179,7 @@
 
       sources = [
         "builtins.formatting.alejandra"
+		"builtins.formatting.black"
         "builtins.formatting.stylua"
         "builtins.formatting.trim_whitespace"
         "builtins.diagnostics.shellcheck"
