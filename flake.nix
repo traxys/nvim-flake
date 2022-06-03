@@ -208,14 +208,14 @@
         lib = import ./lib {inherit pkgs inputs;};
         neovimBuilder = lib.neovimBuilder;
       in rec {
-        apps = {
+        /* apps = {
           nvim = {
             type = "app";
             program = "${defaultPackage}/bin/nvim";
           };
-        };
+        }; */
 
-        defaultApp = apps.nvim;
+        defaultApp = packages.neovimTraxys;
         defaultPackage = packages.neovimTraxys;
 
         home-managerModule = {
