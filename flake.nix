@@ -62,6 +62,10 @@
       url = "github:j-hui/fidget.nvim";
       flake = false;
     };
+    "plugin:inc-rename" = {
+      url = "github:smjonas/inc-rename.nvim";
+      flake = false;
+    };
 
     # Completion
     "plugin:nvim-cmp" = {

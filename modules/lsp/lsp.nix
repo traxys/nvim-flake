@@ -214,6 +214,7 @@ in {
     mkIf cfg.enable {
       vim.startPlugins = with pkgs.neovimPlugins; [
         nvim-lspconfig
+		inc-rename
         (
           if cfg.signatures.enable
           then lsp_signature
@@ -248,6 +249,7 @@ in {
           then "true"
           else concatStringsSep " and " (map (client: ''client.name ~= "${client}"'') cfg.format.disabledClients);
       in ''
+	  	 require("inc_rename").setup()
         ${writeIf cfg.format.enable ''
           local lsp_formatting = function(bufnr)
           	vim.lsp.buf.format({

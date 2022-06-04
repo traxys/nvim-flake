@@ -148,6 +148,8 @@
 
       "K" = nrsilent "<cmd>lua vim.lsp.buf.hover()<CR>";
       "ff" = nrsilent "<cmd>${config.vim.lsp.format.command}<CR>";
+
+	  "<leader>r" = nrsilent ":IncRename ";
     };
 
     v = {
