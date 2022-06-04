@@ -212,13 +212,6 @@
         lib = import ./lib {inherit pkgs inputs;};
         neovimBuilder = lib.neovimBuilder;
       in rec {
-        /* apps = {
-          nvim = {
-            type = "app";
-            program = "${defaultPackage}/bin/nvim";
-          };
-        }; */
-
         defaultApp = packages.neovimTraxys;
         defaultPackage = packages.neovimTraxys;
 
