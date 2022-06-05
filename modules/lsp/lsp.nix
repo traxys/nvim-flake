@@ -253,10 +253,8 @@ in {
         ${writeIf cfg.format.enable ''
           local lsp_formatting = function(bufnr)
           	vim.lsp.buf.format({
-          		filter = function(clients)
-          			return vim.tbl_filter(function(client)
-          				return ${disabledClientsCheck}
-          			end, clients)
+          		filter = function(client)
+          			return ${disabledClientsCheck}
           		end,
           		bufnr = bufnr,
           	})
