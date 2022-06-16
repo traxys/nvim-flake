@@ -13,6 +13,10 @@ with lib; {
       ensureInstalled = mkDefault [];
       highlightDisabled = mkDefault [];
 
+	  context = {
+		enable = mkDefault false;
+	  };
+
       refactor = {
         enable = mkDefault false;
 

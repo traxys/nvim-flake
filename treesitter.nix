@@ -23,6 +23,10 @@
       "lalrpop"
     ];
 
+    context = {
+      enable = true;
+    };
+
     refactor = {
       enable = true;
 

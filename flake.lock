@@ -549,6 +549,22 @@
         "type": "github"
       }
     },
+    "plugin:nvim-treesitter-context": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1655299310,
+        "narHash": "sha256-FPyqqMOopd4hHnhPDqzRsQ9ezm8YpM9O1XVwjPJ93+8=",
+        "owner": "nvim-treesitter",
+        "repo": "nvim-treesitter-context",
+        "rev": "fff47da1ddddcdeab8d66f384f0a0496eb8fb024",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-treesitter",
+        "repo": "nvim-treesitter-context",
+        "type": "github"
+      }
+    },
     "plugin:nvim-treesitter-refactor": {
       "flake": false,
       "locked": {
@@ -743,6 +759,7 @@
         "plugin:nvim-lspconfig": "plugin:nvim-lspconfig",
         "plugin:nvim-tree-lua": "plugin:nvim-tree-lua",
         "plugin:nvim-treesitter": "plugin:nvim-treesitter",
+        "plugin:nvim-treesitter-context": "plugin:nvim-treesitter-context",
         "plugin:nvim-treesitter-refactor": "plugin:nvim-treesitter-refactor",
         "plugin:nvim-web-devicons": "plugin:nvim-web-devicons",
         "plugin:plantuml-syntax": "plugin:plantuml-syntax",

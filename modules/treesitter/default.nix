@@ -50,10 +50,49 @@ in {
       description = "content of treesitter setup";
       default = "";
     };
+    context = {
+      enable = mkOption {
+        type = types.bool;
+        description = "Enable tree-sitter context";
+      };
+    };
+
+    extraParsers = mkOption {
+      type = types.listOf (types.submodule {
+        options = {
+          name = mkOption {
+            type = types.str;
+            description = "Name of the parser";
+          };
+          url = mkOption {
+            type = types.str;
+            description = "local path of git repo";
+          };
+          files = mkOption {
+            type = types.listOf types.str;
+            description = "Additionnal files";
+          };
+          filetype = mkOption {
+            type = types.nullOr types.str;
+            description = "Filetype";
+            default = null;
+          };
+        };
+      });
+      description = "Additionnal parsers to include";
+      default = [];
+    };
   };
 
   config = mkIf cfg.enable {
-    vim.startPlugins = with pkgs.neovimPlugins; [nvim-treesitter];
+    vim.startPlugins = with pkgs.neovimPlugins; [
+      nvim-treesitter
+      (
+        if cfg.context.enable
+        then nvim-treesitter-context
+        else null
+      )
+    ];
 
     vim.treesitter.setup = ''
       indent = {
@@ -66,10 +105,35 @@ in {
       }
     '';
 
-    vim.luaConfigRC = ''
+    vim.luaConfigRC = let
+      configureParser = {
+        name,
+        url,
+        files,
+        filetype,
+      }: ''
+        parser_config.${name} = {
+        	install_info = {
+        		url = "${url}",
+        		files = {${luaList files}},
+        	},
+        }
+        ${writeIf (filetype != null) ''filetype = "${filetype}"''}
+      '';
+      extraParsers = concatStringsSep "\n" (map configureParser cfg.extraParsers);
+    in ''
+      local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+
+      ${extraParsers}
+
       require("nvim-treesitter.configs").setup({
         ${cfg.setup}
       })
+
+	  ${writeIf cfg.context.enable ''
+		require'treesitter-context'.setup{
+		}
+	  ''}
     '';
   };
 }
