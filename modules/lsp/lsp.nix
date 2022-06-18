@@ -138,6 +138,13 @@ in {
         };
       };
 
+      dart = {
+        enable = mkOption {
+          type = types.bool;
+          description = "Enable dartls";
+        };
+      };
+
       bash = {
         enable = mkOption {
           type = types.bool;
@@ -214,7 +221,7 @@ in {
     mkIf cfg.enable {
       vim.startPlugins = with pkgs.neovimPlugins; [
         nvim-lspconfig
-		inc-rename
+        inc-rename
         (
           if cfg.signatures.enable
           then lsp_signature
@@ -230,11 +237,11 @@ in {
           then nvim-lightbulb
           else null
         )
-		(
-		  if cfg.lspLoading.enable
-		  then fidget
-		  else null
-		)
+        (
+          if cfg.lspLoading.enable
+          then fidget
+          else null
+        )
       ];
 
       vim.configRC = ''
@@ -249,8 +256,8 @@ in {
           then "true"
           else concatStringsSep " and " (map (client: ''client.name ~= "${client}"'') cfg.format.disabledClients);
       in ''
-	  	 require("inc_rename").setup()
-        ${writeIf cfg.format.enable ''
+        require("inc_rename").setup()
+           ${writeIf cfg.format.enable ''
           local lsp_formatting = function(bufnr)
           	vim.lsp.buf.format({
           		filter = function(client)
@@ -267,13 +274,13 @@ in {
           vim.api.nvim_create_user_command('${cfg.format.command}', lsp_formatting_cmd, {})
         ''}
 
-                       ${writeIf cfg.signatures.enable "require'lsp_signature'.setup()"}
+                          ${writeIf cfg.signatures.enable "require'lsp_signature'.setup()"}
 
-                       local on_attach = function(client,buffer)
-                          ${cfg.onAttach}
-                       end
+                          local on_attach = function(client,buffer)
+                             ${cfg.onAttach}
+                          end
 
-                       ${writeIf cfg.null-ls.enable ''
+                          ${writeIf cfg.null-ls.enable ''
           local null_ls = require("null-ls")
           local sources = {
             ${nullLsSources cfg.null-ls.sources}
@@ -284,18 +291,18 @@ in {
           })
         ''}
 
-                       local capabilities = (function(capabilities)
-                           ${cfg.capabilities}
-                         return capabilities
-                       end)(vim.lsp.protocol.make_client_capabilities())
+                          local capabilities = (function(capabilities)
+                              ${cfg.capabilities}
+                            return capabilities
+                          end)(vim.lsp.protocol.make_client_capabilities())
 
-                       ${cfg.luaLocals}
+                          ${cfg.luaLocals}
 
-                       ${concatStringsSep "\n" (makeServers cfg.servers)}
+                          ${concatStringsSep "\n" (makeServers cfg.servers)}
 
-					   ${writeIf cfg.lspLoading.enable ''require"fidget".setup{}''}
+           ${writeIf cfg.lspLoading.enable ''require"fidget".setup{}''}
 
-             		  ${cfg.afterLSP}
+                		  ${cfg.afterLSP}
       '';
     };
 }

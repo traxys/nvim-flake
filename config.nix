@@ -206,6 +206,10 @@
         enable = true;
       };
 
+      dart = {
+        enable = true;
+      };
+
       rust = {
         enable = true;
         crates = {

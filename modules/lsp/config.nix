@@ -35,6 +35,9 @@ with lib; {
       c = {
         enable = mkDefault false;
       };
+	  dart = {
+		enable = mkDefault false;
+	  };
       rust = {
         enable = mkDefault false;
         crates = {

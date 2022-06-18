@@ -6,5 +6,5 @@
 }:
 with lib;
 with builtins; {
-  imports = [./c.nix ./rust.nix ./nix.nix ./bash.nix];
+  imports = [./c.nix ./rust.nix ./nix.nix ./bash.nix ./dart.nix];
 }
