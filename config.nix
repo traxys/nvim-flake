@@ -29,6 +29,10 @@
     messenger.enable = true;
   };
 
+  vim.startPlugins = with pkgs; [
+    vimPlugins.markdown-preview-nvim
+  ];
+
   vim.completion = {
     enable = true;
 
@@ -149,7 +153,7 @@
       "K" = nrsilent "<cmd>lua vim.lsp.buf.hover()<CR>";
       "ff" = nrsilent "<cmd>${config.vim.lsp.format.command}<CR>";
 
-	  "<leader>r" = nrsilent ":IncRename ";
+      "<leader>r" = nrsilent ":IncRename ";
     };
 
     v = {
@@ -181,7 +185,7 @@
 
       sources = [
         "builtins.formatting.alejandra"
-		"builtins.formatting.black"
+        "builtins.formatting.black"
         "builtins.formatting.stylua"
         "builtins.formatting.trim_whitespace"
         "builtins.diagnostics.shellcheck"
