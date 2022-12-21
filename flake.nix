@@ -26,7 +26,9 @@
   }:
     flake-utils.lib.eachDefaultSystem (system: let
       configuration = {
-        imports = [];
+        imports = [
+          ./config.nix
+        ];
         package = neovim-flake.packages."${system}".neovim;
       };
 
