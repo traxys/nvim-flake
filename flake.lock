@@ -143,6 +143,22 @@
         "type": "gitlab"
       }
     },
+    "plugin:nvim-osc52": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1669126923,
+        "narHash": "sha256-tr0MeOdXf9ndJpdoBy8vyahuPdwXk94JyEQO3ppzfkU=",
+        "owner": "ojroques",
+        "repo": "nvim-osc52",
+        "rev": "5e7efbc047be9eca1307899137a89cd2b6b8125a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ojroques",
+        "repo": "nvim-osc52",
+        "type": "github"
+      }
+    },
     "poetry2nix": {
       "inputs": {
         "flake-utils": [
@@ -175,7 +191,8 @@
         "flake-utils": "flake-utils",
         "neovim-flake": "neovim-flake",
         "nixpkgs": "nixpkgs",
-        "nixvim": "nixvim"
+        "nixvim": "nixvim",
+        "plugin:nvim-osc52": "plugin:nvim-osc52"
       }
     },
     "utils": {

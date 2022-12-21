@@ -18,5 +18,9 @@
       colorcolumn = "100";
       spell = true;
     };
+
+    plugins = {
+      osc52.enable = true;
+    };
   };
 }
