@@ -1,3 +1,7 @@
 {...}: {
-  imports = [./osc52.nix ./keymaps_lua.nix];
+  imports = [
+    ./osc52.nix
+    ./keymaps_lua.nix
+    ./commands.nix
+  ];
 }

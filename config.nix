@@ -19,6 +19,10 @@
       spell = true;
     };
 
+    commands = {
+      "SpellFr" = "setlocal spelllang=fr";
+    };
+
     plugins = {
       osc52.enable = true;
     };
