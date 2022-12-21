@@ -35,6 +35,7 @@
           imports = [
             ./config.nix
             ./plugins/osc52.nix
+            ./modules
           ];
           package = neovim-flake.packages."${system}".neovim;
         };
