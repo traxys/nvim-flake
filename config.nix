@@ -25,6 +25,14 @@
 
     plugins = {
       osc52.enable = true;
+      null-ls = {
+        enable = true;
+        sourcesItems = [
+          {
+            __raw = "require('null-ls').builtins.code_actions.gitsigns";
+          }
+        ];
+      };
       gitsigns.enable = true;
     };
   };
