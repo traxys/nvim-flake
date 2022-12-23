@@ -25,6 +25,7 @@
 
     plugins = {
       osc52.enable = true;
+      gitsigns.enable = true;
     };
   };
 }

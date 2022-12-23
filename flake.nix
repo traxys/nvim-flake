@@ -19,6 +19,11 @@
       url = "github:ojroques/nvim-osc52";
       flake = false;
     };
+
+    "plugin:gitsigns-nvim" = {
+      url = "github:lewis6991/gitsigns.nvim";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -35,6 +40,7 @@
           imports = [
             ./config.nix
             ./plugins/osc52.nix
+            ./plugins/gitsigns.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim;
