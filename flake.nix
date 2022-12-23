@@ -24,6 +24,16 @@
       url = "github:lewis6991/gitsigns.nvim";
       flake = false;
     };
+
+    "plugin:plenary-nvim" = {
+      url = "github:nvim-lua/plenary.nvim";
+      flake = false;
+    };
+
+    "plugin:null-ls-nvim" = {
+      url = "github:jose-elias-alvarez/null-ls.nvim";
+      flake = false;
+    };
   };
 
   outputs = {

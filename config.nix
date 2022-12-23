@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   config = {
     colorschemes.tokyonight = {
       style = "night";
@@ -35,5 +35,7 @@
       };
       gitsigns.enable = true;
     };
+
+    extraPlugins = with pkgs.vimPlugins; [plenary-nvim];
   };
 }

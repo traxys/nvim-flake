@@ -159,6 +159,22 @@
         "type": "github"
       }
     },
+    "plugin:null-ls-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1671819291,
+        "narHash": "sha256-Px/Xww6doCT7kX+ln8wxSPNNxSmL0huynNGnJdTEVTY=",
+        "owner": "jose-elias-alvarez",
+        "repo": "null-ls.nvim",
+        "rev": "b26851b3e7ac1c0c85666f8a74e36aef2acb89c6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jose-elias-alvarez",
+        "repo": "null-ls.nvim",
+        "type": "github"
+      }
+    },
     "plugin:nvim-osc52": {
       "flake": false,
       "locked": {
@@ -172,6 +188,22 @@
       "original": {
         "owner": "ojroques",
         "repo": "nvim-osc52",
+        "type": "github"
+      }
+    },
+    "plugin:plenary-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1664607953,
+        "narHash": "sha256-lIdBrVpi+vUudeotjFAuw4C0VT8TPoFE9cVVAQEsAYU=",
+        "owner": "nvim-lua",
+        "repo": "plenary.nvim",
+        "rev": "4b7e52044bbb84242158d977a50c4cbcd85070c7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-lua",
+        "repo": "plenary.nvim",
         "type": "github"
       }
     },
@@ -209,7 +241,9 @@
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
         "plugin:gitsigns-nvim": "plugin:gitsigns-nvim",
-        "plugin:nvim-osc52": "plugin:nvim-osc52"
+        "plugin:null-ls-nvim": "plugin:null-ls-nvim",
+        "plugin:nvim-osc52": "plugin:nvim-osc52",
+        "plugin:plenary-nvim": "plugin:plenary-nvim"
       }
     },
     "utils": {
