@@ -46,7 +46,7 @@
   } @ inputs:
     with builtins;
       flake-utils.lib.eachDefaultSystem (system: let
-        configuration = {
+        module = {
           imports = [
             ./config.nix
             ./plugins/osc52.nix
@@ -88,7 +88,7 @@
         };
 
         nixvim' = nixvim.legacyPackages."${system}";
-        nvim = nixvim'.makeNixvim {inherit configuration pkgs;};
+        nvim = nixvim'.makeNixvimWithModule {inherit module pkgs;};
       in {
         packages = {
           inherit nvim;
