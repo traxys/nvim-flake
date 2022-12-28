@@ -24,6 +24,10 @@
       url = "github:lewis6991/gitsigns.nvim";
       flake = false;
     };
+    "plugin:git-messenger-vim" = {
+      url = "github:rhysd/git-messenger.vim";
+      flake = false;
+    };
 
     "plugin:plenary-nvim" = {
       url = "github:nvim-lua/plenary.nvim";

@@ -146,6 +146,22 @@
         "type": "gitlab"
       }
     },
+    "plugin:git-messenger-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1661833086,
+        "narHash": "sha256-SAnGSSjHbwlpkpyjlINr5rgL7M28W42bWGvQrkOQl1w=",
+        "owner": "rhysd",
+        "repo": "git-messenger.vim",
+        "rev": "8a61bdfa351d4df9a9118ee1d3f45edbed617072",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rhysd",
+        "repo": "git-messenger.vim",
+        "type": "github"
+      }
+    },
     "plugin:gitsigns-nvim": {
       "flake": false,
       "locked": {
@@ -243,6 +259,7 @@
         "neovim-flake": "neovim-flake",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
+        "plugin:git-messenger-vim": "plugin:git-messenger-vim",
         "plugin:gitsigns-nvim": "plugin:gitsigns-nvim",
         "plugin:null-ls-nvim": "plugin:null-ls-nvim",
         "plugin:nvim-osc52": "plugin:nvim-osc52",
