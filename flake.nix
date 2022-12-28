@@ -51,6 +51,7 @@
             ./config.nix
             ./plugins/osc52.nix
             ./plugins/gitsigns.nix
+            ./plugins/gitmessenger.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim;

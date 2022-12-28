@@ -34,6 +34,7 @@
         ];
       };
       gitsigns.enable = true;
+      gitmessenger.enable = true;
     };
 
     extraPlugins = with pkgs.vimPlugins; [plenary-nvim];
