@@ -61,9 +61,24 @@
 
         sources = [{name = "path";} {name = "buffer";} {name = "vsnip";} {name = "nvim_lsp";}];
       };
+
+      telescope = {
+        enable = true;
+        enabledExtensions = ["ui-select"];
+        extensionConfig = {
+          ui-select = {
+            __raw = ''
+                require("telescope.themes").get_dropdown {
+                -- even more opts
+              }
+            '';
+          };
+        };
+      };
     };
 
     extraPlugins = with pkgs.vimPlugins; [
+      telescope-ui-select-nvim
       vim-vsnip
       plenary-nvim
       markdown-preview-nvim
