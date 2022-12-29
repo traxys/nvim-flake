@@ -38,6 +38,11 @@
       url = "github:jose-elias-alvarez/null-ls.nvim";
       flake = false;
     };
+
+    "plugin:firenvim" = {
+      url = "github:glacambre/firenvim";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -56,6 +61,7 @@
             ./plugins/osc52.nix
             ./plugins/gitsigns.nix
             ./plugins/gitmessenger.nix
+			./plugins/firenvim.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim;

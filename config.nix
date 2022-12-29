@@ -35,6 +35,8 @@
       };
       gitsigns.enable = true;
       gitmessenger.enable = true;
+
+      firenvim.enable = true;
     };
 
     extraPlugins = with pkgs.vimPlugins; [

@@ -143,6 +143,22 @@
         "type": "gitlab"
       }
     },
+    "plugin:firenvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1668086619,
+        "narHash": "sha256-/25Q6+8UhvJu9ckDMJi1EzKPi8JTR+Mkdy6yH+iunLs=",
+        "owner": "glacambre",
+        "repo": "firenvim",
+        "rev": "17a189f0f1e2d4197e00cd56dbeaed8c268bac8c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "glacambre",
+        "repo": "firenvim",
+        "type": "github"
+      }
+    },
     "plugin:git-messenger-vim": {
       "flake": false,
       "locked": {
@@ -256,6 +272,7 @@
         "neovim-flake": "neovim-flake",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
+        "plugin:firenvim": "plugin:firenvim",
         "plugin:git-messenger-vim": "plugin:git-messenger-vim",
         "plugin:gitsigns-nvim": "plugin:gitsigns-nvim",
         "plugin:null-ls-nvim": "plugin:null-ls-nvim",
