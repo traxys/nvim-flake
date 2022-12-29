@@ -37,9 +37,34 @@
       gitmessenger.enable = true;
 
       firenvim.enable = true;
+
+      nvim-cmp = {
+        enable = true;
+
+        snippet = {
+          expand = ''
+            function(args)
+              vim.fn["vsnip#anonymous"](args.body)
+            end
+          '';
+        };
+
+        mapping = {
+          "<CR>" = "cmp.mapping.confirm({select = true })";
+          "<C-d>" = "cmp.mapping.scroll_docs(-4)";
+          "<C-f>" = "cmp.mapping.scroll_docs(4)";
+          "<C-Space>" = "cmp.mapping.complete()";
+          "<Tab>" = ''cmp.mapping(cmp.mapping.select_next_item(), {"i", "s"})'';
+          "<Down>" = "cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), {'i'})";
+          "<Up>" = "cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), {'i'})";
+        };
+
+        sources = [{name = "path";} {name = "buffer";} {name = "vsnip";} {name = "nvim_lsp";}];
+      };
     };
 
     extraPlugins = with pkgs.vimPlugins; [
+      vim-vsnip
       plenary-nvim
       markdown-preview-nvim
     ];
