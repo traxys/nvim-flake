@@ -118,10 +118,7 @@
       },
       "locked": {
         "lastModified": 1672246733,
-        "narHash": "sha256-eCTtGf3AFWuZIh9dj/HXh6L40YPdEK0uTU9O20j0yhI=",
-        "ref": "refs/heads/readme_standalone",
-        "rev": "a7b0b38ab70b9716bf562ffe7394830b9c282494",
-        "revCount": 205,
+        "narHash": "sha256-/ybVWZlkJGt8HQGLeWW0QH/tpzgdQlvEK9+1oGwdunQ=",
         "type": "git",
         "url": "file:///home/traxys/Documents/nixvim"
       },

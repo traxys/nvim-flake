@@ -27,11 +27,11 @@
       osc52.enable = true;
       null-ls = {
         enable = true;
-        sourcesItems = [
-          {
-            __raw = "require('null-ls').builtins.code_actions.gitsigns";
-          }
-        ];
+        sources = {
+          code_actions = {
+            gitsigns.enable = true;
+          };
+        };
       };
       gitsigns.enable = true;
       gitmessenger.enable = true;
