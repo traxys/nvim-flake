@@ -61,7 +61,8 @@
             ./plugins/osc52.nix
             ./plugins/gitsigns.nix
             ./plugins/gitmessenger.nix
-			./plugins/firenvim.nix
+            ./plugins/firenvim.nix
+            ./plugins/vim-matchup.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim;

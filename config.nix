@@ -75,6 +75,8 @@
           };
         };
       };
+
+      vim-matchup.enable = true;
     };
 
     extraPlugins = with pkgs.vimPlugins; [
