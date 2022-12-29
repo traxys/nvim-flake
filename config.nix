@@ -37,6 +37,9 @@
       gitmessenger.enable = true;
     };
 
-    extraPlugins = with pkgs.vimPlugins; [plenary-nvim];
+    extraPlugins = with pkgs.vimPlugins; [
+      plenary-nvim
+      markdown-preview-nvim
+    ];
   };
 }
