@@ -59,7 +59,13 @@
           "<Up>" = "cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), {'i'})";
         };
 
-        sources = [{name = "path";} {name = "buffer";} {name = "vsnip";} {name = "nvim_lsp";}];
+        sources = [
+          {name = "path";}
+          {name = "buffer";}
+          {name = "vsnip";}
+          {name = "nvim_lsp";}
+          {name = "calc";}
+        ];
       };
 
       telescope = {
