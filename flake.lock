@@ -116,17 +116,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1672431719,
-        "narHash": "sha256-/i+NcjRKAonEJCh5bUob7pYtgYeT5+a66Nr3o40QEVM=",
-        "ref": "refs/heads/main",
-        "rev": "30fc8b4f43b261bb534c95aa3d814e9b3c1cd8f8",
-        "revCount": 209,
-        "type": "git",
-        "url": "file:///home/traxys/Documents/nixvim"
+        "lastModified": 1672434283,
+        "narHash": "sha256-AltegOzuCjlernfEGWQYmle1yGiDBaky+u35DhJvxqI=",
+        "owner": "pta2002",
+        "repo": "nixvim",
+        "rev": "125ed74a423429e5af6796334b68400c78ac26b7",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/traxys/Documents/nixvim"
+        "owner": "pta2002",
+        "repo": "nixvim",
+        "type": "github"
       }
     },
     "plugin:firenvim": {
