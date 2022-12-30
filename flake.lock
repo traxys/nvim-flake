@@ -77,11 +77,11 @@
       },
       "locked": {
         "dir": "contrib",
-        "lastModified": 1672244423,
-        "narHash": "sha256-xbvgOdiwHFY0QPzVNoIyL+abx6YmivbfaN0gvuetSEM=",
+        "lastModified": 1672387151,
+        "narHash": "sha256-PgmAU3ZGUsTVtnvIuwTa5JhoKgV/FoC+XNmig1cwJy0=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "86a75c79e1c0c4e78a7e8cfca5e94207a43db672",
+        "rev": "cb9d68fe6daf214ba703b9c2376fc8a2b8ae7079",
         "type": "github"
       },
       "original": {
@@ -93,11 +93,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1672219412,
-        "narHash": "sha256-xcUV6+DhTdxm6PbLTnJTyexfOGA/5uQ+1KCtoOKqw+M=",
+        "lastModified": 1672366314,
+        "narHash": "sha256-F/LEtdZ90LqFzLaGtUmzsJFtarFsPJzxM9rahkb24FM=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "8b6d55d9695afa3a5fe2634428ad9d507ad20fa3",
+        "rev": "726088a96454587d4a640d28ec442126518e449b",
         "type": "github"
       },
       "original": {
@@ -113,34 +113,20 @@
         "flake-utils": "flake-utils_3",
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "nmdSrc": "nmdSrc"
+        ]
       },
       "locked": {
-        "lastModified": 1672246733,
-        "narHash": "sha256-/ybVWZlkJGt8HQGLeWW0QH/tpzgdQlvEK9+1oGwdunQ=",
+        "lastModified": 1672408766,
+        "narHash": "sha256-cXSTLid/bBly2AE2gjuWVKcPN5YzbWns48o4/AMAZmQ=",
+        "ref": "refs/heads/gitsigns_codeactions",
+        "rev": "956e81a426bd19be2ec3afaf9a8290fbf773e87d",
+        "revCount": 207,
         "type": "git",
         "url": "file:///home/traxys/Documents/nixvim"
       },
       "original": {
         "type": "git",
         "url": "file:///home/traxys/Documents/nixvim"
-      }
-    },
-    "nmdSrc": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1666190571,
-        "narHash": "sha256-Z1hc7M9X6L+H83o9vOprijpzhTfOBjd0KmUTnpHAVjA=",
-        "owner": "rycee",
-        "repo": "nmd",
-        "rev": "b75d312b4f33bd3294cd8ae5c2ca8c6da2afc169",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "rycee",
-        "repo": "nmd",
-        "type": "gitlab"
       }
     },
     "plugin:firenvim": {
