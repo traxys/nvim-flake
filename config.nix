@@ -84,6 +84,7 @@
 
       vim-matchup.enable = true;
       editorconfig.enable = true;
+	  headerguard.enable = true;
     };
 
     extraPlugins = with pkgs.vimPlugins; [

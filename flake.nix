@@ -44,6 +44,11 @@
       url = "github:glacambre/firenvim";
       flake = false;
     };
+
+    "plugin:vim-headerguard" = {
+      url = "github:drmikehenry/vim-headerguard";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -63,7 +68,8 @@
             ./plugins/gitmessenger.nix
             ./plugins/firenvim.nix
             ./plugins/vim-matchup.nix
-			./plugins/editorconfig.nix
+            ./plugins/editorconfig.nix
+            ./plugins/headerguard.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim;
