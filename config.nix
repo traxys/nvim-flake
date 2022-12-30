@@ -82,7 +82,6 @@
     extraPlugins = with pkgs.vimPlugins; [
       telescope-ui-select-nvim
       vim-vsnip
-      plenary-nvim
       markdown-preview-nvim
     ];
   };

@@ -8,7 +8,7 @@
     nixvim = {
       #url = "github:pta2002/nixvim";
       url = "/home/traxys/Documents/nixvim";
-	  #url = "github:traxys/nixvim?ref=gitsigns_codeactions";
+      #url = "github:traxys/nixvim?ref=gitsigns_codeactions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neovim-flake = {
@@ -97,6 +97,18 @@
                   })
                   plugins));
             })
+
+            (
+              final: prev: {
+                vimPlugins =
+                  prev.vimPlugins
+                  // {
+                    telescope-nvim = prev.vimPlugins.telescope-nvim.overrideAttrs (old: {
+                      dependencies = with final; [vimPlugins.plenary-nvim];
+                    });
+                  };
+              }
+            )
           ];
         };
 
