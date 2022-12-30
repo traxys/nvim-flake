@@ -60,7 +60,6 @@
           imports = [
             ./config.nix
             ./plugins/osc52.nix
-            ./plugins/gitsigns.nix
             ./plugins/gitmessenger.nix
             ./plugins/firenvim.nix
             ./plugins/vim-matchup.nix

@@ -116,11 +116,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1672408766,
-        "narHash": "sha256-cXSTLid/bBly2AE2gjuWVKcPN5YzbWns48o4/AMAZmQ=",
-        "ref": "refs/heads/gitsigns_codeactions",
-        "rev": "956e81a426bd19be2ec3afaf9a8290fbf773e87d",
-        "revCount": 207,
+        "lastModified": 1672431719,
+        "narHash": "sha256-/i+NcjRKAonEJCh5bUob7pYtgYeT5+a66Nr3o40QEVM=",
+        "ref": "refs/heads/main",
+        "rev": "30fc8b4f43b261bb534c95aa3d814e9b3c1cd8f8",
+        "revCount": 209,
         "type": "git",
         "url": "file:///home/traxys/Documents/nixvim"
       },
