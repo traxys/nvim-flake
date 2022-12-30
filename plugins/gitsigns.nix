@@ -34,6 +34,13 @@ with lib; let
     inherit (values) hl text numhl linehl;
     show_count = values.showCount;
   };
+
+  luaFunction = types.submodule {
+    options.function = mkOption {
+      type = types.str;
+      description = "Lua function definition";
+    };
+  };
 in {
   options.plugins.gitsigns = {
     enable = mkEnableOption "Enable gitsigns plugin";
@@ -92,9 +99,35 @@ in {
         default = null;
         description = ''
           Detached working trees.
-          If normal attaching fails, then each entry in the table is attempted with the work tree details set.
+          If normal attaching fails, then each entry in the table is attempted with the work tree
+          details set.
         '';
       };
+    onAttach = mkOption {
+      type = types.nullOr luaFunction;
+      default = null;
+      description = ''
+        Callback called when attaching to a buffer. Mainly used to setup keymaps
+        when `config.keymaps` is empty. The buffer number is passed as the first
+        argument.
+
+        This callback can return `false` to prevent attaching to the buffer.
+      '';
+      example = ''
+        \'\'
+        function(bufnr)
+          if vim.api.nvim_buf_get_name(bufnr):match(<PATTERN>) then
+            -- Don't attach to specific buffers whose name matches a pattern
+            return false
+          end
+          -- Setup keymaps
+          vim.api.nvim_buf_set_keymap(bufnr, 'n', 'hs', '<cmd>lua require"gitsigns".stage_hunk()<CR>', {})
+          ... -- More keymaps
+        end
+        \'\'
+      '';
+    };
+
     watchGitDir = {
       enable = mkOption {
         type = types.bool;
@@ -214,6 +247,22 @@ in {
           • to define characters to be used for counts greater than 9.
       '';
     };
+    statusFormatter = mkOption {
+      type = luaFunction;
+      default = {
+        function = ''
+           function(status)
+            local added, changed, removed = status.added, status.changed, status.removed
+            local status_txt = {}
+            if added   and added   > 0 then table.insert(status_txt, '+'..added  ) end
+            if changed and changed > 0 then table.insert(status_txt, '~'..changed) end
+            if removed and removed > 0 then table.insert(status_txt, '-'..removed) end
+            return table.concat(status_txt, ' ')
+          end
+        '';
+      };
+      description = "Function used to format `b:gitsigns_status`";
+    };
     maxFileLength = mkOption {
       type = types.int;
       default = 40000;
@@ -243,7 +292,9 @@ in {
       default = 100;
       description = "Debounce time for updates (in milliseconds).";
     };
-    currentLineBlame = mkEnableOption "Adds an unobtrusive and customisable blame annotation at the end of the current line.";
+    currentLineBlame = mkEnableOption ''
+      Adds an unobtrusive and customisable blame annotation at the end of the current line.
+    '';
     currentLineBlameOpts = {
       virtText = mkOption {
         type = types.bool;
@@ -267,16 +318,44 @@ in {
         description = "Priority of virtual text";
       };
     };
+    currentLineBlameFormatter = {
+      normal = mkOption {
+        type = types.either types.str luaFunction;
+        default = " <author>, <author_time> - <summary>";
+        description = ''
+          String or function used to format the virtual text of
+          |gitsigns-config-current_line_blame|.
+
+          See |gitsigns-config-current_line_blame_formatter| for more details.
+        '';
+      };
+
+      nonCommitted = mkOption {
+        type = types.either types.str luaFunction;
+        default = " <author>";
+        description = ''
+          String or function used to format the virtual text of
+          |gitsigns-config-current_line_blame| for lines that aren't committed.
+        '';
+      };
+    };
     trouble = mkOption {
       type = types.nullOr types.bool;
       default = null;
-      description = "When using setqflist() or setloclist(), open Trouble instead of the quickfix/location list window.";
+      description = ''
+        When using setqflist() or setloclist(), open Trouble instead of the quickfix/location list
+        window.
+      '';
     };
     yadm.enable = mkEnableOption "Enable YADM support";
-    wordDiff =
-      mkEnableOption
-      "Highlight intra-line word differences in the buffer. Requires `config.diff_opts.internal = true`.";
-    debugMode = mkEnableOption "Enables debug logging and makes the following functions available: `dump_cache`, `debug_messages`, `clear_debug`.";
+    wordDiff = mkEnableOption ''
+      Highlight intra-line word differences in the buffer.
+      Requires `config.diff_opts.internal = true`.
+    '';
+    debugMode = mkEnableOption ''
+      Enables debug logging and makes the following functions available: `dump_cache`,
+      `debug_messages`, `clear_debug`.
+    '';
   };
 
   config = let
@@ -287,9 +366,17 @@ in {
         gitsigns-nvim
       ];
       extraConfigLua = let
+        luaFnOrStrToObj = val:
+          if builtins.isString val
+          then val
+          else {__raw = val.function;};
         setupOptions = {
           inherit (cfg) worktrees signcolumn numhl linehl trouble yadm;
           signs = mapAttrs (_: signSetupOptions) cfg.signs;
+          on_attach =
+            if cfg.onAttach != null
+            then {__raw = cfg.onAttach.function;}
+            else null;
           watch_gitdir = {
             inherit (cfg.watchGitDir) enable interval;
             follow_files = cfg.watchGitDir.followFiles;
@@ -319,6 +406,7 @@ in {
               ))
               + "}";
           };
+          status_formatter = {__raw = cfg.statusFormatter.function;};
           max_file_length = cfg.maxFileLength;
           preview_config = cfg.previewConfig;
           attach_to_untracked = cfg.attachToUntracked;
@@ -333,6 +421,8 @@ in {
             ignore_whitespace = cfgCl.ignoreWhitespace;
             virt_text_priority = cfgCl.virtTextPriority;
           };
+          current_line_blame_formatter = luaFnOrStrToObj cfg.currentLineBlameFormatter.normal;
+          current_line_blame_formatter_nc = luaFnOrStrToObj cfg.currentLineBlameFormatter.nonCommitted;
           word_diff = cfg.wordDiff;
           debug_mode = cfg.debugMode;
         };
