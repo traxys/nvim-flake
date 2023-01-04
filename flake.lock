@@ -77,11 +77,11 @@
       },
       "locked": {
         "dir": "contrib",
-        "lastModified": 1672387151,
-        "narHash": "sha256-PgmAU3ZGUsTVtnvIuwTa5JhoKgV/FoC+XNmig1cwJy0=",
+        "lastModified": 1672493004,
+        "narHash": "sha256-jD+VIUJDs5yB9LQWJ7vzch2qenRDR3/3Qm0r1NGK6jg=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "cb9d68fe6daf214ba703b9c2376fc8a2b8ae7079",
+        "rev": "cce736218f465511194465410e1ba23b5530e46f",
         "type": "github"
       },
       "original": {
@@ -93,11 +93,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1672366314,
-        "narHash": "sha256-F/LEtdZ90LqFzLaGtUmzsJFtarFsPJzxM9rahkb24FM=",
+        "lastModified": 1672428209,
+        "narHash": "sha256-eejhqkDz2cb2vc5VeaWphJz8UXNuoNoM8/Op8eWv2tQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "726088a96454587d4a640d28ec442126518e449b",
+        "rev": "293a28df6d7ff3dec1e61e37cc4ee6e6c0fb0847",
         "type": "github"
       },
       "original": {
@@ -116,17 +116,14 @@
         ]
       },
       "locked": {
-        "lastModified": 1672434283,
-        "narHash": "sha256-AltegOzuCjlernfEGWQYmle1yGiDBaky+u35DhJvxqI=",
-        "owner": "pta2002",
-        "repo": "nixvim",
-        "rev": "125ed74a423429e5af6796334b68400c78ac26b7",
-        "type": "github"
+        "lastModified": 1672434169,
+        "narHash": "sha256-QuLdgpIIOfwuT7whe1I+3HKV7wk9OVKflCBDKqazUgc=",
+        "type": "git",
+        "url": "file:///home/traxys/Documents/nixvim"
       },
       "original": {
-        "owner": "pta2002",
-        "repo": "nixvim",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/traxys/Documents/nixvim"
       }
     },
     "plugin:firenvim": {

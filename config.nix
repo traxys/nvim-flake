@@ -82,6 +82,25 @@
         };
       };
 
+      treesitter = {
+        enable = true;
+        indent = true;
+      };
+
+      treesitter-refactor = {
+        enable = true;
+        highlightDefinitions = {
+          enable = true;
+          clearOnCursorMove = true;
+        };
+        smartRename = {
+          enable = true;
+        };
+        navigation = {
+          enable = true;
+        };
+      };
+
       vim-matchup.enable = true;
       editorconfig.enable = true;
 	  headerguard.enable = true;
