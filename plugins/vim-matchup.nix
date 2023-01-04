@@ -8,6 +8,24 @@ with lib; {
   options.plugins.vim-matchup = {
     enable = mkEnableOption "Enable vim-matchup";
 
+    treesitterIntegration = {
+      enable = mkEnableOption "Enable treesitter integration";
+      disable = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = "Languages for each to disable this module";
+      };
+
+      disableVirtualText = mkEnableOption ''
+        Do not use virtual text to highlight the virtual end of a block, for languages without
+        explicit end markers (e.g., Python).
+      '';
+      includeMatchWords = mkEnableOption ''
+        Additionally include traditional vim regex matches for symbols. For example, highlights
+        `/* */` comments in C++ which are not supported in tree-sitter matching
+      '';
+    };
+
     matchParen = {
       enable = mkOption {
         type = types.bool;
@@ -205,6 +223,13 @@ with lib; {
   in
     mkIf cfg.enable {
       extraPlugins = with pkgs.vimPlugins; [vim-matchup];
+
+      plugins.treesitter.moduleConfig.matchup = mkIf cfg.treesitterIntegration.enable {
+        inherit (cfg.treesitterIntegration) enable disable;
+		disable_virtual_text = cfg.treesitterIntegration.disableVirtualText;
+		include_match_words = cfg.treesitterIntegration.includeMatchWords;
+      };
+
       globals = {
         matchup_surround_enabled = cfg.enableSurround;
         matchup_transmute_enabled = cfg.enableTransmute;

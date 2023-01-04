@@ -101,7 +101,13 @@
         };
       };
 
-      vim-matchup.enable = true;
+      vim-matchup = {
+        treesitterIntegration = {
+          enable = true;
+          includeMatchWords = true;
+        };
+        enable = true;
+      };
       editorconfig.enable = true;
 	  headerguard.enable = true;
     };
