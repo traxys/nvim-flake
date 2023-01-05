@@ -72,6 +72,7 @@
             ./plugins/headerguard.nix
             ./plugins/treesitter-context.nix
             ./plugins/plantuml_syntax.nix
+            ./plugins/indent-blankline.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim;

@@ -149,6 +149,15 @@
       };
 
       plantuml-syntax.enable = true;
+
+      indent-blankline = {
+        enable = true;
+
+        useTreesitter = true;
+
+        showCurrentContext = true;
+        showCurrentContextStart = true;
+      };
     };
 
     extraPlugins = with pkgs.vimPlugins; [
