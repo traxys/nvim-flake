@@ -147,6 +147,8 @@
         diagnostics.enable = true;
         git.enable = true;
       };
+
+      plantuml-syntax.enable = true;
     };
 
     extraPlugins = with pkgs.vimPlugins; [

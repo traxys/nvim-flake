@@ -71,6 +71,7 @@
             ./plugins/editorconfig.nix
             ./plugins/headerguard.nix
             ./plugins/treesitter-context.nix
+            ./plugins/plantuml_syntax.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim;
