@@ -23,6 +23,26 @@
       "SpellFr" = "setlocal spelllang=fr";
     };
 
+    lua_keymaps = let
+      nrsilent = rhs: {
+        rhs = rhs;
+        opts = {
+          remap = false;
+          silent = true;
+        };
+      };
+    in {
+      n = {
+        "bp" = nrsilent "<cmd>Telescope buffers<CR>";
+        "ca" = nrsilent "<cmd>lua vim.lsp.buf.code_action()<CR>";
+        "<C-s>" = nrsilent "<cmd>Telescope spell_suggest<CR>";
+        "mk" = nrsilent "<cmd>Telescope keymaps<CR>";
+        "fg" = nrsilent "<cmd>Telescope git_files<CR>";
+
+        "K" = nrsilent "<cmd>lua vim.lsp.buf.hover()<CR>";
+      };
+    };
+
     plugins = {
       osc52.enable = true;
       null-ls = {
