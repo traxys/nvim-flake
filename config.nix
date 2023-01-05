@@ -114,6 +114,10 @@
       };
       editorconfig.enable = true;
       headerguard.enable = true;
+
+      comment-nvim = {
+        enable = true;
+      };
     };
 
     extraPlugins = with pkgs.vimPlugins; [
