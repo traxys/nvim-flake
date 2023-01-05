@@ -33,6 +33,8 @@
       };
     in {
       n = {
+        "ft" = nrsilent "<cmd>NvimTreeToggle<CR>";
+
         "bp" = nrsilent "<cmd>Telescope buffers<CR>";
         "ca" = nrsilent "<cmd>lua vim.lsp.buf.code_action()<CR>";
         "<C-s>" = nrsilent "<cmd>Telescope spell_suggest<CR>";
@@ -137,6 +139,13 @@
 
       comment-nvim = {
         enable = true;
+      };
+
+      nvim-tree = {
+        enable = true;
+
+        diagnostics.enable = true;
+        git.enable = true;
       };
     };
 
