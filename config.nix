@@ -101,6 +101,10 @@
         };
       };
 
+      treesitter-context = {
+        enable = true;
+      };
+
       vim-matchup = {
         treesitterIntegration = {
           enable = true;

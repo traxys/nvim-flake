@@ -70,6 +70,7 @@
             ./plugins/vim-matchup.nix
             ./plugins/editorconfig.nix
             ./plugins/headerguard.nix
+            ./plugins/treesitter-context.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim;
