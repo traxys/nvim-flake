@@ -70,8 +70,6 @@
             ./plugins/vim-matchup.nix
             ./plugins/editorconfig.nix
             ./plugins/headerguard.nix
-            ./plugins/treesitter-context.nix
-            ./plugins/plantuml_syntax.nix
             ./plugins/indent-blankline.nix
             ./modules
           ];
