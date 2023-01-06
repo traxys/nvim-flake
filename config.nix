@@ -23,6 +23,19 @@
       "SpellFr" = "setlocal spelllang=fr";
     };
 
+    filetype = {
+      enable = true;
+
+      literal = {
+        Jenkinsfile = "groovy";
+      };
+      extensions = {
+        nix = "nix";
+        rsh = "rsh";
+        lalrpop = "lalrpop";
+      };
+    };
+
     lua_keymaps = let
       nrsilent = rhs: {
         rhs = rhs;
