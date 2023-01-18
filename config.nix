@@ -49,11 +49,19 @@
         "ft" = nrsilent "<cmd>NvimTreeToggle<CR>";
 
         "bp" = nrsilent "<cmd>Telescope buffers<CR>";
-        "ca" = nrsilent "<cmd>lua vim.lsp.buf.code_action()<CR>";
+
         "<C-s>" = nrsilent "<cmd>Telescope spell_suggest<CR>";
         "mk" = nrsilent "<cmd>Telescope keymaps<CR>";
         "fg" = nrsilent "<cmd>Telescope git_files<CR>";
 
+        "gr" = nrsilent "<cmd>Telescope lsp_references<CR>";
+        "gI" = nrsilent "<cmd>Telescope lsp_implementations<CR>";
+        "gW" = nrsilent "<cmd>Telescope lsp_workspace_symbols<CR>";
+        "gF" = nrsilent "<cmd>Telescope lsp_document_symbols<CR>";
+        "ge" = nrsilent "<cmd>Telescope diagnostics bufnr=0<CR>";
+        "gE" = nrsilent "<cmd>Telescope diagnostics<CR>";
+        "ca" = nrsilent "<cmd>lua vim.lsp.buf.code_action()<CR>";
+        "ff" = nrsilent "<cmd>lua vim.lsp.buf.format()<CR>";
         "K" = nrsilent "<cmd>lua vim.lsp.buf.hover()<CR>";
       };
     };
@@ -170,6 +178,34 @@
 
         showCurrentContext = true;
         showCurrentContextStart = true;
+      };
+
+      lsp = {
+        enable = true;
+
+        servers = {
+          nil_ls = {
+            enable = true;
+            formatting.command = ["alejandra" "--quiet"];
+          };
+          bashls.enable = true;
+
+          rust-analyzer = {
+            enable = true;
+            cargo.features = "all";
+            checkOnSave = {
+              enable = true;
+              command = "clippy";
+            };
+          };
+        };
+      };
+
+      lspkind = {
+        enable = true;
+        cmp = {
+          enable = true;
+        };
       };
     };
 
