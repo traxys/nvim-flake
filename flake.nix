@@ -49,6 +49,11 @@
       url = "github:drmikehenry/vim-headerguard";
       flake = false;
     };
+
+    "nvim-treesitter" = {
+      url = "github:nvim-treesitter/nvim-treesitter";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -113,6 +118,14 @@
                     telescope-nvim = prev.vimPlugins.telescope-nvim.overrideAttrs (old: {
                       dependencies = with final; [vimPlugins.plenary-nvim];
                     });
+                    nvim-treesitter = prev.vimUtils.buildVimPluginFrom2Nix {
+                      pname = prev.vimPlugins.nvim-treesitter.pname;
+                      version = "master";
+
+                      src = inputs.nvim-treesitter;
+
+                      passthru.withPlugins = prev.vimPlugins.nvim-treesitter.withPlugins;
+                    };
                   };
               }
             )
