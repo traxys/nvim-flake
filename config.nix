@@ -189,14 +189,20 @@
             formatting.command = ["alejandra" "--quiet"];
           };
           bashls.enable = true;
+        };
+      };
 
-          rust-analyzer = {
+      rust-tools = {
+        enable = true;
+        inlayHints = {
+          maxLenAlign = true;
+        };
+
+        server = {
+          cargo.features = "all";
+          checkOnSave = {
             enable = true;
-            cargo.features = "all";
-            checkOnSave = {
-              enable = true;
-              command = "clippy";
-            };
+            command = "clippy";
           };
         };
       };

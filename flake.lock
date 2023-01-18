@@ -116,11 +116,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1674039508,
-        "narHash": "sha256-YnaqeSWGyjhrvwLAAOHu4/5/TEqAd8x9y5hxax9ADXk=",
-        "ref": "refs/heads/ra_settings",
-        "rev": "b2b1b0110575fb6b591e014018cb4e56fc06f9b7",
-        "revCount": 224,
+        "lastModified": 1674052097,
+        "narHash": "sha256-Ra4FaGpGsqYX582XfGRvWJGeAhX6MunN2dYVpe6nrXY=",
         "type": "git",
         "url": "file:///home/traxys/Documents/nixvim"
       },
