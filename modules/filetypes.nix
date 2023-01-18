@@ -24,19 +24,19 @@ with lib; {
     cfg = config.filetype;
   in
     mkIf cfg.enable {
-      autocommands =
+      autoCmd =
         (
           mapAttrsToList
           (name: ft: {
-            event = "BufRead,BufNewFile";
-            trigger = name;
+            event = ["BufRead" "BufNewFile"];
+            pattern = name;
             command = "setfiletype ${ft}";
           })
           cfg.literal
         )
         ++ (mapAttrsToList (ext: ft: {
             event = "BufRead,BufNewFile";
-            trigger = "*.${ext}";
+            pattern = "*.${ext}";
             command = "setfiletype ${ft}";
           })
           cfg.extensions);
