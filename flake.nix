@@ -78,7 +78,9 @@
             ./plugins/indent-blankline.nix
             ./modules
           ];
-          package = neovim-flake.packages."${system}".neovim;
+          package = neovim-flake.packages."${system}".neovim.overrideAttrs (_: {
+            patches = [];
+          });
         };
 
         plugins = filter (s: (match "plugin:.*" s) != null) (attrNames inputs);
