@@ -50,7 +50,7 @@ with lib; {
     in
       mkOption {
         description = "Keymaps";
-        default = [];
+        default = {};
         type = with types;
           submodule {
             options = let
