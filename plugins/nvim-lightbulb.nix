@@ -15,144 +15,54 @@ with lib; {
       description = "Plugin to use for nvim-lightbulb";
     };
 
-    ignore = mkOption {
-      type = types.nullOr (types.listOf types.str);
-      default = null;
-      description = ''
-        LSP client names to ignore
-
-        default: `[]`
-      '';
-    };
+    ignore = helpers.defaultNullOpts.mkNullable (types.listOf types.str) "[]" ''
+      LSP client names to ignore
+    '';
 
     sign = {
-      enabled = mkOption {
-        type = types.nullOr types.bool;
-        default = null;
-        description = ''
-          default: `true`
-        '';
-      };
-      priority = mkOption {
-        type = types.nullOr types.int;
-        default = null;
-        description = ''
-          default: `10`
-        '';
-      };
+      enabled = helpers.defaultNullOpts.mkBool true "";
+      priority = helpers.defaultNullOpts.mkInt 10 "";
     };
 
     float = {
-      enabled = mkOption {
-        type = types.nullOr types.bool;
-        default = null;
-        description = ''
-          default: `false`
-        '';
-      };
+      enabled = helpers.defaultNullOpts.mkBool false "";
 
-      text = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = ''
-          default: `"💡"`
-        '';
-      };
+      text = helpers.defaultNullOpts.mkStr "💡" "Text to show in the popup float";
 
-      winOpts = mkOption {
-        type = types.nullOr (types.attrsOf types.anything);
-        default = null;
-        description = ''
-          Options for the floating window (see |vim.lsp.util.open_floating_preview| for more information)
-
-          default: `{}`
-        '';
-      };
+      winOpts = helpers.defaultNullOpts.mkNullable (types.attrsOf types.anything) "{}" ''
+        Options for the floating window (see |vim.lsp.util.open_floating_preview| for more information)
+      '';
     };
 
     virtualText = {
-      enabled = mkOption {
-        type = types.nullOr types.bool;
-        default = null;
-        description = ''
-          default: `false`
-        '';
-      };
+      enabled = helpers.defaultNullOpts.mkBool false "";
 
-      text = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = ''
-          default: `"💡"`
-        '';
-      };
+      text = helpers.defaultNullOpts.mkStr "💡" "Text to show at virtual text";
 
-      hlMode = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = ''
-          highlight mode to use for virtual text (replace, combine, blend), see
-          :help nvim_buf_set_extmark() for reference
-
-          default: `"replace"`
-        '';
-      };
+      hlMode = helpers.defaultNullOpts.mkStr "replace" ''
+        highlight mode to use for virtual text (replace, combine, blend), see
+        :help nvim_buf_set_extmark() for reference
+      '';
     };
 
     statusText = {
-      enabled = mkOption {
-        type = types.nullOr types.bool;
-        default = null;
-        description = ''
-          default: `false`
-        '';
-      };
+      enabled = helpers.defaultNullOpts.mkBool false "";
 
-      text = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = ''
-          Text to provide when code actions are available
+      text = helpers.defaultNullOpts.mkStr "💡" "Text to provide when code actions are available";
 
-          default: `"💡"`
-        '';
-      };
-
-      textUnavailable = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = ''
-          Text to provide when no actions are available
-
-          default: `""`
-        '';
-      };
+      textUnavailable = helpers.defaultNullOpts.mkStr "" ''
+        Text to provide when no actions are available
+      '';
     };
 
     autocmd = {
-      enabled = mkOption {
-        type = types.nullOr types.bool;
-        default = null;
-        description = ''
-          default: `false`
-        '';
-      };
+      enabled = helpers.defaultNullOpts.mkBool false "";
 
-      pattern = mkOption {
-        type = types.nullOr (types.listOf types.str);
-        default = null;
-        description = ''
-          default: `["*"]`
-        '';
-      };
+      pattern = helpers.defaultNullOpts.mkNullable (types.listOf types.str) ''["*"]'' "";
 
-      events = mkOption {
-        type = types.nullOr (types.listOf types.str);
-        default = null;
-        description = ''
-          default: `["CursorHold" "CursorHoldI"]`
-        '';
-      };
+      events =
+        helpers.defaultNullOpts.mkNullable (types.listOf types.str)
+        ''["CursorHold" "CursorHoldI"]'' "";
     };
   };
 
