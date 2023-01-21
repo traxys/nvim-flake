@@ -76,6 +76,7 @@
             ./plugins/editorconfig.nix
             ./plugins/headerguard.nix
             ./plugins/indent-blankline.nix
+			./plugins/nvim-lightbulb.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim.overrideAttrs (_: {

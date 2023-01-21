@@ -14,7 +14,7 @@
       signcolumn = "yes";
       cmdheight = 2;
       completopt = "menu,menuone,noselect";
-      updatetime = 300;
+      updatetime = 100;
       colorcolumn = "100";
       spell = true;
     };
@@ -212,6 +212,11 @@
         cmp = {
           enable = true;
         };
+      };
+
+      nvim-lightbulb = {
+        enable = true;
+        autocmd.enabled = true;
       };
     };
 
