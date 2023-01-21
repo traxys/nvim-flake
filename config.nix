@@ -72,7 +72,7 @@
         enable = true;
         sources = {
           code_actions = {
-            gitsigns.enable = true;
+            #gitsigns.enable = true;
           };
         };
       };
