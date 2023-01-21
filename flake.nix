@@ -122,12 +122,10 @@
                       dependencies = with final; [vimPlugins.plenary-nvim];
                     });
                     nvim-treesitter = prev.vimUtils.buildVimPluginFrom2Nix {
-                      pname = prev.vimPlugins.nvim-treesitter.pname;
+                      inherit (prev.vimPlugins.nvim-treesitter) pname passthru;
                       version = "master";
 
                       src = inputs.nvim-treesitter;
-
-                      passthru.withPlugins = prev.vimPlugins.nvim-treesitter.withPlugins;
                     };
                   };
               }
