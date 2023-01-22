@@ -63,6 +63,16 @@
         "ca" = nrsilent "<cmd>lua vim.lsp.buf.code_action()<CR>";
         "ff" = nrsilent "<cmd>lua vim.lsp.buf.format()<CR>";
         "K" = nrsilent "<cmd>lua vim.lsp.buf.hover()<CR>";
+
+        "<leader>rn" = {
+          rhs = ''
+            function()
+            	return ":IncRename " .. vim.fn.expand("<cword>")
+            end
+          '';
+          lua = true;
+          opts = {expr = true;};
+        };
       };
     };
 
@@ -220,6 +230,10 @@
       };
 
       lsp_signature = {
+        enable = true;
+      };
+
+      inc-rename = {
         enable = true;
       };
     };

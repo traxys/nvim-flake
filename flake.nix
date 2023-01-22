@@ -50,6 +50,11 @@
       flake = false;
     };
 
+    "plugin:inc-rename-nvim" = {
+      url = "github:smjonas/inc-rename.nvim";
+      flake = false;
+    };
+
     "nvim-treesitter" = {
       url = "github:nvim-treesitter/nvim-treesitter";
       flake = false;
@@ -76,7 +81,8 @@
             ./plugins/editorconfig.nix
             ./plugins/headerguard.nix
             ./plugins/indent-blankline.nix
-			./plugins/lsp-signature.nix
+            ./plugins/lsp-signature.nix
+            ./plugins/inc-rename.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim.overrideAttrs (_: {
