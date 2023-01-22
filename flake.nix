@@ -83,6 +83,7 @@
             ./plugins/indent-blankline.nix
             ./plugins/lsp-signature.nix
             ./plugins/inc-rename.nix
+            ./plugins/clangd_extensions.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim.overrideAttrs (_: {

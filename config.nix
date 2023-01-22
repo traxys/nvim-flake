@@ -236,6 +236,31 @@
       inc-rename = {
         enable = true;
       };
+
+      clangd_extensions = {
+        enable = true;
+        enableOffsetEncodingWorkaround = true;
+
+        extensions.ast = {
+          roleIcons = {
+            type = "";
+            declaration = "";
+            expression = "";
+            specifier = "";
+            statement = "";
+            templateArgument = "";
+          };
+          kindIcons = {
+            compound = "";
+            recovery = "";
+            translationUnit = "";
+            packExpansion = "";
+            templateTypeParm = "";
+            templateTemplateParm = "";
+            templateParamObject = "";
+          };
+        };
+      };
     };
 
     extraPlugins = with pkgs.vimPlugins; [
