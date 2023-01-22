@@ -218,6 +218,10 @@
         enable = true;
         autocmd.enabled = true;
       };
+
+      lsp_signature = {
+        enable = true;
+      };
     };
 
     extraPlugins = with pkgs.vimPlugins; [
