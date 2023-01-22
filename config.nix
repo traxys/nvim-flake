@@ -276,6 +276,12 @@
           };
         };
       };
+
+      fidget = {
+        enable = true;
+
+		sources.null-ls.ignore = true;
+      };
     };
 
     extraPlugins = with pkgs.vimPlugins; [
