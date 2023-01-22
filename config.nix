@@ -81,8 +81,23 @@
       null-ls = {
         enable = true;
         sources = {
+          diagnostics = {
+            shellcheck.enable = true;
+            cppcheck.enable = true;
+            gitlint.enable = true;
+          };
           code_actions = {
+            shellcheck.enable = true;
             #gitsigns.enable = true;
+          };
+          formatting = {
+            alejandra.enable = true;
+            black.enable = true;
+            stylua.enable = true;
+            cbfmt.enable = true;
+            shfmt.enable = true;
+            taplo.enable = true;
+            prettier.enable = true;
           };
         };
       };
