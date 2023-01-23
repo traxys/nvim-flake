@@ -211,7 +211,9 @@
         servers = {
           nil_ls = {
             enable = true;
-            formatting.command = ["alejandra" "--quiet"];
+            settings = {
+              formatting.command = ["alejandra" "--quiet"];
+            };
           };
           bashls.enable = true;
         };
@@ -280,7 +282,11 @@
       fidget = {
         enable = true;
 
-		sources.null-ls.ignore = true;
+        sources.null-ls.ignore = true;
+      };
+
+      lualine = {
+        enable = true;
       };
     };
 
