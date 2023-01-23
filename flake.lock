@@ -116,14 +116,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1674052097,
-        "narHash": "sha256-Ra4FaGpGsqYX582XfGRvWJGeAhX6MunN2dYVpe6nrXY=",
-        "type": "git",
-        "url": "file:///home/traxys/Documents/nixvim"
+        "lastModified": 1674484313,
+        "narHash": "sha256-Y5xeaaXHg6nzmSrsVJQLKEYjh4CuD674GfsJ5xIh19E=",
+        "owner": "pta2002",
+        "repo": "nixvim",
+        "rev": "1fe11e25294101cd00ec50b334792ee28c7dec79",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/traxys/Documents/nixvim"
+        "owner": "pta2002",
+        "repo": "nixvim",
+        "type": "github"
       }
     },
     "nvim-treesitter": {
@@ -187,6 +190,22 @@
       "original": {
         "owner": "lewis6991",
         "repo": "gitsigns.nvim",
+        "type": "github"
+      }
+    },
+    "plugin:inc-rename-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1674403589,
+        "narHash": "sha256-ByeunuyUL6sIAOInq5CzGCz8YgtksuEsbW4AAgytj6M=",
+        "owner": "smjonas",
+        "repo": "inc-rename.nvim",
+        "rev": "550e012030ff90dbfb577092368d167f65f9a865",
+        "type": "github"
+      },
+      "original": {
+        "owner": "smjonas",
+        "repo": "inc-rename.nvim",
         "type": "github"
       }
     },
@@ -291,6 +310,7 @@
         "plugin:firenvim": "plugin:firenvim",
         "plugin:git-messenger-vim": "plugin:git-messenger-vim",
         "plugin:gitsigns-nvim": "plugin:gitsigns-nvim",
+        "plugin:inc-rename-nvim": "plugin:inc-rename-nvim",
         "plugin:null-ls-nvim": "plugin:null-ls-nvim",
         "plugin:nvim-osc52": "plugin:nvim-osc52",
         "plugin:plenary-nvim": "plugin:plenary-nvim",
