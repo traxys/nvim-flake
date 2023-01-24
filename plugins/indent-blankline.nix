@@ -2,187 +2,129 @@
   lib,
   pkgs,
   config,
+  helpers,
   ...
 }:
-with lib; {
+with lib; let
+  mkIfNonNull = c: mkIf (!isNull c) c;
+in {
   options.plugins.indent-blankline = {
-    enable = mkEnableOption "Enable indent-blankline.nvim";
+    enable = helpers.defaultNullOpts.mkBool false "Enable indent-blankline.nvim";
 
-    char = mkOption {
-      type = types.str;
-      default = "│";
-      description = ''
-        Specifies the character to be used as indent line. Not used if charList is not empty.
+    char = helpers.defaultNullOpts.mkStr "│" ''
+      Specifies the character to be used as indent line. Not used if charList is not empty.
 
-        When set explicitly to empty string (""), no indentation character is displayed at all,
-        even when 'charList' is not empty. This can be useful in combination with
-        spaceCharHighlightList to only rely on different highlighting of different indentation
-        levels without needing to show a special character.
-      '';
-    };
+      When set explicitly to empty string (""), no indentation character is displayed at all,
+      even when 'charList' is not empty. This can be useful in combination with
+      spaceCharHighlightList to only rely on different highlighting of different indentation
+      levels without needing to show a special character.
+    '';
 
-    charBlankline = mkOption {
-      type = types.str;
-      default = "";
-      description = ''
-        Specifies the character to be used as indent line for blanklines. Not used if
-        charListBlankline is not empty.
-      '';
-    };
+    charBlankline = helpers.defaultNullOpts.mkStr "" ''
+      Specifies the character to be used as indent line for blanklines. Not used if
+      charListBlankline is not empty.
+    '';
 
-    charList = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = ''
-        Specifies a list of characters to be used as indent line for
-        each indentation level.
-        Ignored if the value is an empty list.
-      '';
-    };
+    charList = helpers.defaultNullOpts.mkNullable (types.listOf types.str) "[]" ''
+      Specifies a list of characters to be used as indent line for
+      each indentation level.
+      Ignored if the value is an empty list.
+    '';
 
-    charListBlankline = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = ''
-        Specifies a list of characters to be used as indent line for
-        each indentation level on blanklines.
-        Ignored if the value is an empty list.
-      '';
-    };
+    charListBlankline = helpers.defaultNullOpts.mkNullable (types.listOf types.str) "[]" ''
+      Specifies a list of characters to be used as indent line for
+      each indentation level on blanklines.
+      Ignored if the value is an empty list.
+    '';
 
-    charHighlightList = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = ''
-        Specifies the list of character highlights for each indentation level.
-        Ignored if the value is an empty list.
-      '';
-    };
+    charHighlightList = helpers.defaultNullOpts.mkNullable (types.listOf types.str) "[]" ''
+      Specifies the list of character highlights for each indentation level.
+      Ignored if the value is an empty list.
+    '';
 
-    spaceCharBlankline = mkOption {
-      type = types.str;
-      default = " ";
-      description = ''
-        Specifies the character to be used as the space value in between indent
-        lines when the line is blank.
-      '';
-    };
+    spaceCharBlankline = helpers.defaultNullOpts.mkStr " " ''
+      Specifies the character to be used as the space value in between indent
+      lines when the line is blank.
+    '';
 
-    spaceCharHighlightList = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = ''
-        Specifies the list of space character highlights for each indentation
-        level.
-        Ignored if the value is an empty list.
-      '';
-    };
+    spaceCharHighlightList = helpers.defaultNullOpts.mkNullable (types.listOf types.str) "[]" ''
+      Specifies the list of space character highlights for each indentation
+      level.
+      Ignored if the value is an empty list.
+    '';
 
-    spaceCharBlanklineHighlightList = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = ''
-        Specifies the list of space character highlights for each indentation
-        level when the line is empty.
-        Ignored if the value is an empty list.
-      '';
-    };
+    spaceCharBlanklineHighlightList = helpers.defaultNullOpts.mkNullable (types.listOf types.str) "[]" ''
+      Specifies the list of space character highlights for each indentation
+      level when the line is empty.
+      Ignored if the value is an empty list.
+    '';
 
-    useTreesitter = mkEnableOption "Use treesitter to calculate indentation when possible.";
+    useTreesitter =
+      helpers.defaultNullOpts.mkBool false
+      "Use treesitter to calculate indentation when possible.";
 
-    indentLevel = mkOption {
-      type = types.int;
-      default = 10;
-      description = "Specifies the maximum indent level to display.";
-    };
+    indentLevel = helpers.defaultNullOpts.mkInt 10 "Specifies the maximum indent level to display.";
 
-    maxIndentIncrease = mkOption {
-      type = types.int;
-      default = config.plugins.indent-blankline.indentLevel;
-      description = ''
-        The maximum indent level increase from line to line.
-        Set this option to 1 to make aligned trailing multiline comments not
-        create indentation.
-      '';
-    };
+    maxIndentIncrease = helpers.defaultNullOpts.mkInt config.plugins.indent-blankline.indentLevel ''
+      The maximum indent level increase from line to line.
+      Set this option to 1 to make aligned trailing multiline comments not
+      create indentation.
+    '';
 
-    showFirstIndentLevel = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Displays indentation in the first column.";
-    };
+    showFirstIndentLevel =
+      helpers.defaultNullOpts.mkBool true "Displays indentation in the first column.";
 
-    showTrailingBlanklineIndent = mkOption {
-      type = types.bool;
-      default = true;
-      description = ''
-        Displays a trailing indentation guide on blank lines, to match the
-        indentation of surrounding code.
-        Turn this off if you want to use background highlighting instead of chars.
-      '';
-    };
+    showTrailingBlanklineIndent = helpers.defaultNullOpts.mkBool true ''
+      Displays a trailing indentation guide on blank lines, to match the
+      indentation of surrounding code.
+      Turn this off if you want to use background highlighting instead of chars.
+    '';
 
-    showEndOfLine = mkEnableOption ''
+    showEndOfLine = helpers.defaultNullOpts.mkBool false ''
       Displays the end of line character set by |listchars| instead of the
       indent guide on line returns.
     '';
 
-    showFoldtext = mkOption {
-      type = types.bool;
-      default = true;
-      description = ''
-        Displays the full fold text instead of the indent guide on folded lines.
+    showFoldtext = helpers.defaultNullOpts.mkBool true ''
+      Displays the full fold text instead of the indent guide on folded lines.
 
-        Note: there is no autocommand to subscribe to changes in folding. This
-              might lead to unexpected results. A possible solution for this is to
-              remap folding bindings to also call |IndentBlanklineRefresh|
-      '';
-    };
+      Note: there is no autocommand to subscribe to changes in folding. This
+            might lead to unexpected results. A possible solution for this is to
+            remap folding bindings to also call |IndentBlanklineRefresh|
+    '';
 
-    disableWithNolist = mkEnableOption ''
+    disableWithNolist = helpers.defaultNullOpts.mkBool false ''
       When true, automatically turns this plugin off when |nolist| is set.
       When false, setting |nolist| will keep displaying indentation guides but
       removes whitespace characters set by |listchars|.
     '';
 
-    filetype = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = ''
-        Specifies a list of |filetype| values for which this plugin is enabled.
-        All |filetypes| are enabled if the value is an empty list.
-      '';
-    };
+    filetype = helpers.defaultNullOpts.mkNullable (types.listOf types.str) "[]" ''
+      Specifies a list of |filetype| values for which this plugin is enabled.
+      All |filetypes| are enabled if the value is an empty list.
+    '';
 
-    filetypeExclude = mkOption {
-      type = types.listOf types.str;
-      default = ["lspinfo" "packer" "checkhealth" "help" "man" ""];
-      description = ''
+    filetypeExclude =
+      helpers.defaultNullOpts.mkNullable (types.listOf types.str)
+      ''["lspinfo" "packer" "checkhealth" "help" "man" ""]'' ''
         Specifies a list of |filetype| values for which this plugin is not enabled.
         Ignored if the value is an empty list.
       '';
-    };
 
-    buftypeExclude = mkOption {
-      type = types.listOf types.str;
-      default = ["terminal" "nofile" "quickfix" "prompt"];
-      description = ''
+    buftypeExclude =
+      helpers.defaultNullOpts.mkNullable (types.listOf types.str)
+      ''["terminal" "nofile" "quickfix" "prompt"]'' ''
         Specifies a list of |buftype| values for which this plugin is not enabled.
         Ignored if the value is an empty list.
       '';
-    };
 
-    bufnameExclude = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = ''
-        Specifies a list of buffer names (file name with full path) for which
-        this plugin is not enabled.
-        A name can be regular expression as well.
-      '';
-    };
+    bufnameExclude = helpers.defaultNullOpts.mkNullable (types.listOf types.str) "[]" ''
+      Specifies a list of buffer names (file name with full path) for which
+      this plugin is not enabled.
+      A name can be regular expression as well.
+    '';
 
-    strictTabs = mkEnableOption ''
+    strictTabs = helpers.defaultNullOpts.mkBool false ''
       When on, if there is a single tab in a line, only tabs are used to
       calculate the indentation level.
       When off, both spaces and tabs are used to calculate the indentation
@@ -191,7 +133,7 @@ with lib; {
       indentation.
     '';
 
-    showCurrentContext = mkEnableOption ''
+    showCurrentContext = helpers.defaultNullOpts.mkBool false ''
       When on, use treesitter to determine the current context. Then show the
       indent character in a different highlight.
 
@@ -202,7 +144,7 @@ with lib; {
             which might be slower
     '';
 
-    showCurrentContextStart = mkEnableOption ''
+    showCurrentContextStart = helpers.defaultNullOpts.mkBool false ''
       Applies the |hl-IndentBlanklineContextStart| highlight group to the first
       line of the current context.
       By default this will underline.
@@ -217,78 +159,47 @@ with lib; {
             http://evantravers.com/articles/2021/02/05/curly-underlines-in-kitty-tmux-neovim/
     '';
 
-    showCurrentContextStartOnCurrentLine = mkOption {
-      type = types.bool;
-      default = true;
-      description = ''
-        Shows showCurrentContextStart even when the cursor is on the same line
-      '';
-    };
+    showCurrentContextStartOnCurrentLine = helpers.defaultNullOpts.mkBool true ''
+      Shows showCurrentContextStart even when the cursor is on the same line
+    '';
 
-    contextChar = mkOption {
-      type = types.str;
-      default = config.plugins.indent-blankline.char;
-      description = ''
-        Specifies the character to be used for the current context indent line.
-        Not used if contextCharList is not empty.
+    contextChar = helpers.defaultNullOpts.mkStr config.plugins.indent-blankline.char ''
+      Specifies the character to be used for the current context indent line.
+      Not used if contextCharList is not empty.
 
-        Useful to have a greater distinction between the current context indent
-        line and others.
+      Useful to have a greater distinction between the current context indent
+      line and others.
 
-        Also useful in combination with char set to empty string
-        (""), as this allows only the current context indent line to be shown.
-      '';
-    };
+      Also useful in combination with char set to empty string
+      (""), as this allows only the current context indent line to be shown.
+    '';
 
-    contextCharBlankline = mkOption {
-      type = types.str;
-      default = "";
-      description = ''
-        Equivalent of charBlankline for contextChar.
-      '';
-    };
+    contextCharBlankline = helpers.defaultNullOpts.mkStr "" ''
+      Equivalent of charBlankline for contextChar.
+    '';
 
-    contextCharList = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = ''
-        Equivalent of charList for contextChar.
-      '';
-    };
+    contextCharList = helpers.defaultNullOpts.mkNullable (types.listOf types.str) "[]" ''
+      Equivalent of charList for contextChar.
+    '';
 
-    contextCharListBlankline = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = ''
-        Equivalent of charListBlankline for contextChar.
-      '';
-    };
+    contextCharListBlankline = helpers.defaultNullOpts.mkNullable (types.listOf types.str) "[]" ''
+      Equivalent of charListBlankline for contextChar.
+    '';
 
-    contextHighlightList = mkOption {
-      type = types.listOf types.str;
-      default = [];
-      description = ''
-        Specifies the list of character highlights for the current context at
-        each indentation level.
-        Ignored if the value is an empty list.
-      '';
-    };
+    contextHighlightList = helpers.defaultNullOpts.mkNullable (types.listOf types.str) "[]" ''
+      Specifies the list of character highlights for the current context at
+      each indentation level.
+      Ignored if the value is an empty list.
+    '';
 
-    charPriority = mkOption {
-      type = types.int;
-      default = 1;
-      description = "Specifies the |extmarks| priority for chars.";
-    };
+    charPriority = helpers.defaultNullOpts.mkInt 1 "Specifies the |extmarks| priority for chars.";
 
-    contextStartPriority = mkOption {
-      type = types.int;
-      default = 10000;
-      description = "Specifies the |extmarks| priority for the context start.";
-    };
+    contextStartPriority =
+      helpers.defaultNullOpts.mkInt 10000
+      "Specifies the |extmarks| priority for the context start.";
 
-    contextPatterns = mkOption {
-      type = types.listOf types.str;
-      default = [
+    contextPatterns = helpers.defaultNullOpts.mkNullable (types.listOf types.str) ''
+      [
         "class"
         "^func"
         "method"
@@ -306,43 +217,34 @@ with lib; {
         "table"
         "tuple"
         "do_block"
-      ];
-      description = ''
-        Specifies a list of lua patterns that are used to match against the
-        treesitter |tsnode:type()| at the cursor position to find the current
-        context.
+      ]'' ''
+      Specifies a list of lua patterns that are used to match against the
+      treesitter |tsnode:type()| at the cursor position to find the current
+      context.
 
-        To learn more about how lua pattern work, see here:
-        https://www.lua.org/manual/5.1/manual.html#5.4.1
+      To learn more about how lua pattern work, see here:
+      https://www.lua.org/manual/5.1/manual.html#5.4.1
 
-      '';
-    };
+    '';
 
-    useTreesitterScope = mkEnableOption ''
+    useTreesitterScope = helpers.defaultNullOpts.mkBool false ''
       Instead of using contextPatters use the current scope defined by nvim-treesitter as the
       context
     '';
 
-    contextPatternHighlight = mkOption {
-      type = types.attrsOf types.str;
-      default = {};
-      description = ''
-        Specifies a map of patterns set in contextPatterns to highlight groups.
-        When the current matching context pattern is in the map, the context
-        will be highlighted with the corresponding highlight group.
-      '';
-    };
+    contextPatternHighlight = helpers.defaultNullOpts.mkNullable (types.attrsOf types.str) "{}" ''
+      Specifies a map of patterns set in contextPatterns to highlight groups.
+      When the current matching context pattern is in the map, the context
+      will be highlighted with the corresponding highlight group.
+    '';
 
-    viewportBuffer = mkOption {
-      type = types.int;
-      default = 10;
-      description = ''
-        Sets the buffer of extra lines before and after the current viewport that
-        are considered when generating indentation and the context.
-      '';
-    };
+    viewportBuffer = helpers.defaultNullOpts.mkInt 10 ''
+      Sets the buffer of extra lines before and after the current viewport that
+      are considered when generating indentation and the context.
+    '';
 
-    disableWarningMessage = mkEnableOption "Turns deprecation warning messages off.";
+    disableWarningMessage =
+      helpers.defaultNullOpts.mkBool false "Turns deprecation warning messages off.";
   };
 
   config = let
@@ -352,42 +254,42 @@ with lib; {
       extraPlugins = with pkgs.vimPlugins; [indent-blankline-nvim];
 
       globals = {
-        indent_blankline_char = cfg.char;
-        indent_blankline_char_blankline = cfg.charBlankline;
-        indent_blankline_char_list = cfg.charList;
-        indent_blankline_char_list_blankline = cfg.charListBlankline;
-        indent_blankline_char_highlight_list = cfg.charHighlightList;
-        indent_blankline_space_char_blankline = cfg.spaceCharBlankline;
-        indent_blankline_space_char_highlight_list = cfg.spaceCharHighlightList;
-        indent_blankline_space_char_blankline_highlight_list = cfg.spaceCharBlanklineHighlightList;
-        indent_blankline_use_treesitter = cfg.useTreesitter;
-        indent_blankline_indent_level = cfg.indentLevel;
-        indent_blankline_max_indent_increase = cfg.maxIndentIncrease;
-        indent_blankline_show_first_indent_level = cfg.showFirstIndentLevel;
-        indent_blankline_show_trailing_blankline_indent = cfg.showTrailingBlanklineIndent;
-        indent_blankline_show_end_of_line = cfg.showEndOfLine;
-        indent_blankline_show_foldtext = cfg.showFoldtext;
-        indent_blankline_disable_with_nolist = cfg.disableWithNolist;
-        indent_blankline_filetype = cfg.filetype;
-        indent_blankline_filetype_exclude = cfg.filetypeExclude;
-        indent_blankline_buftype_exclude = cfg.buftypeExclude;
-        indent_blankline_bufname_exclude = cfg.bufnameExclude;
-        indent_blankline_strict_tabs = cfg.strictTabs;
-        indent_blankline_show_current_context = cfg.showCurrentContext;
-        indent_blankline_show_current_context_start = cfg.showCurrentContextStart;
-        indent_blankline_show_current_context_start_on_current_line = cfg.showCurrentContextStartOnCurrentLine;
-        indent_blankline_context_char = cfg.contextChar;
-        indent_blankline_context_char_blankline = cfg.contextCharBlankline;
-        indent_blankline_context_char_list = cfg.contextCharList;
-        indent_blankline_context_char_list_blankline = cfg.contextCharListBlankline;
-        indent_blankline_context_highlight_list = cfg.contextHighlightList;
-        indent_blankline_char_priority = cfg.charPriority;
-        indent_blankline_context_start_priority = cfg.contextStartPriority;
-        indent_blankline_context_patterns = cfg.contextPatterns;
-        indent_blankline_use_treesitter_scope = cfg.useTreesitterScope;
-        indent_blankline_context_pattern_highlight = cfg.contextPatternHighlight;
-        indent_blankline_viewport_buffer = cfg.viewportBuffer;
-        indent_blankline_disable_warning_message = cfg.disableWarningMessage;
+        indent_blankline_char = mkIfNonNull cfg.char;
+        indent_blankline_char_blankline = mkIfNonNull cfg.charBlankline;
+        indent_blankline_char_list = mkIfNonNull cfg.charList;
+        indent_blankline_char_list_blankline = mkIfNonNull cfg.charListBlankline;
+        indent_blankline_char_highlight_list = mkIfNonNull cfg.charHighlightList;
+        indent_blankline_space_char_blankline = mkIfNonNull cfg.spaceCharBlankline;
+        indent_blankline_space_char_highlight_list = mkIfNonNull cfg.spaceCharHighlightList;
+        indent_blankline_space_char_blankline_highlight_list = mkIfNonNull cfg.spaceCharBlanklineHighlightList;
+        indent_blankline_use_treesitter = mkIfNonNull cfg.useTreesitter;
+        indent_blankline_indent_level = mkIfNonNull cfg.indentLevel;
+        indent_blankline_max_indent_increase = mkIfNonNull cfg.maxIndentIncrease;
+        indent_blankline_show_first_indent_level = mkIfNonNull cfg.showFirstIndentLevel;
+        indent_blankline_show_trailing_blankline_indent = mkIfNonNull cfg.showTrailingBlanklineIndent;
+        indent_blankline_show_end_of_line = mkIfNonNull cfg.showEndOfLine;
+        indent_blankline_show_foldtext = mkIfNonNull cfg.showFoldtext;
+        indent_blankline_disable_with_nolist = mkIfNonNull cfg.disableWithNolist;
+        indent_blankline_filetype = mkIfNonNull cfg.filetype;
+        indent_blankline_filetype_exclude = mkIfNonNull cfg.filetypeExclude;
+        indent_blankline_buftype_exclude = mkIfNonNull cfg.buftypeExclude;
+        indent_blankline_bufname_exclude = mkIfNonNull cfg.bufnameExclude;
+        indent_blankline_strict_tabs = mkIfNonNull cfg.strictTabs;
+        indent_blankline_show_current_context = mkIfNonNull cfg.showCurrentContext;
+        indent_blankline_show_current_context_start = mkIfNonNull cfg.showCurrentContextStart;
+        indent_blankline_show_current_context_start_on_current_line = mkIfNonNull cfg.showCurrentContextStartOnCurrentLine;
+        indent_blankline_context_char = mkIfNonNull cfg.contextChar;
+        indent_blankline_context_char_blankline = mkIfNonNull cfg.contextCharBlankline;
+        indent_blankline_context_char_list = mkIfNonNull cfg.contextCharList;
+        indent_blankline_context_char_list_blankline = mkIfNonNull cfg.contextCharListBlankline;
+        indent_blankline_context_highlight_list = mkIfNonNull cfg.contextHighlightList;
+        indent_blankline_char_priority = mkIfNonNull cfg.charPriority;
+        indent_blankline_context_start_priority = mkIfNonNull cfg.contextStartPriority;
+        indent_blankline_context_patterns = mkIfNonNull cfg.contextPatterns;
+        indent_blankline_use_treesitter_scope = mkIfNonNull cfg.useTreesitterScope;
+        indent_blankline_context_pattern_highlight = mkIfNonNull cfg.contextPatternHighlight;
+        indent_blankline_viewport_buffer = mkIfNonNull cfg.viewportBuffer;
+        indent_blankline_disable_warning_message = mkIfNonNull cfg.disableWarningMessage;
       };
     };
 }
