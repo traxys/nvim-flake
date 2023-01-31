@@ -83,7 +83,6 @@
             ./plugins/indent-blankline.nix
             ./plugins/lsp-signature.nix
             ./plugins/inc-rename.nix
-            ./plugins/clangd_extensions.nix
 			./plugins/fidget.nix
             ./modules
           ];

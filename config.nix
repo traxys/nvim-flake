@@ -254,7 +254,7 @@
         enable = true;
       };
 
-      clangd_extensions = {
+      clangd-extensions = {
         enable = true;
         enableOffsetEncodingWorkaround = true;
 
