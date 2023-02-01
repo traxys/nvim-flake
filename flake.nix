@@ -80,7 +80,6 @@
             ./plugins/vim-matchup.nix
             ./plugins/editorconfig.nix
             ./plugins/headerguard.nix
-            ./plugins/indent-blankline.nix
             ./plugins/lsp-signature.nix
             ./plugins/inc-rename.nix
 			./plugins/fidget.nix

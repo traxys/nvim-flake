@@ -116,11 +116,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1674917700,
-        "narHash": "sha256-4NSCMIeOZbXJ47h2gv5gKsk8iPx90jwU7UDxSy6gi+0=",
+        "lastModified": 1675270498,
+        "narHash": "sha256-5Kv3wB8lvczZiHkkNEMWnmPjg21R/78T6L3k3H5NeYY=",
         "owner": "pta2002",
         "repo": "nixvim",
-        "rev": "8ef6945e7550f81352564a70796554e7997be5c1",
+        "rev": "337e4c735bbe3eef91fede98c01a84d130386d51",
         "type": "github"
       },
       "original": {
