@@ -2,232 +2,160 @@
   pkgs,
   config,
   lib,
+  helpers,
   ...
-}:
-with lib; {
+} @ args:
+with lib; let
+  helpers = args.helpers;
+in {
   options.plugins.vim-matchup = {
     enable = mkEnableOption "Enable vim-matchup";
 
+    package = helpers.mkPackageOption "vim-matchup" pkgs.vimPlugins.vim-matchup;
+
     treesitterIntegration = {
       enable = mkEnableOption "Enable treesitter integration";
-      disable = mkOption {
-        type = types.listOf types.str;
-        default = [];
-        description = "Languages for each to disable this module";
-      };
+      disable =
+        helpers.defaultNullOpts.mkNullable (types.listOf types.str) "[]"
+        "Languages for each to disable this module";
 
-      disableVirtualText = mkEnableOption ''
+      disableVirtualText = helpers.defaultNullOpts.mkBool false ''
         Do not use virtual text to highlight the virtual end of a block, for languages without
         explicit end markers (e.g., Python).
       '';
-      includeMatchWords = mkEnableOption ''
+      includeMatchWords = helpers.defaultNullOpts.mkBool false ''
         Additionally include traditional vim regex matches for symbols. For example, highlights
         `/* */` comments in C++ which are not supported in tree-sitter matching
       '';
     };
 
     matchParen = {
-      enable = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Control matching parentheses";
-      };
+      enable = helpers.defaultNullOpts.mkBool true "Control matching parentheses";
 
-      fallback = mkOption {
-        type = types.bool;
-        default = true;
-        description = ''
-          If matchParen is not enabled fallback to the standard vim matchparen.
-        '';
-      };
+      fallback = helpers.defaultNullOpts.mkBool true ''
+        If matchParen is not enabled fallback to the standard vim matchparen.
+      '';
 
-      singleton = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Whether to highlight known words even if there is no match";
-      };
+      singleton =
+        helpers.defaultNullOpts.mkBool false
+        "Whether to highlight known words even if there is no match";
 
-      offscreen = mkOption {
-        type = types.nullOr (types.submodule {
+      offscreen =
+        helpers.defaultNullOpts.mkNullable (types.submodule {
           options = {
-            method = mkOption {
-              type = types.enum ["status" "popup" "status_manual"];
-              default = "status";
-              description = ''
-                'status': Replace the status-line for off-screen matches.
+            method = helpers.defaultNullOpts.mkEnumFirstDefault ["status" "popup" "status_manual"] ''
+              'status': Replace the status-line for off-screen matches.
 
-                If a match is off of the screen, the line belonging to that match will be displayed
-                syntax-highlighted in the status line along with the line number (if line numbers
-                are enabled). If the match is above the screen border, an additional Δ symbol will
-                be shown to indicate that the matching line is really above the cursor line.
+              If a match is off of the screen, the line belonging to that match will be displayed
+              syntax-highlighted in the status line along with the line number (if line numbers
+              are enabled). If the match is above the screen border, an additional Δ symbol will
+              be shown to indicate that the matching line is really above the cursor line.
 
-                'popup': Show off-screen matches in a popup (vim) or floating (neovim) window.
+              'popup': Show off-screen matches in a popup (vim) or floating (neovim) window.
 
-                'status_manual': Compute the string which would be displayed in the status-line or
-                popup, but do not display it. The function MatchupStatusOffscreen() can be used to
-                get the text.
-              '';
-            };
-            scrolloff = mkOption {
-              type = types.bool;
-              default = false;
-              description = ''
-                When enabled, off-screen matches will not be shown in the statusline while the
-                cursor is at the screen edge (respects the value of 'scrolloff').
-                This is intended to prevent flickering while scrolling with j and k.
-              '';
-            };
+              'status_manual': Compute the string which would be displayed in the status-line or
+              popup, but do not display it. The function MatchupStatusOffscreen() can be used to
+              get the text.
+            '';
+            scrolloff = helpers.defaultNullOpts.mkBool false ''
+              When enabled, off-screen matches will not be shown in the statusline while the
+              cursor is at the screen edge (respects the value of 'scrolloff').
+              This is intended to prevent flickering while scrolling with j and k.
+            '';
           };
-        });
-        default = {method = "status";};
-        description = "Dictionary controlling the behavior with off-screen matches.";
-      };
+        })
+        ''{method = "status";}'' "Dictionary controlling the behavior with off-screen matches.";
 
-      stopline = mkOption {
-        type = types.int;
-        default = 400;
-        description = ''
-          The number of lines to search in either direction while highlighting matches.
-          Set this conservatively since high values may cause performance issues.
-        '';
-      };
+      stopline = helpers.defaultNullOpts.mkInt 400 ''
+        The number of lines to search in either direction while highlighting matches.
+        Set this conservatively since high values may cause performance issues.
+      '';
 
-      timeout = mkOption {
-        type = types.int;
-        default = 300;
-        description = "Adjust timeouts in milliseconds for matchparen highlighting";
-      };
+      timeout =
+        helpers.defaultNullOpts.mkInt 300
+        "Adjust timeouts in milliseconds for matchparen highlighting";
 
-      insertTimeout = mkOption {
-        type = types.int;
-        default = 60;
-        description = "Adjust timeouts in milliseconds for matchparen highlighting";
-      };
+      insertTimeout =
+        helpers.defaultNullOpts.mkInt 60
+        "Adjust timeouts in milliseconds for matchparen highlighting";
 
       deffered = {
-        enable = mkOption {
-          type = types.bool;
-          default = false;
-          description = ''
-            Deferred highlighting improves cursor movement performance (for example, when using hjkl)
-            by delaying highlighting for a short time and waiting to see if the cursor continues
-            moving
-          '';
-        };
+        enable = helpers.defaultNullOpts.mkBool false ''
+          Deferred highlighting improves cursor movement performance (for example, when using hjkl)
+          by delaying highlighting for a short time and waiting to see if the cursor continues
+          moving
+        '';
 
-        showDelay = mkOption {
-          type = types.int;
-          default = 50;
-          description = ''
-            Adjust delays in milliseconds for deferred highlighting
-          '';
-        };
+        showDelay = helpers.defaultNullOpts.mkInt 50 ''
+          Adjust delays in milliseconds for deferred highlighting
+        '';
 
-        hideDelay = mkOption {
-          type = types.int;
-          default = 700;
-          description = ''
-            Adjust delays in milliseconds for deferred highlighting
-          '';
-        };
-      };
-
-      hiSurroundAlways = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Highlight surrounding delimiters always as the cursor moves
-          Note: this feature requires deferred highlighting to be supported and enabled.
+        hideDelay = helpers.defaultNullOpts.mkInt 700 ''
+          Adjust delays in milliseconds for deferred highlighting
         '';
       };
+
+      hiSurroundAlways = helpers.defaultNullOpts.mkBool false ''
+        Highlight surrounding delimiters always as the cursor moves
+        Note: this feature requires deferred highlighting to be supported and enabled.
+      '';
     };
 
     motion = {
-      enable = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Control motions";
-      };
-      overrideNPercent = mkOption {
-        type = types.int;
-        default = 6;
-        description = ''
-          In vim, {count}% goes to the {count} percentage in the file. match-up overrides this
-          motion for small {count} (by default, anything less than 7). To allow {count}% for {count}
-          less than 12 set overrideNPercent to 11.
+      enable = helpers.defaultNullOpts.mkBool true "Control motions";
+      overrideNPercent = helpers.defaultNullOpts.mkInt 6 ''
+        In vim, {count}% goes to the {count} percentage in the file. match-up overrides this
+        motion for small {count} (by default, anything less than 7). To allow {count}% for {count}
+        less than 12 set overrideNPercent to 11.
 
-          To disable this feature set it to 0.
+        To disable this feature set it to 0.
 
-          To always enable this feature, use any value greater than 99
-        '';
-      };
-      cursorEnd = mkOption {
-        type = types.bool;
-        default = true;
-        description = ''
-          If enabled, cursor will land on the end of mid and close words while moving downwards
-          (%/]%). While moving upwards (g%, [%) the cursor will land on the beginning.
-        '';
-      };
+        To always enable this feature, use any value greater than 99
+      '';
+      cursorEnd = helpers.defaultNullOpts.mkBool true ''
+        If enabled, cursor will land on the end of mid and close words while moving downwards
+        (%/]%). While moving upwards (g%, [%) the cursor will land on the beginning.
+      '';
     };
 
     textObj = {
-      enable = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Controls text objects";
-      };
+      enable = helpers.defaultNullOpts.mkBool true "Controls text objects";
 
-      linewiseOperators = mkOption {
-        type = types.listOf types.str;
-        default = ["d" "y"];
-        description = "Modify the set of operators which may operate line-wise";
-      };
+      linewiseOperators =
+        helpers.defaultNullOpts.mkNullable (types.listOf types.str)
+        ''["d" "y"]'' "Modify the set of operators which may operate line-wise";
     };
 
-    enableSurround = mkOption {
-      type = types.bool;
-      default = false;
-      description = "To enable the delete surrounding (ds%) and change surrounding (cs%) maps";
-    };
+    enableSurround =
+      helpers.defaultNullOpts.mkBool false
+      "To enable the delete surrounding (ds%) and change surrounding (cs%) maps";
 
-    enableTransmute = mkOption {
-      type = types.bool;
-      default = false;
-      description = "To enable the experimental transmute module";
-    };
+    enableTransmute =
+      helpers.defaultNullOpts.mkBool false "To enable the experimental transmute module";
 
-    delimStopline = mkOption {
-      type = types.int;
-      default = 1500;
-      description = ''
-        To configure the number of lines to search in either direction while using motions and text
-        objects. Does not apply to match highlighting (see matchParenStopline instead)
-      '';
-    };
+    delimStopline = helpers.defaultNullOpts.mkInt 1500 ''
+      To configure the number of lines to search in either direction while using motions and text
+      objects. Does not apply to match highlighting (see matchParenStopline instead)
+    '';
 
-    delimNoSkips = mkOption {
-      type = types.enum [0 1 2];
-      default = 0;
-      description = ''
-        To disable matching within strings and comments:
-        - 0: matching is enabled within strings and comments
-        - 1: recognize symbols within comments
-        - 2: don't recognize anything in comments
-      '';
-    };
+    delimNoSkips = helpers.defaultNullOpts.mkNullable (types.enum [0 1 2]) "0" ''
+      To disable matching within strings and comments:
+      - 0: matching is enabled within strings and comments
+      - 1: recognize symbols within comments
+      - 2: don't recognize anything in comments
+    '';
   };
 
   config = let
     cfg = config.plugins.vim-matchup;
   in
     mkIf cfg.enable {
-      extraPlugins = with pkgs.vimPlugins; [vim-matchup];
+      extraPlugins = [cfg.package];
 
       plugins.treesitter.moduleConfig.matchup = mkIf cfg.treesitterIntegration.enable {
         inherit (cfg.treesitterIntegration) enable disable;
-		disable_virtual_text = cfg.treesitterIntegration.disableVirtualText;
-		include_match_words = cfg.treesitterIntegration.includeMatchWords;
+        disable_virtual_text = cfg.treesitterIntegration.disableVirtualText;
+        include_match_words = cfg.treesitterIntegration.includeMatchWords;
       };
 
       globals = {
