@@ -75,7 +75,6 @@
           imports = [
             ./config.nix
             ./plugins/osc52.nix
-            ./plugins/gitmessenger.nix
             ./plugins/firenvim.nix
             ./plugins/vim-matchup.nix
             ./plugins/editorconfig.nix
