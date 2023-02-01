@@ -82,6 +82,7 @@
             ./plugins/lsp-signature.nix
             ./plugins/inc-rename.nix
 			./plugins/fidget.nix
+			./plugins/noice.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim.overrideAttrs (_: {
