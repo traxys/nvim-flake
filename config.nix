@@ -311,6 +311,12 @@
       };
     };
 
+	extraConfigVim = ''
+	if exists('g:started_by_firenvim')
+		nnoremap <C-S-v> "+p
+	endif
+	'';
+
     extraPlugins = with pkgs.vimPlugins; [
       telescope-ui-select-nvim
       vim-vsnip
