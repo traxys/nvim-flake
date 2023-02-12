@@ -314,6 +314,7 @@
 	extraConfigVim = ''
 	if exists('g:started_by_firenvim')
 		nnoremap <C-S-v> "+p
+		Noice disable
 	endif
 	'';
 
