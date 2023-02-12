@@ -16,45 +16,41 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    "plugin:nvim-osc52" = {
-      url = "github:ojroques/nvim-osc52";
-      flake = false;
-    };
-
-    "plugin:gitsigns-nvim" = {
-      url = "github:lewis6991/gitsigns.nvim";
+	# Automatically handled plugins
+    "plugin:firenvim" = {
+      url = "github:glacambre/firenvim";
       flake = false;
     };
     "plugin:git-messenger-vim" = {
       url = "github:rhysd/git-messenger.vim";
       flake = false;
     };
-
-    "plugin:plenary-nvim" = {
-      url = "github:nvim-lua/plenary.nvim";
+    "plugin:gitsigns-nvim" = {
+      url = "github:lewis6991/gitsigns.nvim";
       flake = false;
     };
-
+    "plugin:inc-rename-nvim" = {
+      url = "github:smjonas/inc-rename.nvim";
+      flake = false;
+    };
     "plugin:null-ls-nvim" = {
       url = "github:jose-elias-alvarez/null-ls.nvim";
       flake = false;
     };
-
-    "plugin:firenvim" = {
-      url = "github:glacambre/firenvim";
+    "plugin:nvim-osc52" = {
+      url = "github:ojroques/nvim-osc52";
       flake = false;
     };
-
+    "plugin:plenary-nvim" = {
+      url = "github:nvim-lua/plenary.nvim";
+      flake = false;
+    };
     "plugin:vim-headerguard" = {
       url = "github:drmikehenry/vim-headerguard";
       flake = false;
     };
 
-    "plugin:inc-rename-nvim" = {
-      url = "github:smjonas/inc-rename.nvim";
-      flake = false;
-    };
-
+	# Manually handled plugins
     "nvim-treesitter" = {
       url = "github:nvim-treesitter/nvim-treesitter";
       flake = false;
