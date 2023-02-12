@@ -16,7 +16,35 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-	# Automatically handled plugins
+    # Automatically handled plugins
+    "plugin:clangd_extensions-nvim" = {
+      url = "github:p00f/clangd_extensions.nvim";
+      flake = false;
+    };
+    "plugin:cmp-buffer" = {
+      url = "github:hrsh7th/cmp-buffer";
+      flake = false;
+    };
+    "plugin:cmp-calc" = {
+      url = "github:hrsh7th/cmp-calc";
+      flake = false;
+    };
+    "plugin:cmp-nvim-lsp" = {
+      url = "github:hrsh7th/cmp-nvim-lsp";
+      flake = false;
+    };
+    "plugin:cmp-path" = {
+      url = "github:hrsh7th/cmp-path";
+      flake = false;
+    };
+    "plugin:cmp-vsnip" = {
+      url = "github:hrsh7th/cmp-vsnip";
+      flake = false;
+    };
+    "plugin:comment-nvim" = {
+      url = "github:numtostr/comment.nvim";
+      flake = false;
+    };
     "plugin:firenvim" = {
       url = "github:glacambre/firenvim";
       flake = false;
@@ -33,24 +61,96 @@
       url = "github:smjonas/inc-rename.nvim";
       flake = false;
     };
+    "plugin:indent-blankline-nvim" = {
+      url = "github:lukas-reineke/indent-blankline.nvim";
+      flake = false;
+    };
+    "plugin:lspkind-nvim" = {
+      url = "github:onsails/lspkind.nvim";
+      flake = false;
+    };
+    "plugin:lualine-nvim" = {
+      url = "github:nvim-lualine/lualine.nvim";
+      flake = false;
+    };
+    "plugin:noice-nvim" = {
+      url = "github:folke/noice.nvim";
+      flake = false;
+    };
+    "plugin:nui-nvim" = {
+      url = "github:MunifTanjim/nui.nvim";
+      flake = false;
+    };
     "plugin:null-ls-nvim" = {
       url = "github:jose-elias-alvarez/null-ls.nvim";
+      flake = false;
+    };
+    "plugin:nvim-cmp" = {
+      url = "github:hrsh7th/nvim-cmp";
+      flake = false;
+    };
+    "plugin:nvim-lightbulb" = {
+      url = "github:kosayoda/nvim-lightbulb";
+      flake = false;
+    };
+    "plugin:nvim-lspconfig" = {
+      url = "github:neovim/nvim-lspconfig";
+      flake = false;
+    };
+    "plugin:nvim-notify" = {
+      url = "github:rcarriga/nvim-notify";
       flake = false;
     };
     "plugin:nvim-osc52" = {
       url = "github:ojroques/nvim-osc52";
       flake = false;
     };
+    "plugin:nvim-tree-lua" = {
+      url = "github:nvim-tree/nvim-tree.lua";
+      flake = false;
+    };
+    "plugin:nvim-treesitter-context" = {
+      url = "github:nvim-treesitter/nvim-treesitter-context";
+      flake = false;
+    };
+    "plugin:nvim-treesitter-refactor" = {
+      url = "github:nvim-treesitter/nvim-treesitter-refactor";
+      flake = false;
+    };
+    "plugin:plantuml-syntax" = {
+      url = "github:aklt/plantuml-syntax";
+      flake = false;
+    };
     "plugin:plenary-nvim" = {
       url = "github:nvim-lua/plenary.nvim";
+      flake = false;
+    };
+    "plugin:rust-tools-nvim" = {
+      url = "github:simrat39/rust-tools.nvim";
+      flake = false;
+    };
+    "plugin:telescope-nvim" = {
+      url = "github:nvim-telescope/telescope.nvim";
+      flake = false;
+    };
+    "plugin:telescope-ui-select-nvim" = {
+      url = "github:nvim-telescope/telescope-ui-select.nvim";
+      flake = false;
+    };
+    "plugin:trouble-nvim" = {
+      url = "github:folke/trouble.nvim";
       flake = false;
     };
     "plugin:vim-headerguard" = {
       url = "github:drmikehenry/vim-headerguard";
       flake = false;
     };
+    "plugin:vim-matchup" = {
+      url = "github:andymass/vim-matchup";
+      flake = false;
+    };
 
-	# Manually handled plugins
+    # Manually handled plugins
     "nvim-treesitter" = {
       url = "github:nvim-treesitter/nvim-treesitter";
       flake = false;
@@ -77,8 +177,8 @@
             ./plugins/headerguard.nix
             ./plugins/lsp-signature.nix
             ./plugins/inc-rename.nix
-			./plugins/fidget.nix
-			./plugins/noice.nix
+            ./plugins/fidget.nix
+            ./plugins/noice.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim.overrideAttrs (_: {
@@ -120,7 +220,25 @@
                 vimPlugins =
                   prev.vimPlugins
                   // {
+                    plenary-nvim = prev.vimPlugins.plenary-nvim.overrideAttrs (old: {
+                      postPatch = ''
+                        sed -Ei lua/plenary/curl.lua \
+                            -e 's@(command\s*=\s*")curl(")@\1${final.curl}/bin/curl\2@'
+                      '';
+
+                      doInstallCheck = true;
+                      nvimRequireCheck = "plenary";
+                    });
                     telescope-nvim = prev.vimPlugins.telescope-nvim.overrideAttrs (old: {
+                      dependencies = with final; [vimPlugins.plenary-nvim];
+                    });
+                    gitsigns-nvim = prev.vimPlugins.gitsigns-nvim.overrideAttrs (old: {
+                      dependencies = with final; [vimPlugins.plenary-nvim];
+                    });
+                    noice-nvim = prev.vimPlugins.noice-nvim.overrideAttrs (old: {
+                      dependencies = with final; [vimPlugins.nui-nvim vimPlugins.nvim-notify];
+                    });
+                    null-ls-nvim = prev.vimPlugins.null-ls-nvim.overrideAttrs (old: {
                       dependencies = with final; [vimPlugins.plenary-nvim];
                     });
                     nvim-treesitter = prev.vimUtils.buildVimPluginFrom2Nix {
