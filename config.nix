@@ -279,11 +279,11 @@
         };
       };
 
-      fidget = {
-        enable = true;
-
-        sources.null-ls.ignore = true;
-      };
+      # fidget = {
+      #   enable = true;
+      #
+      #   sources.null-ls.ignore = true;
+      # };
 
       lualine = {
         enable = true;
