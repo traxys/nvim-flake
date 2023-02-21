@@ -13,7 +13,7 @@
       scrolloff = 7;
       signcolumn = "yes";
       cmdheight = 2;
-      completopt = "menu,menuone,noselect";
+      cot = ["menu" "menuone" "noselect"];
       updatetime = 100;
       colorcolumn = "100";
       spell = true;
