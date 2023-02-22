@@ -352,12 +352,12 @@
       };
     };
 
-	extraConfigVim = ''
-	if exists('g:started_by_firenvim')
-		nnoremap <C-S-v> "+p
-		Noice disable
-	endif
-	'';
+    extraConfigVim = ''
+      if exists('g:started_by_firenvim')
+        nnoremap <C-S-v> "+p
+        NoiceDisable
+      endif
+    '';
 
     extraPlugins = with pkgs.vimPlugins; [
       telescope-ui-select-nvim
