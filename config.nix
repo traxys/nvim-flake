@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   config = {
     colorschemes.tokyonight = {
       style = "night";
@@ -153,6 +157,43 @@
       treesitter = {
         enable = true;
         indent = true;
+
+        grammarPackages = with config.plugins.treesitter.package.passthru.builtGrammars; [
+          bash
+          c
+          html
+          help
+          latex
+          lua
+          nix
+          python
+          rust
+          arduino
+          cpp
+          cuda
+          dart
+          devicetree
+          diff
+          dockerfile
+          git_rebase
+          gitattributes
+          gitcommit
+          gitignore
+          ini
+          json
+          lalrpop
+          make
+          markdown
+          markdown_inline
+          meson
+          ninja
+          rst
+          slint
+          sql
+          tlaplus
+          toml
+          yaml
+        ];
       };
 
       treesitter-refactor = {
