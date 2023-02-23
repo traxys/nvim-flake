@@ -257,6 +257,7 @@
             };
           };
           bashls.enable = true;
+		  dartls.enable = true;
         };
       };
 
