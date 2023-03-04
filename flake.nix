@@ -255,6 +255,30 @@
         nixvim' = nixvim.legacyPackages."${system}";
         nvim = nixvim'.makeNixvimWithModule {inherit module pkgs;};
       in {
+        checks = {
+          launch = let
+            launchCheck = {stdenv}:
+            # Taken from nixvim
+              stdenv.mkDerivation {
+                name = "neovimTraxys";
+                nativeBuildInputs = [self.packages."${system}".nvim];
+                dontUnpack = true;
+
+                buildPhase = ''
+                  output=$(HOME=$(realpath .) nvim -mn --headless "+q" 2>&1 >/dev/null)
+                  if [[ -n $output ]]; then
+                      echo "ERROR: $output"
+                    exit 1
+                  fi
+                '';
+
+                installPhase = ''
+                  mkdir $out
+                '';
+              };
+          in
+            pkgs.callPackage launchCheck {};
+        };
         packages = {
           inherit nvim;
           default = nvim;
