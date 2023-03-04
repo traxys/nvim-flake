@@ -25,12 +25,3 @@ jobs:
         with:
           labels: automerge
           number: ${{ steps.update.outputs.pull-request-number }}
-      - uses: "pascalgn/automerge-action@v0.15.6"
-        env:
-          MERGE_METHOD: rebase
-          GITHUB_TOKEN: "${{ secrets.GH_TOKEN_FOR_UPDATES }}"
-      # - uses: juliangruber/merge-pull-request-action@v1
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     number: ${{ steps.update.outputs.pull-request-number }}
-      #     method: rebase
