@@ -355,11 +355,10 @@
       };
     };
 
-    extraConfigVim = ''
-      if exists('g:started_by_firenvim')
-        nnoremap <C-S-v> "+p
-        NoiceDisable
-      endif
+    extraConfigLuaPost = ''
+	  if vim.g.started_by_firenvim then
+	  	require("noice").cmd("disable")
+	  end
     '';
 
     extraPlugins = with pkgs.vimPlugins; [
