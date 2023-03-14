@@ -162,39 +162,41 @@
         indent = true;
 
         grammarPackages = with config.plugins.treesitter.package.passthru.builtGrammars; [
+          arduino
           bash
           c
-          html
-          help
-          latex
-          lua
-          nix
-          python
-          rust
-          arduino
           cpp
           cuda
           dart
           devicetree
           diff
           dockerfile
-          git_rebase
           gitattributes
           gitcommit
           gitignore
+          git_rebase
+          help
+          html
           ini
           json
           lalrpop
+          latex
+          lua
           make
           markdown
           markdown_inline
           meson
           ninja
+          nix
+          python
+          regex
           rst
+          rust
           slint
           sql
           tlaplus
           toml
+          vim
           yaml
         ];
       };
