@@ -284,6 +284,12 @@
           in
             pkgs.callPackage launchCheck {};
         };
+
+        formatter = pkgs.alejandra;
+
+        devShell = pkgs.mkShell {
+          packages = [nvim];
+        };
         packages = {
           inherit nvim;
           default = nvim;
