@@ -21,6 +21,10 @@
       url = "github:p00f/clangd_extensions.nvim";
       flake = false;
     };
+    "plugin:netman-nvim" = {
+      url = "github:miversen33/netman.nvim";
+      flake = false;
+    };
     "plugin:cmp-buffer" = {
       url = "github:hrsh7th/cmp-buffer";
       flake = false;
@@ -178,6 +182,7 @@
             ./plugins/inc-rename.nix
             ./plugins/fidget.nix
             ./plugins/noice.nix
+			./plugins/netman.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim.overrideAttrs (_: {

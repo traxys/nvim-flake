@@ -56,6 +56,7 @@
       n = {
         "ft" = nrsilent "<cmd>Neotree<CR>";
         "fG" = nrsilent "<cmd>Neotree git_status<CR>";
+        "fR" = nrsilent "<cmd>Neotree remote<CR>";
         "fc" = nrsilent "<cmd>Neotree close<CR>";
 
         "bp" = nrsilent "<cmd>Telescope buffers<CR>";
@@ -355,6 +356,11 @@
           inc_rename = true;
           lsp_doc_border = false;
         };
+      };
+
+      netman = {
+        enable = true;
+        neoTreeIntegration = true;
       };
     };
 
