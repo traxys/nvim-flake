@@ -71,8 +71,8 @@
         "gF" = nrsilent "<cmd>Telescope lsp_document_symbols<CR>";
         "ge" = nrsilent "<cmd>Telescope diagnostics bufnr=0<CR>";
         "gE" = nrsilent "<cmd>Telescope diagnostics<CR>";
-		"gd" = nrsilent "<cmd>lua vim.lsp.buf.definition()<CR>";
-		"gD" = nrsilent "<cmd>lua vim.lsp.buf.declaration()<CR>";
+        "gd" = nrsilent "<cmd>lua vim.lsp.buf.definition()<CR>";
+        "gD" = nrsilent "<cmd>lua vim.lsp.buf.declaration()<CR>";
         "ca" = nrsilent "<cmd>lua vim.lsp.buf.code_action()<CR>";
         "ff" = nrsilent "<cmd>lua vim.lsp.buf.format()<CR>";
         "K" = nrsilent "<cmd>lua vim.lsp.buf.hover()<CR>";
@@ -263,7 +263,7 @@
             };
           };
           bashls.enable = true;
-		  dartls.enable = true;
+          dartls.enable = true;
         };
       };
 
@@ -365,9 +365,9 @@
     };
 
     extraConfigLuaPost = ''
-	  if vim.g.started_by_firenvim then
-	  	require("noice").cmd("disable")
-	  end
+      if vim.g.started_by_firenvim then
+      	require("noice").cmd("disable")
+      end
     '';
 
     extraPlugins = with pkgs.vimPlugins; [

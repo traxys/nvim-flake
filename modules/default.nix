@@ -3,6 +3,6 @@
     ./osc52.nix
     ./keymaps_lua.nix
     ./commands.nix
-	./filetypes.nix
+    ./filetypes.nix
   ];
 }
