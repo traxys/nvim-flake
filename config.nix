@@ -9,6 +9,10 @@
       enable = true;
     };
 
+    globals = {
+      neo_tree_remove_legacy_commands = 1;
+    };
+
     options = {
       termguicolors = true;
       number = true;
@@ -50,7 +54,9 @@
       };
     in {
       n = {
-        "ft" = nrsilent "<cmd>NvimTreeToggle<CR>";
+        "ft" = nrsilent "<cmd>Neotree<CR>";
+        "fG" = nrsilent "<cmd>Neotree git_status<CR>";
+        "fc" = nrsilent "<cmd>Neotree close<CR>";
 
         "bp" = nrsilent "<cmd>Telescope buffers<CR>";
 
@@ -230,11 +236,8 @@
         enable = true;
       };
 
-      nvim-tree = {
+      neo-tree = {
         enable = true;
-
-        diagnostics.enable = true;
-        git.enable = true;
       };
 
       plantuml-syntax.enable = true;
