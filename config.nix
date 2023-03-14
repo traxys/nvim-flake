@@ -122,13 +122,7 @@
       nvim-cmp = {
         enable = true;
 
-        snippet = {
-          expand = ''
-            function(args)
-              vim.fn["vsnip#anonymous"](args.body)
-            end
-          '';
-        };
+        snippet.expand = "vsnip";
 
         mapping = {
           "<CR>" = "cmp.mapping.confirm({select = true })";
