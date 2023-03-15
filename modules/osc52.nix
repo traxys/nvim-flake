@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  helpers,
   ...
 }:
 with lib; {
@@ -29,25 +30,21 @@ with lib; {
     cfg = config.plugins.osc52;
   in
     mkIf cfg.enable {
-      lua_keymaps = {
-        n = {
+      maps = {
+        normal = {
           "${cfg.copy}" = {
-            rhs = "require('osc52').copy_operator";
+            action = "require('osc52').copy_operator";
+            expr = true;
             lua = true;
-            opts = {
-              expr = true;
-            };
           };
           "${cfg.copy_line}" = {
-            rhs = "${cfg.copy}_";
-            opts = {
-              remap = true;
-            };
+            action = "${cfg.copy}_";
+            remap = true;
           };
         };
-        v = {
+        visual = {
           "${cfg.copy_visual}" = {
-            rhs = "require('osc52').copy_visual";
+            action = "require('osc52').copy_visual";
             lua = true;
           };
         };

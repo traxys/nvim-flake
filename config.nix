@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  helpers,
   ...
 }: {
   config = {
@@ -44,48 +45,32 @@
       };
     };
 
-    lua_keymaps = let
-      nrsilent = rhs: {
-        rhs = rhs;
-        opts = {
-          remap = false;
-          silent = true;
-        };
-      };
-    in {
-      n = {
-        "ft" = nrsilent "<cmd>Neotree<CR>";
-        "fG" = nrsilent "<cmd>Neotree git_status<CR>";
-        "fR" = nrsilent "<cmd>Neotree remote<CR>";
-        "fc" = nrsilent "<cmd>Neotree close<CR>";
+    maps.normal = helpers.mkModeMaps {silent = true;} {
+      "ft" = "<cmd>Neotree<CR>";
+      "fG" = "<cmd>Neotree git_status<CR>";
+      "fR" = "<cmd>Neotree remote<CR>";
+      "fc" = "<cmd>Neotree close<CR>";
+      "bp" = "<cmd>Telescope buffers<CR>";
 
-        "bp" = nrsilent "<cmd>Telescope buffers<CR>";
+      "<C-s>" = "<cmd>Telescope spell_suggest<CR>";
+      "mk" = "<cmd>Telescope keymaps<CR>";
+      "fg" = "<cmd>Telescope git_files<CR>";
 
-        "<C-s>" = nrsilent "<cmd>Telescope spell_suggest<CR>";
-        "mk" = nrsilent "<cmd>Telescope keymaps<CR>";
-        "fg" = nrsilent "<cmd>Telescope git_files<CR>";
+      "gr" = "<cmd>Telescope lsp_references<CR>";
+      "gI" = "<cmd>Telescope lsp_implementations<CR>";
+      "gW" = "<cmd>Telescope lsp_workspace_symbols<CR>";
+      "gF" = "<cmd>Telescope lsp_document_symbols<CR>";
+      "ge" = "<cmd>Telescope diagnostics bufnr=0<CR>";
+      "gE" = "<cmd>Telescope diagnostics<CR>";
 
-        "gr" = nrsilent "<cmd>Telescope lsp_references<CR>";
-        "gI" = nrsilent "<cmd>Telescope lsp_implementations<CR>";
-        "gW" = nrsilent "<cmd>Telescope lsp_workspace_symbols<CR>";
-        "gF" = nrsilent "<cmd>Telescope lsp_document_symbols<CR>";
-        "ge" = nrsilent "<cmd>Telescope diagnostics bufnr=0<CR>";
-        "gE" = nrsilent "<cmd>Telescope diagnostics<CR>";
-        "gd" = nrsilent "<cmd>lua vim.lsp.buf.definition()<CR>";
-        "gD" = nrsilent "<cmd>lua vim.lsp.buf.declaration()<CR>";
-        "ca" = nrsilent "<cmd>lua vim.lsp.buf.code_action()<CR>";
-        "ff" = nrsilent "<cmd>lua vim.lsp.buf.format()<CR>";
-        "K" = nrsilent "<cmd>lua vim.lsp.buf.hover()<CR>";
-
-        "<leader>rn" = {
-          rhs = ''
-            function()
-            	return ":IncRename " .. vim.fn.expand("<cword>")
-            end
-          '';
-          lua = true;
-          opts = {expr = true;};
-        };
+      "<leader>rn" = {
+        action = ''
+          function()
+          	return ":IncRename " .. vim.fn.expand("<cword>")
+          end
+        '';
+        lua = true;
+        expr = true;
       };
     };
 
@@ -250,6 +235,18 @@
 
       lsp = {
         enable = true;
+
+        keymaps = {
+          silent = true;
+
+          lspBuf = {
+            "gd" = "definition";
+            "gD" = "declaration";
+            "ca" = "code_action";
+            "ff" = "format";
+            "K" = "hover";
+          };
+        };
 
         servers = {
           nil_ls = {
