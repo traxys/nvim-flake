@@ -355,6 +355,7 @@
 
       netman = {
         enable = true;
+        package = pkgs.vimPlugins.netman-nvim;
         neoTreeIntegration = true;
       };
     };
