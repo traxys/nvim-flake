@@ -174,7 +174,6 @@
         module = {
           imports = [
             ./config.nix
-            ./plugins/osc52.nix
             ./plugins/firenvim.nix
             ./plugins/editorconfig.nix
             ./plugins/headerguard.nix

@@ -75,7 +75,11 @@
     };
 
     plugins = {
-      osc52.enable = true;
+      nvim-osc52 = {
+        enable = true;
+        package = pkgs.vimPlugins.nvim-osc52;
+        keymaps.enable = true;
+      };
       null-ls = {
         enable = true;
         sources = {
