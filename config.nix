@@ -272,10 +272,8 @@
 
         server = {
           cargo.features = "all";
-          checkOnSave = {
-            enable = true;
-            command = "clippy";
-          };
+          checkOnSave = true;
+          check.command = "clippy";
         };
       };
 
