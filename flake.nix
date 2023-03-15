@@ -6,9 +6,9 @@
 
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixvim = {
-      url = "github:pta2002/nixvim";
+      #url = "github:pta2002/nixvim";
       #url = "/home/traxys/Documents/nixvim";
-      #url = "github:traxys/nixvim?ref=gitsigns_codeactions";
+      url = "github:traxys/nixvim?ref=dev";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neovim-flake = {
