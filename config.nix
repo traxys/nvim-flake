@@ -215,7 +215,6 @@
         };
         enable = true;
       };
-      editorconfig.enable = true;
       headerguard.enable = true;
 
       comment-nvim = {

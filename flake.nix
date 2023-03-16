@@ -175,7 +175,6 @@
           imports = [
             ./config.nix
             ./plugins/firenvim.nix
-            ./plugins/editorconfig.nix
             ./plugins/headerguard.nix
             ./plugins/lsp-signature.nix
             ./plugins/inc-rename.nix
