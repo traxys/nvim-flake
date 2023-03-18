@@ -295,19 +295,19 @@
         "type": "github"
       }
     },
-    "plugin:cmp-vsnip": {
+    "plugin:cmp_luasnip": {
       "flake": false,
       "locked": {
-        "lastModified": 1669100283,
-        "narHash": "sha256-2mkN03noOr5vBvRbSb35xZKorSH+8savQNZtgM9+QcM=",
-        "owner": "hrsh7th",
-        "repo": "cmp-vsnip",
-        "rev": "989a8a73c44e926199bfd05fa7a516d51f2d2752",
+        "lastModified": 1666943769,
+        "narHash": "sha256-Z5SPy3j2oHFxJ7bK8DP8Q/oRyLEMlnWyIfDaQcNVIS0=",
+        "owner": "saadparwaiz1",
+        "repo": "cmp_luasnip",
+        "rev": "18095520391186d634a0045dacaa346291096566",
         "type": "github"
       },
       "original": {
-        "owner": "hrsh7th",
-        "repo": "cmp-vsnip",
+        "owner": "saadparwaiz1",
+        "repo": "cmp_luasnip",
         "type": "github"
       }
     },
@@ -436,6 +436,22 @@
       "original": {
         "owner": "nvim-lualine",
         "repo": "lualine.nvim",
+        "type": "github"
+      }
+    },
+    "plugin:luasnip": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1678734225,
+        "narHash": "sha256-F3S8+bCysJuz/e61YDewYdfFS3IUh/t1/u3jzEOf/2c=",
+        "owner": "L3MON4D3",
+        "repo": "LuaSnip",
+        "rev": "a835e3d680c5940b61780c6af07885db95382478",
+        "type": "github"
+      },
+      "original": {
+        "owner": "L3MON4D3",
+        "repo": "LuaSnip",
         "type": "github"
       }
     },
@@ -823,7 +839,7 @@
         "plugin:cmp-calc": "plugin:cmp-calc",
         "plugin:cmp-nvim-lsp": "plugin:cmp-nvim-lsp",
         "plugin:cmp-path": "plugin:cmp-path",
-        "plugin:cmp-vsnip": "plugin:cmp-vsnip",
+        "plugin:cmp_luasnip": "plugin:cmp_luasnip",
         "plugin:comment-nvim": "plugin:comment-nvim",
         "plugin:firenvim": "plugin:firenvim",
         "plugin:git-messenger-vim": "plugin:git-messenger-vim",
@@ -832,6 +848,7 @@
         "plugin:indent-blankline-nvim": "plugin:indent-blankline-nvim",
         "plugin:lspkind-nvim": "plugin:lspkind-nvim",
         "plugin:lualine-nvim": "plugin:lualine-nvim",
+        "plugin:luasnip": "plugin:luasnip",
         "plugin:netman-nvim": "plugin:netman-nvim",
         "plugin:noice-nvim": "plugin:noice-nvim",
         "plugin:nui-nvim": "plugin:nui-nvim",

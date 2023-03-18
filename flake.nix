@@ -41,8 +41,8 @@
       url = "github:hrsh7th/cmp-path";
       flake = false;
     };
-    "plugin:cmp-vsnip" = {
-      url = "github:hrsh7th/cmp-vsnip";
+    "plugin:cmp_luasnip" = {
+      url = "github:saadparwaiz1/cmp_luasnip";
       flake = false;
     };
     "plugin:comment-nvim" = {
@@ -151,6 +151,10 @@
     };
     "plugin:vim-matchup" = {
       url = "github:andymass/vim-matchup";
+      flake = false;
+    };
+    "plugin:luasnip" = {
+      url = "github:L3MON4D3/LuaSnip";
       flake = false;
     };
 
