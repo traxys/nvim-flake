@@ -105,7 +105,7 @@
     plugins.gitsigns.enable = true;
     plugins.gitmessenger.enable = true;
 
-    plugins.firenvim.enable = true;
+    plugins.firenvim.enable = false;
 
     plugins.luasnip = {
       enable = true;
