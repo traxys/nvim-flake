@@ -365,12 +365,6 @@
       };
     };
 
-    extraConfigLuaPost = ''
-      if vim.g.started_by_firenvim then
-      	require("noice").cmd("disable")
-      end
-    '';
-
     extraPlugins = with pkgs.vimPlugins; [
       telescope-ui-select-nvim
       vim-vsnip
