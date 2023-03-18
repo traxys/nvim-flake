@@ -1,44 +1,27 @@
 {
   config,
+  helpers,
   lib,
   ...
 }:
-with lib; {
-  options.filetype = {
-    enable = mkEnableOption "Enable filetype management";
+with lib; let
+  filetypeDefinition = helpers.mkNullOrOption (types.attrsOf (
+    types.either types.str helpers.rawType
+  ));
+in {
+  options.filetype =
+    helpers.mkCompositeOption ''
+      Define additional filetypes. The values can either be a literal filetype or a function
+      taking the filepath and the buffer number.
 
-    literal = mkOption {
-      type = types.attrsOf types.str;
-      default = {};
-      description = "Literal filetype matching";
+      For more information check `:h vim.filetype.add()`
+    '' {
+      extension = filetypeDefinition "set filetypes matching the file extension";
+      filename = filetypeDefinition "set filetypes matching the file name (or path)";
+      pattern = filetypeDefinition "set filetypes matching the specified pattern";
     };
 
-    extensions = mkOption {
-      type = types.attrsOf types.str;
-      default = {};
-      description = "Extension filetype matching";
-    };
-  };
-
-  config = let
-    cfg = config.filetype;
-  in
-    mkIf cfg.enable {
-      autoCmd =
-        (
-          mapAttrsToList
-          (name: ft: {
-            event = ["BufRead" "BufNewFile"];
-            pattern = name;
-            command = "setfiletype ${ft}";
-          })
-          cfg.literal
-        )
-        ++ (mapAttrsToList (ext: ft: {
-            event = "BufRead,BufNewFile";
-            pattern = "*.${ext}";
-            command = "setfiletype ${ft}";
-          })
-          cfg.extensions);
-    };
+  config.extraConfigLua = helpers.mkIfNonNull' config.filetype ''
+    vim.filetype.add(${helpers.toLuaObject config.filetype})
+  '';
 }

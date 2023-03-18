@@ -33,14 +33,10 @@
     };
 
     filetype = {
-      enable = true;
-
-      literal = {
+      filename = {
         Jenkinsfile = "groovy";
       };
-      extensions = {
-        nix = "nix";
-        rsh = "rsh";
+      extension = {
         lalrpop = "lalrpop";
       };
     };
