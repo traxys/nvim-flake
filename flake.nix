@@ -157,6 +157,10 @@
       url = "github:L3MON4D3/LuaSnip";
       flake = false;
     };
+    "plugin:openscad-nvim" = {
+      url = "github:salkin-mada/openscad.nvim";
+      flake = false;
+    };
 
     # Manually handled plugins
     "nvim-treesitter" = {
@@ -182,6 +186,7 @@
             ./plugins/headerguard.nix
             ./plugins/lsp-signature.nix
             ./plugins/fidget.nix
+            ./plugins/openscad.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim.overrideAttrs (_: {
@@ -223,6 +228,9 @@
                 vimPlugins =
                   prev.vimPlugins
                   // {
+                    openscad-nvim = prev.vimPlugins.openscad-nvim.overrideAttrs (old: {
+                      pname = "openscad.nvim";
+                    });
                     plenary-nvim = prev.vimPlugins.plenary-nvim.overrideAttrs (old: {
                       postPatch = ''
                         sed -Ei lua/plenary/curl.lua \

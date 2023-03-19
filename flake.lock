@@ -647,6 +647,22 @@
         "type": "github"
       }
     },
+    "plugin:openscad-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1650061893,
+        "narHash": "sha256-48CjIpXZJh27k/w+B8ovxKAfCVUvem3zVucxpV5qHbg=",
+        "owner": "salkin-mada",
+        "repo": "openscad.nvim",
+        "rev": "197ca5ea7ca53702c453f862e7f4734b51c7023e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "salkin-mada",
+        "repo": "openscad.nvim",
+        "type": "github"
+      }
+    },
     "plugin:plantuml-syntax": {
       "flake": false,
       "locked": {
@@ -861,6 +877,7 @@
         "plugin:nvim-tree-lua": "plugin:nvim-tree-lua",
         "plugin:nvim-treesitter-context": "plugin:nvim-treesitter-context",
         "plugin:nvim-treesitter-refactor": "plugin:nvim-treesitter-refactor",
+        "plugin:openscad-nvim": "plugin:openscad-nvim",
         "plugin:plantuml-syntax": "plugin:plantuml-syntax",
         "plugin:plenary-nvim": "plugin:plenary-nvim",
         "plugin:rust-tools-nvim": "plugin:rust-tools-nvim",
