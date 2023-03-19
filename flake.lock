@@ -885,7 +885,24 @@
         "plugin:telescope-ui-select-nvim": "plugin:telescope-ui-select-nvim",
         "plugin:trouble-nvim": "plugin:trouble-nvim",
         "plugin:vim-headerguard": "plugin:vim-headerguard",
-        "plugin:vim-matchup": "plugin:vim-matchup"
+        "plugin:vim-matchup": "plugin:vim-matchup",
+        "sca2d": "sca2d"
+      }
+    },
+    "sca2d": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1653648459,
+        "narHash": "sha256-P+7g57AH8H7q0hBE2I9w8A+bN5M6MPbc9gA0b889aoQ=",
+        "owner": "bath_open_instrumentation_group",
+        "repo": "sca2d",
+        "rev": "69793e4c6616c1c4d491b31fe5f7a21f27df341b",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "bath_open_instrumentation_group",
+        "repo": "sca2d",
+        "type": "gitlab"
       }
     },
     "utils": {

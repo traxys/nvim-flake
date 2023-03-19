@@ -405,7 +405,39 @@
 
     extraConfigLuaPost = ''
       require("luasnip.loaders.from_snipmate").lazy_load()
+
+      local null_ls = require("null-ls")
+      local helpers = require("null-ls.helpers")
+
+      local sca2d = {
+        method = null_ls.methods.DIAGNOSTICS,
+        filetypes = { "openscad" },
+        generator = null_ls.generator({
+          command = "sca2d",
+          args = { "$FILENAME" },
+          from_stderr = false,
+          to_stdin = true,
+          format = "line",
+          check_exit_code = function(code)
+            return code <= 1
+          end,
+          on_output = helpers.diagnostics.from_pattern(
+            [[[^:]+:(%d+):(%d+): (%w)%d+: (.*)]], {"row", "col", "severity", "message"}, {
+              severities = {
+                F = helpers.diagnostics.severities["error"],
+                E = helpers.diagnostics.severities["error"],
+                W = helpers.diagnostics.severities["warning"],
+                D = helpers.diagnostics.severities["warning"],
+                I = helpers.diagnostics.severities["info"],
+              },
+          }),
+        }),
+      }
+
+      null_ls.register(sca2d)
     '';
+
+    extraPackages = with pkgs; [sca2d];
 
     extraPlugins = with pkgs.vimPlugins; [
       telescope-ui-select-nvim

@@ -16,6 +16,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Misc tools
+    sca2d = {
+      url = "gitlab:bath_open_instrumentation_group/sca2d";
+      flake = false;
+    };
+
     # Automatically handled plugins
     "plugin:clangd_extensions-nvim" = {
       url = "github:p00f/clangd_extensions.nvim";
@@ -214,6 +220,7 @@
             (final: prev: let
               buildPlugPkg = buildPlug prev;
             in {
+              inherit sca2d;
               vimPlugins =
                 prev.vimPlugins
                 // (listToAttrs (map (plugin: {
@@ -266,6 +273,33 @@
 
         nixvim' = nixvim.legacyPackages."${system}";
         nvim = nixvim'.makeNixvimWithModule {inherit module pkgs;};
+
+        lark-0-10 = pkgs.python3Packages.lark.overrideAttrs (old: rec {
+          version = "0.10.0";
+
+          src = pkgs.fetchFromGitHub {
+            owner = "lark-parser";
+            repo = "lark";
+            rev = "refs/tags/${version}";
+            sha256 = "sha256-ctdPPKPSD4weidyhyj7RCV89baIhmuxucF3/Ojx1Efo=";
+          };
+
+          disabledTestPaths = ["tests/test_nearley/test_nearley.py"];
+        });
+
+        sca2d-pkg = {
+          python3Packages,
+          stdenv,
+        }:
+          python3Packages.buildPythonApplication {
+            pname = "sca2d";
+            version = inputs.sca2d.shortRev;
+
+            src = inputs.sca2d;
+            nativeBuildInputs = with python3Packages; [poetry-core];
+            propagatedBuildInputs = with python3Packages; [lark-0-10 colorama];
+          };
+        sca2d = pkgs.callPackage sca2d-pkg {};
       in {
         checks.launch = pkgs.stdenv.mkDerivation {
           name = "launch-nvim";
@@ -296,7 +330,7 @@
           packages = [nvim];
         };
         packages = {
-          inherit nvim;
+          inherit nvim sca2d;
           default = nvim;
         };
       });
