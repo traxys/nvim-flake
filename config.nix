@@ -26,6 +26,7 @@
       updatetime = 100;
       colorcolumn = "100";
       spell = true;
+      listchars = "tab:>-,lead:·,nbsp:␣,trail:•";
     };
 
     commands = {
