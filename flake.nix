@@ -201,71 +201,78 @@
           });
         };
 
-        plugins = filter (s: (match "plugin:.*" s) != null) (attrNames inputs);
-        plugName = input:
-          substring
-          (stringLength "plugin:")
-          (stringLength input)
-          input;
-
-        buildPlug = pkgs: name:
-          pkgs.vimUtils.buildVimPluginFrom2Nix {
-            pname = plugName name;
-            version = "master";
-            src = getAttr name inputs;
-          };
+        inputsMatching = prefix:
+          pkgs.lib.mapAttrs'
+          (prefixedName: value: {
+            name = substring (stringLength "${prefix}:") (stringLength prefixedName) prefixedName;
+            inherit value;
+          })
+          (pkgs.lib.filterAttrs
+            (name: _: (match "${prefix}:.*" name) != null)
+            inputs);
 
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
-            (final: prev: let
-              buildPlugPkg = buildPlug prev;
-            in {
+            (final: prev: {
               inherit sca2d;
               vimPlugins =
                 prev.vimPlugins
-                // (listToAttrs (map (plugin: {
-                    name = plugName plugin;
-                    value = buildPlugPkg plugin;
-                  })
-                  plugins));
+                // (pkgs.lib.mapAttrs (
+                  pname: src:
+                    prev.vimPlugins."${pname}".overrideAttrs (old: {
+                      version = src.shortRev;
+                      src = src;
+                    })
+                ) (inputsMatching "plugin"))
+                // (
+                  pkgs.lib.mapAttrs (
+                    pname: src:
+                      prev.vimUtils.buildVimPluginFrom2Nix {
+                        inherit pname src;
+                        version = src.shortRev;
+                      }
+                  ) (inputsMatching "new-plugin")
+                );
             })
 
-            (
-              final: prev: {
-                vimPlugins =
-                  prev.vimPlugins
-                  // {
-                    plenary-nvim = prev.vimPlugins.plenary-nvim.overrideAttrs (old: {
-                      postPatch = ''
-                        sed -Ei lua/plenary/curl.lua \
-                            -e 's@(command\s*=\s*")curl(")@\1${final.curl}/bin/curl\2@'
-                      '';
+            (final: prev: {
+              vimPlugins =
+                prev.vimPlugins
+                // {
+                  nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs (old: {
+                    passthru =
+                      old.passthru
+                      // {
+                        withPlugins = f:
+                          final.vimPlugins.nvim-treesitter.overrideAttrs (_: {
+                            passthru.dependencies =
+                              map
+                              (
+                                grammar: let
+                                  lib = pkgs.lib;
+                                  name = lib.pipe grammar [
+                                    lib.getName
 
-                      doInstallCheck = true;
-                      nvimRequireCheck = "plenary";
-                    });
-                    telescope-nvim = prev.vimPlugins.telescope-nvim.overrideAttrs (old: {
-                      dependencies = with final; [vimPlugins.plenary-nvim];
-                    });
-                    gitsigns-nvim = prev.vimPlugins.gitsigns-nvim.overrideAttrs (old: {
-                      dependencies = with final; [vimPlugins.plenary-nvim];
-                    });
-                    noice-nvim = prev.vimPlugins.noice-nvim.overrideAttrs (old: {
-                      dependencies = with final; [vimPlugins.nui-nvim vimPlugins.nvim-notify];
-                    });
-                    null-ls-nvim = prev.vimPlugins.null-ls-nvim.overrideAttrs (old: {
-                      dependencies = with final; [vimPlugins.plenary-nvim];
-                    });
-                    nvim-treesitter = prev.vimUtils.buildVimPluginFrom2Nix {
-                      inherit (prev.vimPlugins.nvim-treesitter) pname passthru;
-                      version = "master";
+                                    # added in buildGrammar
+                                    (lib.removeSuffix "-grammar")
 
-                      src = inputs.nvim-treesitter;
-                    };
-                  };
-              }
-            )
+                                    # grammars from tree-sitter.builtGrammars
+                                    (lib.removePrefix "tree-sitter-")
+                                    (lib.replaceStrings ["-"] ["_"])
+                                  ];
+                                in
+                                  pkgs.runCommand "nvim-treesitter-${name}-grammar" {} ''
+                                    mkdir -p $out/parser
+                                    ln -s ${grammar}/parser $out/parser/${name}.so
+                                  ''
+                              )
+                              (f (tree-sitter.builtGrammars // builtGrammars));
+                          });
+                      };
+                  });
+                };
+            })
           ];
         };
 
