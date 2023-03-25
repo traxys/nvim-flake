@@ -146,11 +146,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1678875422,
-        "narHash": "sha256-T3o6NcQPwXjxJMn2shz86Chch4ljXgZn746c2caGxd8=",
+        "lastModified": 1679644522,
+        "narHash": "sha256-Fgi0g7NHz7h+/dXFdyDmUeQrARxmfzTlkcxsyiW3dPQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "126f49a01de5b7e35a43fd43f891ecf6d3a51459",
+        "rev": "d4660b45bc031d98cecd233babf1df7f6d64b65e",
         "type": "github"
       },
       "original": {
@@ -186,15 +186,16 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1679177879,
-        "narHash": "sha256-/Zy+nVNoh3GHPF6vX7kIIa7SinkuWxbyOyG+nHKp5kA=",
-        "owner": "pta2002",
+        "lastModified": 1679739879,
+        "narHash": "sha256-E1dDNsJHSfhmlIaQekP4mPc3nCapqB+oxH/6IqupLCk=",
+        "owner": "traxys",
         "repo": "nixvim",
-        "rev": "09a2e9afb6a6ebe64a4026b095a90242a7a11669",
+        "rev": "02d23fbeb1314b413979bb80cb2db8ffee06e70a",
         "type": "github"
       },
       "original": {
-        "owner": "pta2002",
+        "owner": "traxys",
+        "ref": "dev",
         "repo": "nixvim",
         "type": "github"
       }
@@ -647,22 +648,6 @@
         "type": "github"
       }
     },
-    "plugin:openscad-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1650061893,
-        "narHash": "sha256-48CjIpXZJh27k/w+B8ovxKAfCVUvem3zVucxpV5qHbg=",
-        "owner": "salkin-mada",
-        "repo": "openscad.nvim",
-        "rev": "197ca5ea7ca53702c453f862e7f4734b51c7023e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "salkin-mada",
-        "repo": "openscad.nvim",
-        "type": "github"
-      }
-    },
     "plugin:plantuml-syntax": {
       "flake": false,
       "locked": {
@@ -877,7 +862,6 @@
         "plugin:nvim-tree-lua": "plugin:nvim-tree-lua",
         "plugin:nvim-treesitter-context": "plugin:nvim-treesitter-context",
         "plugin:nvim-treesitter-refactor": "plugin:nvim-treesitter-refactor",
-        "plugin:openscad-nvim": "plugin:openscad-nvim",
         "plugin:plantuml-syntax": "plugin:plantuml-syntax",
         "plugin:plenary-nvim": "plugin:plenary-nvim",
         "plugin:rust-tools-nvim": "plugin:rust-tools-nvim",
