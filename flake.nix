@@ -22,7 +22,7 @@
       flake = false;
     };
 
-    # Automatically handled plugins
+    # Plugins in nixpkgs
     "plugin:clangd_extensions-nvim" = {
       url = "github:p00f/clangd_extensions.nvim";
       flake = false;
@@ -151,10 +151,6 @@
       url = "github:folke/trouble.nvim";
       flake = false;
     };
-    "plugin:vim-headerguard" = {
-      url = "github:drmikehenry/vim-headerguard";
-      flake = false;
-    };
     "plugin:vim-matchup" = {
       url = "github:andymass/vim-matchup";
       flake = false;
@@ -163,16 +159,46 @@
       url = "github:L3MON4D3/LuaSnip";
       flake = false;
     };
-    # Plugin does not really move, don't want to perform overrides
-    #
-    # "plugin:openscad-nvim" = {
-    #   url = "github:salkin-mada/openscad.nvim";
-    #   flake = false;
-    # };
-
-    # Manually handled plugins
-    "nvim-treesitter" = {
+    "plugin:nvim-treesitter" = {
       url = "github:nvim-treesitter/nvim-treesitter";
+      flake = false;
+    };
+    "plugin:openscad-nvim" = {
+      url = "github:salkin-mada/openscad.nvim";
+      flake = false;
+    };
+    "plugin:neo-tree-nvim" = {
+      url = "github:nvim-neo-tree/neo-tree.nvim";
+      flake = false;
+    };
+    "plugin:nvim-web-devicons" = {
+      url = "github:nvim-tree/nvim-web-devicons";
+      flake = false;
+    };
+    "plugin:popup-nvim" = {
+      url = "github:nvim-lua/popup.nvim";
+      flake = false;
+    };
+    "plugin:skim-vim" = {
+      url = "github:lotabout/skim.vim";
+      flake = false;
+    };
+    "plugin:tokyonight-nvim" = {
+      url = "github:folke/tokyonight.nvim";
+      flake = false;
+    };
+    "plugin:vim-snippets" = {
+      url = "github:honza/vim-snippets";
+      flake = false;
+    };
+    "plugin:markdown-preview-nvim" = {
+      url = "github:iamcco/markdown-preview.nvim";
+      flake = false;
+    };
+
+    # Plugins that are not in nixpkgs
+    "new-plugin:vim-headerguard" = {
+      url = "github:drmikehenry/vim-headerguard";
       flake = false;
     };
   };
