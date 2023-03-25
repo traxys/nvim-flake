@@ -435,7 +435,7 @@
         }),
       }
 
-      null_ls.register(sca2d)
+      -- null_ls.register(sca2d)
     '';
 
     extraPackages = with pkgs; [sca2d];
