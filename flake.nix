@@ -2,8 +2,6 @@
   description = "A very basic flake";
 
   inputs = {
-    flake-utils.url = "github:numtide/flake-utils";
-
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixvim = {
       #url = "github:pta2002/nixvim";
@@ -208,163 +206,162 @@
     self,
     nixpkgs,
     nixvim,
-    flake-utils,
     neovim-flake,
     ...
   } @ inputs:
-    with builtins;
-      flake-utils.lib.eachDefaultSystem (system: let
-        module = {
-          imports = [
-            ./config.nix
-            ./plugins/firenvim.nix
-            ./plugins/headerguard.nix
-            ./plugins/lsp-signature.nix
-            ./plugins/fidget.nix
-            ./modules
-          ];
-          package = neovim-flake.packages."${system}".neovim.overrideAttrs (_: {
-            patches = [];
-          });
-        };
-
-        inputsMatching = prefix:
-          pkgs.lib.mapAttrs'
-          (prefixedName: value: {
-            name = substring (stringLength "${prefix}:") (stringLength prefixedName) prefixedName;
-            inherit value;
-          })
-          (pkgs.lib.filterAttrs
-            (name: _: (match "${prefix}:.*" name) != null)
-            inputs);
-
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [
-            (final: prev: {
-              inherit sca2d;
-              inherit (inputs.nixfiles.packages."${system}") lemminx-bin;
-              vimPlugins =
-                prev.vimPlugins
-                // (pkgs.lib.mapAttrs (
-                  pname: src:
-                    prev.vimPlugins."${pname}".overrideAttrs (old: {
-                      version = src.shortRev;
-                      src = src;
-                    })
-                ) (inputsMatching "plugin"))
-                // (
-                  pkgs.lib.mapAttrs (
-                    pname: src:
-                      prev.vimUtils.buildVimPluginFrom2Nix {
-                        inherit pname src;
-                        version = src.shortRev;
-                      }
-                  ) (inputsMatching "new-plugin")
-                );
-            })
-
-            (final: prev: {
-              vimPlugins =
-                prev.vimPlugins
-                // {
-                  nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs (old: {
-                    passthru =
-                      old.passthru
-                      // {
-                        withPlugins = f:
-                          final.vimPlugins.nvim-treesitter.overrideAttrs (_: {
-                            passthru.dependencies =
-                              map
-                              (
-                                grammar: let
-                                  lib = pkgs.lib;
-                                  name = lib.pipe grammar [
-                                    lib.getName
-
-                                    # added in buildGrammar
-                                    (lib.removeSuffix "-grammar")
-
-                                    # grammars from tree-sitter.builtGrammars
-                                    (lib.removePrefix "tree-sitter-")
-                                    (lib.replaceStrings ["-"] ["_"])
-                                  ];
-                                in
-                                  pkgs.runCommand "nvim-treesitter-${name}-grammar" {} ''
-                                    mkdir -p $out/parser
-                                    ln -s ${grammar}/parser $out/parser/${name}.so
-                                  ''
-                              )
-                              (f (tree-sitter.builtGrammars // builtGrammars));
-                          });
-                      };
-                  });
-                };
-            })
-          ];
-        };
-
-        nixvim' = nixvim.legacyPackages."${system}";
-        nvim = nixvim'.makeNixvimWithModule {inherit module pkgs;};
-
-        lark-0-10 = pkgs.python3Packages.lark.overrideAttrs (old: rec {
-          version = "0.10.0";
-
-          src = pkgs.fetchFromGitHub {
-            owner = "lark-parser";
-            repo = "lark";
-            rev = "refs/tags/${version}";
-            sha256 = "sha256-ctdPPKPSD4weidyhyj7RCV89baIhmuxucF3/Ojx1Efo=";
-          };
-
-          disabledTestPaths = ["tests/test_nearley/test_nearley.py"];
+    with builtins; let
+      system = "x86_64-linux";
+      module = {
+        imports = [
+          ./config.nix
+          ./plugins/firenvim.nix
+          ./plugins/headerguard.nix
+          ./plugins/lsp-signature.nix
+          ./plugins/fidget.nix
+          ./modules
+        ];
+        package = neovim-flake.packages."${system}".neovim.overrideAttrs (_: {
+          patches = [];
         });
+      };
 
-        sca2d-pkg = {
-          python3Packages,
-          stdenv,
-        }:
-          python3Packages.buildPythonApplication {
-            pname = "sca2d";
-            version = inputs.sca2d.shortRev;
+      inputsMatching = prefix:
+        pkgs.lib.mapAttrs'
+        (prefixedName: value: {
+          name = substring (stringLength "${prefix}:") (stringLength prefixedName) prefixedName;
+          inherit value;
+        })
+        (pkgs.lib.filterAttrs
+          (name: _: (match "${prefix}:.*" name) != null)
+          inputs);
 
-            src = inputs.sca2d;
-            nativeBuildInputs = with python3Packages; [poetry-core];
-            propagatedBuildInputs = with python3Packages; [lark-0-10 colorama];
-          };
-        sca2d = pkgs.callPackage sca2d-pkg {};
-      in {
-        checks.launch = pkgs.stdenv.mkDerivation {
-          name = "launch-nvim";
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          (final: prev: {
+            inherit sca2d;
+            inherit (inputs.nixfiles.packages."${system}") lemminx-bin;
+            vimPlugins =
+              prev.vimPlugins
+              // (pkgs.lib.mapAttrs (
+                pname: src:
+                  prev.vimPlugins."${pname}".overrideAttrs (old: {
+                    version = src.shortRev;
+                    src = src;
+                  })
+              ) (inputsMatching "plugin"))
+              // (
+                pkgs.lib.mapAttrs (
+                  pname: src:
+                    prev.vimUtils.buildVimPluginFrom2Nix {
+                      inherit pname src;
+                      version = src.shortRev;
+                    }
+                ) (inputsMatching "new-plugin")
+              );
+          })
 
-          nativeBuildInputs = [self.packages."${system}".nvim pkgs.docker-client];
+          (final: prev: {
+            vimPlugins =
+              prev.vimPlugins
+              // {
+                nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs (old: {
+                  passthru =
+                    old.passthru
+                    // {
+                      withPlugins = f:
+                        final.vimPlugins.nvim-treesitter.overrideAttrs (_: {
+                          passthru.dependencies =
+                            map
+                            (
+                              grammar: let
+                                lib = pkgs.lib;
+                                name = lib.pipe grammar [
+                                  lib.getName
 
-          dontUnpack = true;
-          # We need to set HOME because neovim will try to create some files
-          #
-          # Because neovim does not return an exitcode when quitting we need to check if there are
-          # errors on stderr
-          buildPhase = ''
-            output=$(HOME=$(realpath .) nvim -mn --headless "+q" 2>&1 >/dev/null)
-            if [[ -n $output ]]; then
-            	echo "ERROR: $output"
-              exit 1
-            fi
-          '';
+                                  # added in buildGrammar
+                                  (lib.removeSuffix "-grammar")
 
-          # If we don't do this nix is not happy
-          installPhase = ''
-            mkdir $out
-          '';
+                                  # grammars from tree-sitter.builtGrammars
+                                  (lib.removePrefix "tree-sitter-")
+                                  (lib.replaceStrings ["-"] ["_"])
+                                ];
+                              in
+                                pkgs.runCommand "nvim-treesitter-${name}-grammar" {} ''
+                                  mkdir -p $out/parser
+                                  ln -s ${grammar}/parser $out/parser/${name}.so
+                                ''
+                            )
+                            (f (tree-sitter.builtGrammars // builtGrammars));
+                        });
+                    };
+                });
+              };
+          })
+        ];
+      };
+
+      nixvim' = nixvim.legacyPackages."${system}";
+      nvim = nixvim'.makeNixvimWithModule {inherit module pkgs;};
+
+      lark-0-10 = pkgs.python3Packages.lark.overrideAttrs (old: rec {
+        version = "0.10.0";
+
+        src = pkgs.fetchFromGitHub {
+          owner = "lark-parser";
+          repo = "lark";
+          rev = "refs/tags/${version}";
+          sha256 = "sha256-ctdPPKPSD4weidyhyj7RCV89baIhmuxucF3/Ojx1Efo=";
         };
-        formatter = pkgs.alejandra;
 
-        devShell = pkgs.mkShell {
-          packages = [nvim];
-        };
-        packages = {
-          inherit nvim sca2d;
-          default = nvim;
-        };
+        disabledTestPaths = ["tests/test_nearley/test_nearley.py"];
       });
+
+      sca2d-pkg = {
+        python3Packages,
+        stdenv,
+      }:
+        python3Packages.buildPythonApplication {
+          pname = "sca2d";
+          version = inputs.sca2d.shortRev;
+
+          src = inputs.sca2d;
+          nativeBuildInputs = with python3Packages; [poetry-core];
+          propagatedBuildInputs = with python3Packages; [lark-0-10 colorama];
+        };
+      sca2d = pkgs.callPackage sca2d-pkg {};
+    in {
+      checks."${system}".launch = pkgs.stdenv.mkDerivation {
+        name = "launch-nvim";
+
+        nativeBuildInputs = [self.packages."${system}".nvim pkgs.docker-client];
+
+        dontUnpack = true;
+        # We need to set HOME because neovim will try to create some files
+        #
+        # Because neovim does not return an exitcode when quitting we need to check if there are
+        # errors on stderr
+        buildPhase = ''
+          output=$(HOME=$(realpath .) nvim -mn --headless "+q" 2>&1 >/dev/null)
+          if [[ -n $output ]]; then
+          	echo "ERROR: $output"
+            exit 1
+          fi
+        '';
+
+        # If we don't do this nix is not happy
+        installPhase = ''
+          mkdir $out
+        '';
+      };
+      formatter."${system}" = pkgs.alejandra;
+
+      devShells."${system}".default = pkgs.mkShell {
+        packages = [nvim];
+      };
+      packages."${system}" = {
+        inherit nvim sca2d;
+        default = nvim;
+      };
+    };
 }
