@@ -15,6 +15,7 @@
       url = "github:neovim/neovim?dir=contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixfiles.url = "github:traxys/Nixfiles";
 
     # Misc tools
     sca2d = {
@@ -242,6 +243,7 @@
           overlays = [
             (final: prev: {
               inherit sca2d;
+              inherit (inputs.nixfiles.packages."${system}") lemminx-bin;
               vimPlugins =
                 prev.vimPlugins
                 // (pkgs.lib.mapAttrs (

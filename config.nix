@@ -273,6 +273,15 @@
     plugins.lsp = {
       enable = true;
 
+      enabledServers = [
+        {
+          name = "lemminx";
+          extraOptions = {
+            cmd = ["${pkgs.lemminx-bin}/bin/lemminx-bin"];
+          };
+        }
+      ];
+
       keymaps = {
         silent = true;
 
