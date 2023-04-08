@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-teto.url = "github:teto/nixpkgs/bump-treesitter";
     nixvim = {
       #url = "github:pta2002/nixvim";
       #url = "/home/traxys/Documents/nixvim";
@@ -235,10 +236,12 @@
           (name: _: (match "${prefix}:.*" name) != null)
           inputs);
 
+      pkgs-teto = import inputs.nixpkgs-teto {inherit system;};
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
           (final: prev: {
+		  	inherit (pkgs-teto) tree-sitter;
             inherit sca2d;
             inherit (inputs.nixfiles.packages."${system}") lemminx-bin;
             vimPlugins =

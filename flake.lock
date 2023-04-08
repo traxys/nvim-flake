@@ -804,6 +804,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-teto": {
+      "locked": {
+        "lastModified": 1680878427,
+        "narHash": "sha256-D0DwGIvgqM88iRFZicP/CZ53+GoyJKu0c/bzy+1PBrw=",
+        "owner": "teto",
+        "repo": "nixpkgs",
+        "rev": "e169d958f139443890ffcdaf5dcc6b783be5af59",
+        "type": "github"
+      },
+      "original": {
+        "owner": "teto",
+        "ref": "bump-treesitter",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_10": {
       "locked": {
         "lastModified": 1662096612,
@@ -2706,6 +2722,7 @@
         "new-plugin:vim-headerguard": "new-plugin:vim-headerguard",
         "nixfiles": "nixfiles",
         "nixpkgs": "nixpkgs_14",
+        "nixpkgs-teto": "nixpkgs-teto",
         "nixvim": "nixvim_2",
         "plugin:clangd_extensions-nvim": "plugin:clangd_extensions-nvim_2",
         "plugin:cmp-buffer": "plugin:cmp-buffer_2",
