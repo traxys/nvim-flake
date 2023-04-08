@@ -198,7 +198,6 @@
         gitcommit
         gitignore
         git_rebase
-        help
         html
         ini
         json
@@ -220,6 +219,7 @@
         tlaplus
         toml
         vim
+		vimdoc
         yaml
       ];
     };
