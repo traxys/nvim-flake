@@ -1712,11 +1712,11 @@
     },
     "nixpkgs_27": {
       "locked": {
-        "lastModified": 1681002951,
-        "narHash": "sha256-nD9fXN7EVKGovtjrXIuA7Si9M6PD9b02GNtvQPTSuOk=",
+        "lastModified": 1681510139,
+        "narHash": "sha256-pmZoMRkTxEp/EIqUPScTUOOhpPOSLJSL4eahsiP2mxI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "431bf1e6cdd494e5230fbb72884afb4ca612c578",
+        "rev": "639d4f17218568afd6494dbd807bebb2beb9d6b3",
         "type": "github"
       },
       "original": {
@@ -4519,8 +4519,7 @@
         "plugin:tokyonight-nvim": "plugin:tokyonight-nvim_3",
         "plugin:trouble-nvim": "plugin:trouble-nvim_3",
         "plugin:vim-matchup": "plugin:vim-matchup_3",
-        "plugin:vim-snippets": "plugin:vim-snippets_3",
-        "sca2d": "sca2d_3"
+        "plugin:vim-snippets": "plugin:vim-snippets_3"
       }
     },
     "rust-overlay": {
@@ -4654,22 +4653,6 @@
       }
     },
     "sca2d_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1653648459,
-        "narHash": "sha256-P+7g57AH8H7q0hBE2I9w8A+bN5M6MPbc9gA0b889aoQ=",
-        "owner": "bath_open_instrumentation_group",
-        "repo": "sca2d",
-        "rev": "69793e4c6616c1c4d491b31fe5f7a21f27df341b",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "bath_open_instrumentation_group",
-        "repo": "sca2d",
-        "type": "gitlab"
-      }
-    },
-    "sca2d_3": {
       "flake": false,
       "locked": {
         "lastModified": 1653648459,
