@@ -12,3 +12,7 @@ It has a few specificities to help managing a configuration through nixvim:
   This is done through the sources of the `flake.nix`. All plugins are prefixed with `plugin:`.
   Those plugins are overridden from `nixpkgs` with their source.
   There are also sources prefixed by `new-plugin:` that are automatically added to `pkgs.vimPlugins`.
+  
+## Update
+
+The inputs are automatically updated using Github Actions, and checking that the neovim launches without any errors/warnings.
