@@ -214,9 +214,7 @@
           ./plugins/fidget.nix
           ./modules
         ];
-        package = neovim-flake.packages."${system}".neovim.overrideAttrs (_: {
-          patches = [];
-        });
+        package = neovim-flake.packages."${system}".neovim;
       };
 
       inputsMatching = prefix:
