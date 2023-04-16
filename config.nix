@@ -28,6 +28,9 @@
       colorcolumn = "100";
       spell = true;
       listchars = "tab:>-,lead:·,nbsp:␣,trail:•";
+
+      timeout = true;
+      timeoutlen = 300;
     };
 
     commands = {
@@ -496,6 +499,8 @@
       enable = true;
       picker = "telescope";
     };
+
+    plugins.which-key.enable = true;
 
     extraPackages = with pkgs; [sca2d];
 
