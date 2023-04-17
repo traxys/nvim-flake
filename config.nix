@@ -191,6 +191,9 @@
           '';
         };
       };
+      extraOptions = {
+        defaults.layout_strategy = "vertical";
+      };
     };
 
     plugins.treesitter = {
