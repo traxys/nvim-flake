@@ -188,6 +188,14 @@
       url = "github:iamcco/markdown-preview.nvim";
       flake = false;
     };
+    "plugin:which-key-nvim" = {
+      url = "github:folke/which-key.nvim";
+      flake = false;
+    };
+    "plugin:zk-nvim" = {
+      url = "github:mickael-menu/zk-nvim";
+      flake = false;
+    };
 
     # Plugins that are not in nixpkgs
     "new-plugin:vim-headerguard" = {

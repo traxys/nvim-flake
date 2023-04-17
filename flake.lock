@@ -4178,6 +4178,38 @@
         "type": "github"
       }
     },
+    "plugin:which-key-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1681746771,
+        "narHash": "sha256-YRkwLCcJJE9QXOPhCdWIWfMBEgse0Me66JLGzm8Jz9c=",
+        "owner": "folke",
+        "repo": "which-key.nvim",
+        "rev": "f82ca7fbaf4718303dbaf83dc28303fee16cf4d2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "which-key.nvim",
+        "type": "github"
+      }
+    },
+    "plugin:zk-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1681562726,
+        "narHash": "sha256-BnPG0VOSeUhorzjmTTIGpOUm41klFnX+xgxdEMHFYSQ=",
+        "owner": "mickael-menu",
+        "repo": "zk-nvim",
+        "rev": "275578853dc76d282ee5b31f86cd3a4f02d91f2f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mickael-menu",
+        "repo": "zk-nvim",
+        "type": "github"
+      }
+    },
     "poetry2nix": {
       "inputs": {
         "flake-utils": [
@@ -4519,7 +4551,9 @@
         "plugin:tokyonight-nvim": "plugin:tokyonight-nvim_3",
         "plugin:trouble-nvim": "plugin:trouble-nvim_3",
         "plugin:vim-matchup": "plugin:vim-matchup_3",
-        "plugin:vim-snippets": "plugin:vim-snippets_3"
+        "plugin:vim-snippets": "plugin:vim-snippets_3",
+        "plugin:which-key-nvim": "plugin:which-key-nvim",
+        "plugin:zk-nvim": "plugin:zk-nvim"
       }
     },
     "rust-overlay": {
