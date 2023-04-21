@@ -220,7 +220,6 @@
           ./plugins/headerguard.nix
           ./plugins/lsp-signature.nix
           ./plugins/fidget.nix
-          ./plugins/zk.nix
           ./modules
         ];
         package = neovim-flake.packages."${system}".neovim;
