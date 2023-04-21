@@ -474,7 +474,18 @@
         }),
       }
 
-      function zk_md_maps()
+      -- null_ls.register(sca2d)
+    '';
+
+    plugins.zk = {
+      enable = true;
+      picker = "telescope";
+    };
+
+    plugins.which-key.enable = true;
+
+    files."ftplugin/markdown.lua" = {
+      extraConfigLua = ''
         if require("zk.util").notebook_root(vim.fn.expand('%:p')) ~= nil then
           local function map(...) vim.api.nvim_buf_set_keymap(0, ...) end
           local opts = { noremap=true, silent=false }
@@ -502,22 +513,8 @@
           -- Open the code actions for a visual selection.
           map("v", "<leader>za", ":'<,'>lua vim.lsp.buf.range_code_action()<CR>", opts)
         end
-      end
-
-      vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
-        pattern = {"*.md"},
-        callback = zk_md_maps,
-      })
-
-      -- null_ls.register(sca2d)
-    '';
-
-    plugins.zk = {
-      enable = true;
-      picker = "telescope";
+      '';
     };
-
-    plugins.which-key.enable = true;
 
     extraPackages = with pkgs; [sca2d];
 
