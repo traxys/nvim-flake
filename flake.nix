@@ -13,7 +13,10 @@
       url = "github:neovim/neovim?dir=contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixfiles.url = "github:traxys/Nixfiles";
+    nixfiles = {
+      url = "github:traxys/Nixfiles";
+      inputs.nvim-traxys.follows = "/";
+    };
 
     # Plugins in nixpkgs
     "plugin:clangd_extensions-nvim" = {
