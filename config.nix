@@ -484,6 +484,14 @@
 
     plugins.which-key.enable = true;
 
+    files."ftplugin/nix.lua" = {
+      options = {
+        tabstop = 2;
+        shiftwidth = 2;
+        expandtab = true;
+      };
+    };
+
     files."ftplugin/markdown.lua" = {
       extraConfigLua = ''
         if require("zk.util").notebook_root(vim.fn.expand('%:p')) ~= nil then
