@@ -225,7 +225,9 @@
           ./plugins/fidget.nix
           ./modules
         ];
-        package = neovim-flake.packages."${system}".neovim;
+        package = neovim-flake.packages."${system}".neovim.overrideAttrs (oa: {
+          patches = oa.patches ++ [./fix_lpeg.patch];
+        });
       };
 
       inputsMatching = prefix:
