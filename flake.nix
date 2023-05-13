@@ -273,6 +273,9 @@
             vimPlugins =
               prev.vimPlugins
               // {
+                openscad-nvim = prev.vimPlugins.openscad-nvim.overrideAttrs (_: {
+                  patches = [./patches/openscad_program_paths.patch];
+                });
                 nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs (old: {
                   passthru =
                     old.passthru
