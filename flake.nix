@@ -225,7 +225,13 @@
           ./plugins/fidget.nix
           ./modules
         ];
-        package = neovim-flake.packages."${system}".neovim;
+        package = neovim-flake.packages."${system}".neovim.overrideAttrs (oa: {
+          patches = builtins.filter (v:
+            if pkgs.lib.attrsets.isDerivation v
+            then v.name != "use-the-correct-replacement-args-for-gsub-directive.patch"
+            else true)
+          oa.patches;
+        });
       };
 
       inputsMatching = prefix:
