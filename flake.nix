@@ -17,6 +17,7 @@
       url = "github:traxys/Nixfiles";
       inputs.nvim-traxys.follows = "/";
     };
+    flake-utils.url = "github:numtide/flake-utils";
 
     # Plugins in nixpkgs
     "plugin:clangd_extensions-nvim" = {
@@ -212,140 +213,141 @@
     nixpkgs,
     nixvim,
     neovim-flake,
+    flake-utils,
     ...
   } @ inputs:
-    with builtins; let
-      system = "x86_64-linux";
-      module = {
-        imports = [
-          ./config.nix
-          ./plugins/firenvim.nix
-          ./plugins/headerguard.nix
-          ./plugins/lsp-signature.nix
-          ./plugins/fidget.nix
-          ./modules
-        ];
-        package = neovim-flake.packages."${system}".neovim.overrideAttrs (oa: {
-          patches = builtins.filter (v:
-            if pkgs.lib.attrsets.isDerivation v
-            then v.name != "use-the-correct-replacement-args-for-gsub-directive.patch"
-            else true)
-          oa.patches;
-        });
-      };
+    flake-utils.lib.eachDefaultSystem (system:
+      with builtins; let
+        module = {
+          imports = [
+            ./config.nix
+            ./plugins/firenvim.nix
+            ./plugins/headerguard.nix
+            ./plugins/lsp-signature.nix
+            ./plugins/fidget.nix
+            ./modules
+          ];
+          package = neovim-flake.packages."${system}".neovim.overrideAttrs (oa: {
+            patches = builtins.filter (v:
+              if pkgs.lib.attrsets.isDerivation v
+              then v.name != "use-the-correct-replacement-args-for-gsub-directive.patch"
+              else true)
+            oa.patches;
+          });
+        };
 
-      inputsMatching = prefix:
-        pkgs.lib.mapAttrs'
-        (prefixedName: value: {
-          name = substring (stringLength "${prefix}:") (stringLength prefixedName) prefixedName;
-          inherit value;
-        })
-        (pkgs.lib.filterAttrs
-          (name: _: (match "${prefix}:.*" name) != null)
-          inputs);
+        inputsMatching = prefix:
+          pkgs.lib.mapAttrs'
+          (prefixedName: value: {
+            name = substring (stringLength "${prefix}:") (stringLength prefixedName) prefixedName;
+            inherit value;
+          })
+          (pkgs.lib.filterAttrs
+            (name: _: (match "${prefix}:.*" name) != null)
+            inputs);
 
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [
-          (final: prev: {
-            inherit (inputs.nixfiles.packages."${system}") lemminx-bin;
-            vimPlugins =
-              prev.vimPlugins
-              // (pkgs.lib.mapAttrs (
-                pname: src:
-                  prev.vimPlugins."${pname}".overrideAttrs (old: {
-                    version = src.shortRev;
-                    src = src;
-                  })
-              ) (inputsMatching "plugin"))
-              // (
-                pkgs.lib.mapAttrs (
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            (final: prev: {
+              inherit (inputs.nixfiles.packages."${system}") lemminx-bin;
+              vimPlugins =
+                prev.vimPlugins
+                // (pkgs.lib.mapAttrs (
                   pname: src:
-                    prev.vimUtils.buildVimPluginFrom2Nix {
-                      inherit pname src;
+                    prev.vimPlugins."${pname}".overrideAttrs (old: {
                       version = src.shortRev;
-                    }
-                ) (inputsMatching "new-plugin")
-              );
-          })
+                      src = src;
+                    })
+                ) (inputsMatching "plugin"))
+                // (
+                  pkgs.lib.mapAttrs (
+                    pname: src:
+                      prev.vimUtils.buildVimPluginFrom2Nix {
+                        inherit pname src;
+                        version = src.shortRev;
+                      }
+                  ) (inputsMatching "new-plugin")
+                );
+            })
 
-          (final: prev: {
-            vimPlugins =
-              prev.vimPlugins
-              // {
-                openscad-nvim = prev.vimPlugins.openscad-nvim.overrideAttrs (_: {
-                  patches = [./patches/openscad_program_paths.patch];
-                });
-                nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs (old: {
-                  passthru =
-                    old.passthru
-                    // {
-                      withPlugins = f:
-                        final.vimPlugins.nvim-treesitter.overrideAttrs (_: {
-                          passthru.dependencies =
-                            map
-                            (
-                              grammar: let
-                                lib = pkgs.lib;
-                                name = lib.pipe grammar [
-                                  lib.getName
+            (final: prev: {
+              vimPlugins =
+                prev.vimPlugins
+                // {
+                  openscad-nvim = prev.vimPlugins.openscad-nvim.overrideAttrs (_: {
+                    patches = [./patches/openscad_program_paths.patch];
+                  });
+                  nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs (old: {
+                    passthru =
+                      old.passthru
+                      // {
+                        withPlugins = f:
+                          final.vimPlugins.nvim-treesitter.overrideAttrs (_: {
+                            passthru.dependencies =
+                              map
+                              (
+                                grammar: let
+                                  lib = pkgs.lib;
+                                  name = lib.pipe grammar [
+                                    lib.getName
 
-                                  # added in buildGrammar
-                                  (lib.removeSuffix "-grammar")
+                                    # added in buildGrammar
+                                    (lib.removeSuffix "-grammar")
 
-                                  # grammars from tree-sitter.builtGrammars
-                                  (lib.removePrefix "tree-sitter-")
-                                  (lib.replaceStrings ["-"] ["_"])
-                                ];
-                              in
-                                pkgs.runCommand "nvim-treesitter-${name}-grammar" {} ''
-                                  mkdir -p $out/parser
-                                  ln -s ${grammar}/parser $out/parser/${name}.so
-                                ''
-                            )
-                            (f (tree-sitter.builtGrammars // builtGrammars));
-                        });
-                    };
-                });
-              };
-          })
-        ];
-      };
+                                    # grammars from tree-sitter.builtGrammars
+                                    (lib.removePrefix "tree-sitter-")
+                                    (lib.replaceStrings ["-"] ["_"])
+                                  ];
+                                in
+                                  pkgs.runCommand "nvim-treesitter-${name}-grammar" {} ''
+                                    mkdir -p $out/parser
+                                    ln -s ${grammar}/parser $out/parser/${name}.so
+                                  ''
+                              )
+                              (f (tree-sitter.builtGrammars // builtGrammars));
+                          });
+                      };
+                  });
+                };
+            })
+          ];
+        };
 
-      nixvim' = nixvim.legacyPackages."${system}";
-      nvim = nixvim'.makeNixvimWithModule {inherit module pkgs;};
-    in {
-      checks."${system}".launch = pkgs.stdenv.mkDerivation {
-        name = "launch-nvim";
+        nixvim' = nixvim.legacyPackages."${system}";
+        nvim = nixvim'.makeNixvimWithModule {inherit module pkgs;};
+      in {
+        checks.launch = pkgs.stdenv.mkDerivation {
+          name = "launch-nvim";
 
-        nativeBuildInputs = [self.packages."${system}".nvim pkgs.docker-client];
+          nativeBuildInputs = [self.packages."${system}".nvim pkgs.docker-client];
 
-        dontUnpack = true;
-        # We need to set HOME because neovim will try to create some files
-        #
-        # Because neovim does not return an exitcode when quitting we need to check if there are
-        # errors on stderr
-        buildPhase = ''
-          output=$(HOME=$(realpath .) nvim -mn --headless "+q" 2>&1 >/dev/null)
-          if [[ -n $output ]]; then
-          	echo "ERROR: $output"
-            exit 1
-          fi
-        '';
+          dontUnpack = true;
+          # We need to set HOME because neovim will try to create some files
+          #
+          # Because neovim does not return an exitcode when quitting we need to check if there are
+          # errors on stderr
+          buildPhase = ''
+            output=$(HOME=$(realpath .) nvim -mn --headless "+q" 2>&1 >/dev/null)
+            if [[ -n $output ]]; then
+            	echo "ERROR: $output"
+              exit 1
+            fi
+          '';
 
-        # If we don't do this nix is not happy
-        installPhase = ''
-          mkdir $out
-        '';
-      };
-      formatter."${system}" = pkgs.alejandra;
+          # If we don't do this nix is not happy
+          installPhase = ''
+            mkdir $out
+          '';
+        };
+        formatter = pkgs.alejandra;
 
-      devShells."${system}".default = pkgs.mkShell {
-        packages = [nvim];
-      };
-      packages."${system}" = {
-        inherit nvim;
-        default = nvim;
-      };
-    };
+        devShells.default = pkgs.mkShell {
+          packages = [nvim];
+        };
+        packages = {
+          inherit nvim;
+          default = nvim;
+        };
+      });
 }
