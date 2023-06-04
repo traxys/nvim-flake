@@ -176,6 +176,7 @@
         {name = "path";}
         {name = "buffer";}
         {name = "calc";}
+        {name = "zsh";}
       ];
     };
 
