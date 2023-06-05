@@ -334,8 +334,11 @@
         };
         bashls.enable = true;
         dartls.enable = true;
+        typst-lsp.enable = true;
       };
     };
+
+    plugins.typst-vim.enable = true;
 
     plugins.rust-tools = {
       enable = true;
