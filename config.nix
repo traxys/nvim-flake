@@ -96,6 +96,7 @@
           shellcheck.enable = true;
           cppcheck.enable = true;
           gitlint.enable = true;
+          statix.enable = true;
         };
         code_actions = {
           shellcheck.enable = true;
