@@ -489,6 +489,8 @@
 
     plugins.which-key.enable = true;
 
+    plugins.leap.enable = true;
+
     files."ftplugin/nix.lua" = {
       options = {
         tabstop = 2;
