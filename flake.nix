@@ -278,37 +278,9 @@
                   openscad-nvim = prev.vimPlugins.openscad-nvim.overrideAttrs (_: {
                     patches = [./patches/openscad_program_paths.patch];
                   });
-                  nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs (old: {
-                    passthru =
-                      old.passthru
-                      // {
-                        withPlugins = f:
-                          final.vimPlugins.nvim-treesitter.overrideAttrs (_: {
-                            passthru.dependencies =
-                              map
-                              (
-                                grammar: let
-                                  lib = pkgs.lib;
-                                  name = lib.pipe grammar [
-                                    lib.getName
-
-                                    # added in buildGrammar
-                                    (lib.removeSuffix "-grammar")
-
-                                    # grammars from tree-sitter.builtGrammars
-                                    (lib.removePrefix "tree-sitter-")
-                                    (lib.replaceStrings ["-"] ["_"])
-                                  ];
-                                in
-                                  pkgs.runCommand "nvim-treesitter-${name}-grammar" {} ''
-                                    mkdir -p $out/parser
-                                    ln -s ${grammar}/parser $out/parser/${name}.so
-                                  ''
-                              )
-                              (f (tree-sitter.builtGrammars // builtGrammars));
-                          });
-                      };
-                  });
+                  nvim-treesitter = prev.vimPlugins.nvim-treesitter.overrideAttrs (
+                    prev.callPackage ./nvim-treesitter/override.nix {} final.vimPlugins prev.vimPlugins
+                  );
                 };
             })
           ];
@@ -326,8 +298,14 @@
         devShells.default = pkgs.mkShell {
           packages = [nvim];
         };
+
         packages = {
           inherit nvim;
+          inherit (pkgs.vimPlugins) nvim-treesitter;
+          upstream = module.package;
+          update-nvim-treesitter = pkgs.callPackage ./nvim-treesitter {
+            inherit (self.packages."${system}") nvim-treesitter upstream;
+          };
           default = nvim;
         };
       });
