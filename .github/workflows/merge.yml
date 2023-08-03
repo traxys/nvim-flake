@@ -14,6 +14,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           checkName: tests
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          intervalSeconds: 60
+          timeoutSeconds: 1200
       - id: automerge
         name: automerge
         uses: "pascalgn/automerge-action@v0.15.6"
