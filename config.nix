@@ -336,6 +336,7 @@
         };
         bashls.enable = true;
         dartls.enable = true;
+        clangd.enable = true;
         typst-lsp.enable = true;
       };
     };
