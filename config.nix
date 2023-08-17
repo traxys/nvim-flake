@@ -28,6 +28,7 @@
       colorcolumn = "100";
       spell = true;
       listchars = "tab:>-,lead:·,nbsp:␣,trail:•";
+      fsync = true;
 
       timeout = true;
       timeoutlen = 300;
