@@ -206,6 +206,10 @@
       url = "github:drmikehenry/vim-headerguard";
       flake = false;
     };
+    "new-plugin:efmls-configs-nvim" = {
+      url = "github:creativenull/efmls-configs-nvim";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -224,6 +228,7 @@
             ./plugins/firenvim.nix
             ./plugins/headerguard.nix
             ./plugins/lsp-signature.nix
+            ./plugins/efmls-configs.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim.overrideAttrs (oa: {
@@ -305,6 +310,44 @@
           update-nvim-treesitter = pkgs.callPackage ./nvim-treesitter {
             inherit (self.packages."${system}") nvim-treesitter upstream;
           };
+          efmls-configs-tools-extract = pkgs.callPackage ({
+            stdenv,
+            python3,
+          }:
+            stdenv.mkDerivation {
+              pname = "efmls-configs-tools-extract";
+              version = "1";
+
+              src = ./efmls-extract.py;
+
+              dontUnpack = true;
+              dontBuild = true;
+
+              buildInputs = [python3];
+
+              installPhase = ''
+                mkdir -p $out/bin
+                cat $src > $out/bin/efmls-extract.py
+                chmod +x $out/bin/efmls-extract.py
+              '';
+            }) {};
+          efmls-configs-tools = pkgs.callPackage ({stdenv}:
+            stdenv.mkDerivation {
+              pname = "efmls-configs";
+
+              inherit (pkgs.vimPlugins.efmls-configs-nvim) src version;
+
+              nativeBuildInputs = [self.packages."${system}".efmls-configs-tools-extract];
+
+              buildPhase = ''
+                efmls-extract.py ./lua/efmls-configs > efmls-configs-tools.json
+              '';
+
+              installPhase = ''
+                mkdir -p $out
+                mv efmls-configs-tools.json $out
+              '';
+            }) {};
           default = nvim;
         };
       });

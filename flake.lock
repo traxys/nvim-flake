@@ -469,6 +469,22 @@
         "type": "github"
       }
     },
+    "new-plugin:efmls-configs-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1692310299,
+        "narHash": "sha256-4dJUNiHQTrLemZSN3WNj9i/IPGZqfL6uWQr7ghEqtXM=",
+        "owner": "creativenull",
+        "repo": "efmls-configs-nvim",
+        "rev": "cc0a737ccd69fcb85cb2dfd7f3133a8b4c7adc9c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "creativenull",
+        "repo": "efmls-configs-nvim",
+        "type": "github"
+      }
+    },
     "new-plugin:vim-headerguard": {
       "flake": false,
       "locked": {
