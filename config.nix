@@ -90,30 +90,66 @@
       package = pkgs.vimPlugins.nvim-osc52;
       keymaps.enable = true;
     };
-    plugins.null-ls = {
+    plugins.efmls-configs = {
       enable = true;
-      sources = {
-        diagnostics = {
-          shellcheck.enable = true;
-          cppcheck.enable = true;
-          gitlint.enable = true;
-          statix.enable = true;
+
+      extraInitOptions = {
+        init_options = {
+          documentFormatting = true;
         };
-        code_actions = {
-          shellcheck.enable = true;
-          #gitsigns.enable = true;
+      };
+
+      setup = {
+        all = {
+          linter = "vale";
         };
-        formatting = {
-          alejandra.enable = true;
-          black.enable = true;
-          stylua.enable = true;
-          cbfmt.enable = true;
-          shfmt.enable = true;
-          taplo.enable = true;
-          prettier.enable = true;
+
+        bash = {
+          linter = "shellcheck";
+          formatter = "shfmt";
+        };
+        c = {
+          linter = "cppcheck";
+        };
+        markdown = {
+          formatter = "cbfmt";
+        };
+        python = {
+          formatter = "black";
+        };
+        nix = {
+          linter = "statix";
+        };
+        lua = {
+          formatter = "stylua";
+        };
+        html = {
+          formatter = "prettier";
+        };
+        json = {
+          formatter = "prettier";
+        };
+        css = {
+          formatter = "prettier";
         };
       };
     };
+    # plugins.null-ls = {
+    #   enable = true;
+    #   sources = {
+    #     diagnostics = {
+    #       gitlint.enable = true;
+    #     };
+    #     code_actions = {
+    #       shellcheck.enable = true;
+    #       #gitsigns.enable = true;
+    #     };
+    #     formatting = {
+    #       alejandra.enable = true;
+    #       taplo.enable = true;
+    #     };
+    #   };
+    # };
     plugins.gitsigns.enable = true;
     plugins.gitmessenger.enable = true;
 
@@ -453,33 +489,33 @@
     extraConfigLuaPost = ''
       require("luasnip.loaders.from_snipmate").lazy_load()
 
-      local null_ls = require("null-ls")
-      local helpers = require("null-ls.helpers")
-
-      local sca2d = {
-        method = null_ls.methods.DIAGNOSTICS,
-        filetypes = { "openscad" },
-        generator = null_ls.generator({
-          command = "sca2d",
-          args = { "$FILENAME" },
-          from_stderr = false,
-          to_stdin = true,
-          format = "line",
-          check_exit_code = function(code)
-            return code <= 1
-          end,
-          on_output = helpers.diagnostics.from_pattern(
-            [[[^:]+:(%d+):(%d+): (%w)%d+: (.*)]], {"row", "col", "severity", "message"}, {
-              severities = {
-                F = helpers.diagnostics.severities["error"],
-                E = helpers.diagnostics.severities["error"],
-                W = helpers.diagnostics.severities["warning"],
-                D = helpers.diagnostics.severities["warning"],
-                I = helpers.diagnostics.severities["info"],
-              },
-          }),
-        }),
-      }
+      -- local null_ls = require("null-ls")
+      -- local helpers = require("null-ls.helpers")
+      --
+      -- local sca2d = {
+      --   method = null_ls.methods.DIAGNOSTICS,
+      --   filetypes = { "openscad" },
+      --   generator = null_ls.generator({
+      --     command = "sca2d",
+      --     args = { "$FILENAME" },
+      --     from_stderr = false,
+      --     to_stdin = true,
+      --     format = "line",
+      --     check_exit_code = function(code)
+      --       return code <= 1
+      --     end,
+      --     on_output = helpers.diagnostics.from_pattern(
+      --       [[[^:]+:(%d+):(%d+): (%w)%d+: (.*)]], {"row", "col", "severity", "message"}, {
+      --         severities = {
+      --           F = helpers.diagnostics.severities["error"],
+      --           E = helpers.diagnostics.severities["error"],
+      --           W = helpers.diagnostics.severities["warning"],
+      --           D = helpers.diagnostics.severities["warning"],
+      --           I = helpers.diagnostics.severities["info"],
+      --         },
+      --     }),
+      --   }),
+      -- }
 
       -- null_ls.register(sca2d)
     '';

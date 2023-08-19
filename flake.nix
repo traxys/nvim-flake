@@ -88,10 +88,6 @@
       url = "github:MunifTanjim/nui.nvim";
       flake = false;
     };
-    "plugin:null-ls-nvim" = {
-      url = "github:jose-elias-alvarez/null-ls.nvim";
-      flake = false;
-    };
     "plugin:nvim-cmp" = {
       url = "github:hrsh7th/nvim-cmp";
       flake = false;
