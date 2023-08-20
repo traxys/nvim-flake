@@ -250,7 +250,7 @@
           inherit system;
           overlays = [
             (final: prev: {
-              inherit (inputs.nixfiles.packages."${system}") lemminx-bin;
+              inherit (inputs.nixfiles.packages."${system}") lemminx-bin djlint;
               vimPlugins =
                 prev.vimPlugins
                 // (pkgs.lib.mapAttrs (

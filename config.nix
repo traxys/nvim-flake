@@ -90,22 +90,21 @@
       package = pkgs.vimPlugins.nvim-osc52;
       keymaps.enable = true;
     };
+
     plugins.efmls-configs = {
       enable = true;
-
-      extraInitOptions = {
-        init_options = {
-          documentFormatting = true;
-        };
-      };
 
       setup = {
         all = {
           linter = "vale";
         };
 
+        sh = {
+          #linter = "shellcheck";
+          formatter = "shfmt";
+        };
         bash = {
-          linter = "shellcheck";
+          #linter = "shellcheck";
           formatter = "shfmt";
         };
         c = {
@@ -124,7 +123,10 @@
           formatter = "stylua";
         };
         html = {
-          formatter = "prettier";
+          formatter = ["prettier" (helpers.mkRaw "djlint_fmt")];
+        };
+        htmldjango = {
+          formatter = [(helpers.mkRaw "djlint_fmt")];
         };
         json = {
           formatter = "prettier";
@@ -166,6 +168,12 @@
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
       end
       local luasnip = require("luasnip")
+
+      local efm_fs = require('efmls-configs.fs')
+      local djlint_fmt = {
+        formatCommand = string.format('%s --reformat ''${INPUT} -', efm_fs.executable('djlint')),
+        formatStdin = true,
+      }
     '';
 
     plugins.nvim-cmp = {
@@ -374,6 +382,11 @@
         dartls.enable = true;
         clangd.enable = true;
         typst-lsp.enable = true;
+        efm.extraOptions = {
+          init_options = {
+            documentFormatting = true;
+          };
+        };
       };
     };
 
@@ -569,7 +582,7 @@
       '';
     };
 
-    extraPackages = with pkgs; [sca2d];
+    extraPackages = with pkgs; [sca2d djlint];
 
     extraPlugins = with pkgs.vimPlugins; [
       telescope-ui-select-nvim

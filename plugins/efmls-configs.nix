@@ -5,17 +5,19 @@
   lib,
   ...
 }:
-with lib; {
+with lib; let
+  tools = trivial.importJSON ./efmls-configs-tools.json;
+  inherit (tools) linters formatters;
+
+  searchLanguages = tools: (lists.unique (builtins.concatLists (builtins.attrValues tools)));
+  languages =
+    lists.filter
+    (v: v != "misc") (lists.unique ((searchLanguages linters) ++ (searchLanguages formatters)));
+in {
   options.plugins.efmls-configs = {
     enable = mkEnableOption "efmls-configs, premade configurations for efm-langserver";
 
     package = helpers.mkPackageOption "efmls-configs-nvim" pkgs.vimPlugins.efmls-configs-nvim;
-
-    extraInitOptions = mkOption {
-      type = types.attrsOf types.anything;
-      default = {};
-      description = "Additional options to pass to efmls-configs-nvim.init";
-    };
 
     /*
     Users can set the options as follows:
@@ -31,18 +33,11 @@ with lib; {
     }
     */
     setup = let
-      tools = trivial.importJSON ./efmls-configs-tools.json;
-      inherit (tools) linters formatters;
       languageTools = lang: tools:
         builtins.attrNames (attrsets.filterAttrs (_: lists.any (e: e == lang)) tools);
 
       miscLinters = languageTools "misc" linters;
       miscFormatters = languageTools "misc" formatters;
-
-      searchLanguages = tools: (lists.unique (builtins.concatLists (builtins.attrValues tools)));
-      languages =
-        lists.filter
-        (v: v != "misc") (lists.unique ((searchLanguages linters) ++ (searchLanguages formatters)));
 
       mkChooseOption = kind: possible: let
         toolType = with types; either (enum possible) helpers.rawType;
@@ -53,21 +48,30 @@ with lib; {
           description = "${kind} tools for ${lang}";
         };
     in
-      (builtins.listToAttrs (builtins.map (lang: let
-          langTools = languageTools lang;
-        in {
-          name = lang;
-          value = {
-            linter = mkChooseOption "linter" ((langTools linters) ++ miscLinters);
-            formatter = mkChooseOption "formatter" ((langTools formatters) ++ miscFormatters);
-          };
-        })
-        languages))
-      // {
-        all = {
-          linter = mkChooseOption "linter" miscLinters;
-          formatter = mkChooseOption "formatter" miscFormatters;
+      mkOption {
+        type = types.submodule {
+          freeformType = types.attrs;
+
+          options =
+            (builtins.listToAttrs (builtins.map (lang: let
+                langTools = languageTools lang;
+              in {
+                name = lang;
+                value = {
+                  linter = mkChooseOption "linter" ((langTools linters) ++ miscLinters);
+                  formatter = mkChooseOption "formatter" ((langTools formatters) ++ miscFormatters);
+                };
+              })
+              languages))
+            // {
+              all = {
+                linter = mkChooseOption "linter" miscLinters;
+                formatter = mkChooseOption "formatter" miscFormatters;
+              };
+            };
         };
+        description = "Configuration for each filetype. Use `all` to match any filetype.";
+        default = {};
       };
   };
 
@@ -145,7 +149,11 @@ with lib; {
     # Tools that have been selected by the user
     tools = lists.unique (builtins.filter builtins.isString (
       builtins.concatLists (
-        builtins.map (lang: (toolAsList lang.linter) ++ (toolAsList lang.formatter))
+        builtins.map ({
+          linter ? [],
+          formatter ? [],
+        }:
+          (toolAsList linter) ++ (toolAsList formatter))
         (builtins.attrValues cfg.setup)
       )
     ));
@@ -153,13 +161,6 @@ with lib; {
     pkgsToInstall =
       builtins.map (v: toolPkgs.${v})
       (builtins.filter (v: builtins.hasAttr v toolPkgs) tools);
-
-    initOptions =
-      {
-        on_attach.__raw = "__lspOnAttach";
-        capabilities.__raw = "__lspCapabilities";
-      }
-      // cfg.extraInitOptions;
 
     mkToolOption = kind: opt:
       builtins.map
@@ -170,29 +171,28 @@ with lib; {
       (toolAsList opt);
 
     setupOptions =
-      (builtins.mapAttrs (_: {
-          linter,
-          formatter,
-        }: {
-          linter = mkToolOption "linters" linter;
-          formatter = mkToolOption "formatters" formatter;
-        })
+      (builtins.mapAttrs (
+          _: {
+            linter ? [],
+            formatter ? [],
+          }:
+            (mkToolOption "linters" linter)
+            ++ (mkToolOption "formatters" formatter)
+        )
         (attrsets.filterAttrs (v: _: v != "all") cfg.setup))
       // {
-        "=" = {
-          linter = mkToolOption "linters" cfg.setup.all.linter;
-          formatter = mkToolOption "formatters" cfg.setup.all.formatter;
-        };
+        "=" =
+          (mkToolOption "linters" cfg.setup.all.linter)
+          ++ (mkToolOption "formatters" cfg.setup.all.formatter);
       };
   in
     mkIf cfg.enable {
       extraPlugins = [cfg.package];
 
-      plugins.lsp.postConfig = ''
-        local efmls = require 'efmls-configs'
-        efmls.init(${helpers.toLuaObject initOptions})
-        efmls.setup(${helpers.toLuaObject setupOptions})
-      '';
+      plugins.lsp.servers.efm = {
+        enable = true;
+        extraOptions.settings.languages = setupOptions;
+      };
 
       extraPackages = [pkgs.efm-langserver] ++ pkgsToInstall;
     };
