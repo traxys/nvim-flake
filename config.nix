@@ -127,6 +127,7 @@
         };
         htmldjango = {
           formatter = [(helpers.mkRaw "djlint_fmt")];
+          linter = "djlint";
         };
         json = {
           formatter = "prettier";
