@@ -149,7 +149,6 @@
     #     };
     #     formatting = {
     #       alejandra.enable = true;
-    #       taplo.enable = true;
     #     };
     #   };
     # };
@@ -395,6 +394,7 @@
             documentFormatting = true;
           };
         };
+        taplo.enable = true;
       };
     };
 
