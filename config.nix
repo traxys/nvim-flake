@@ -276,6 +276,7 @@
         gitcommit
         gitignore
         git_rebase
+        groovy
         html
         ini
         json
@@ -356,6 +357,12 @@
           name = "lemminx";
           extraOptions = {
             cmd = ["${pkgs.lemminx-bin}/bin/lemminx-bin"];
+          };
+        }
+        {
+          name = "groovyls";
+          extraOptions = {
+            cmd = ["${pkgs.groovy-language-server}/bin/groovy-language-server"];
           };
         }
       ];
