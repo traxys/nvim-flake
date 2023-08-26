@@ -382,7 +382,7 @@
         nil_ls = {
           enable = true;
           settings = {
-            formatting.command = ["alejandra" "--quiet"];
+            formatting.command = ["${pkgs.alejandra}/bin/alejandra" "--quiet"];
           };
         };
         bashls.enable = true;
