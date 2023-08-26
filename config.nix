@@ -437,7 +437,7 @@
       enable = true;
       enableOffsetEncodingWorkaround = true;
 
-      extensions.ast = {
+      ast = {
         roleIcons = {
           type = "";
           declaration = "";
