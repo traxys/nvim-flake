@@ -196,14 +196,14 @@
       url = "github:mickael-menu/zk-nvim";
       flake = false;
     };
+    "plugin:efmls-configs-nvim" = {
+      url = "github:creativenull/efmls-configs-nvim";
+      flake = false;
+    };
 
     # Plugins that are not in nixpkgs
     "new-plugin:vim-headerguard" = {
       url = "github:drmikehenry/vim-headerguard";
-      flake = false;
-    };
-    "new-plugin:efmls-configs-nvim" = {
-      url = "github:creativenull/efmls-configs-nvim";
       flake = false;
     };
   };
@@ -224,7 +224,6 @@
             ./plugins/firenvim.nix
             ./plugins/headerguard.nix
             ./plugins/lsp-signature.nix
-            ./plugins/efmls-configs.nix
             ./modules
           ];
           package = neovim-flake.packages."${system}".neovim.overrideAttrs (oa: {

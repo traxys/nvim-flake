@@ -469,22 +469,6 @@
         "type": "github"
       }
     },
-    "new-plugin:efmls-configs-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1692993069,
-        "narHash": "sha256-h39fmyNxvzcQKSbGdIH+haH7c6faH6aRDHjsMRWwWWY=",
-        "owner": "creativenull",
-        "repo": "efmls-configs-nvim",
-        "rev": "cd8876b5afe602f90e53e5d92555980e6b379be4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "creativenull",
-        "repo": "efmls-configs-nvim",
-        "type": "github"
-      }
-    },
     "new-plugin:vim-headerguard": {
       "flake": false,
       "locked": {
@@ -916,11 +900,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1692970495,
-        "narHash": "sha256-mn1/ZodLyINFOZEbSR7A2CH3RBzEQOGX8kx01PddKM0=",
+        "lastModified": 1693162163,
+        "narHash": "sha256-48NnHmg8FxYuSumuWdguf52fki4a1GpGY77TRylVewA=",
         "owner": "pta2002",
         "repo": "nixvim",
-        "rev": "b8c3385599e90f1252eb3318dd00dd763dcc56f6",
+        "rev": "4cd3707e00ef28b903f8764ae688f8f4e25bf593",
         "type": "github"
       },
       "original": {
@@ -1053,6 +1037,22 @@
       "original": {
         "owner": "numtostr",
         "repo": "comment.nvim",
+        "type": "github"
+      }
+    },
+    "plugin:efmls-configs-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1693154498,
+        "narHash": "sha256-Mv+fUo0Kxrrq0L7XoggiX8JGnW/ljWjzZ6amDTvGOCc=",
+        "owner": "creativenull",
+        "repo": "efmls-configs-nvim",
+        "rev": "f929b0153235dd43a8d031c1c7391f98e064383e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "creativenull",
+        "repo": "efmls-configs-nvim",
         "type": "github"
       }
     },
@@ -1763,7 +1763,6 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "neovim-flake": "neovim-flake",
-        "new-plugin:efmls-configs-nvim": "new-plugin:efmls-configs-nvim",
         "new-plugin:vim-headerguard": "new-plugin:vim-headerguard",
         "nixfiles": "nixfiles",
         "nixpkgs": "nixpkgs_14",
@@ -1775,6 +1774,7 @@
         "plugin:cmp-path": "plugin:cmp-path",
         "plugin:cmp_luasnip": "plugin:cmp_luasnip",
         "plugin:comment-nvim": "plugin:comment-nvim",
+        "plugin:efmls-configs-nvim": "plugin:efmls-configs-nvim",
         "plugin:firenvim": "plugin:firenvim",
         "plugin:git-messenger-vim": "plugin:git-messenger-vim",
         "plugin:gitsigns-nvim": "plugin:gitsigns-nvim",
