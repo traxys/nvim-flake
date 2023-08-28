@@ -131,6 +131,9 @@
         css = {
           formatter = "prettier";
         };
+        gitcommit = {
+          linter = "gitlint";
+        };
       };
     };
     # plugins.null-ls = {
