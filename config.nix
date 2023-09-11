@@ -495,7 +495,7 @@
     };
 
     plugins.netman = {
-      enable = true;
+      enable = false;
       package = pkgs.vimPlugins.netman-nvim;
       neoTreeIntegration = true;
     };
