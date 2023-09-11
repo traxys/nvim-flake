@@ -357,12 +357,12 @@
             cmd = ["${pkgs.lemminx-bin}/bin/lemminx-bin"];
           };
         }
-        {
-          name = "groovyls";
-          extraOptions = {
-            cmd = ["${pkgs.groovy-language-server}/bin/groovy-language-server"];
-          };
-        }
+        # {
+        #   name = "groovyls";
+        #   extraOptions = {
+        #     cmd = ["${pkgs.groovy-language-server}/bin/groovy-language-server"];
+        #   };
+        # }
       ];
 
       keymaps = {
