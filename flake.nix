@@ -267,7 +267,7 @@
                 // (
                   pkgs.lib.mapAttrs (
                     pname: src:
-                      prev.vimUtils.buildVimPluginFrom2Nix {
+                      prev.vimUtils.buildVimPlugin {
                         inherit pname src;
                         version = src.shortRev;
                       }
