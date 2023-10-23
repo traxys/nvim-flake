@@ -352,10 +352,11 @@
     plugins.indent-blankline = {
       enable = true;
 
-      useTreesitter = true;
+      scope = {
+        enabled = true;
 
-      showCurrentContext = true;
-      showCurrentContextStart = true;
+        showStart = true;
+      };
     };
 
     plugins.lsp = {
