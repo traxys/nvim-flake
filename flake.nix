@@ -254,7 +254,6 @@
               inherit
                 (inputs.nixfiles.packages."${system}")
                 lemminx-bin
-                djlint
                 groovy-language-server
                 ;
               vimPlugins =
