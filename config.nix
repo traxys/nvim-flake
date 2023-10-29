@@ -601,7 +601,12 @@
       '';
     };
 
-    extraPackages = with pkgs; [sca2d djlint];
+    extraPackages = with pkgs; [
+      /*
+      sca2d
+      */
+      djlint
+    ];
 
     extraPlugins = with pkgs.vimPlugins; [
       telescope-ui-select-nvim
