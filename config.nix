@@ -142,6 +142,9 @@
         css = {
           formatter = "prettier";
         };
+        ts = {
+          formatter = "prettier";
+        };
         gitcommit = {
           linter = "gitlint";
         };
@@ -400,6 +403,7 @@
         dartls.enable = true;
         clangd.enable = true;
         typst-lsp.enable = true;
+        tsserver.enable = true;
         efm.extraOptions = {
           init_options = {
             documentFormatting = true;
