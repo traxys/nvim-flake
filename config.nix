@@ -425,6 +425,7 @@
         cargo.features = "all";
         checkOnSave = true;
         check.command = "clippy";
+        rustc.source = "discover";
       };
     };
 
