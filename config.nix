@@ -118,7 +118,7 @@
           linter = "cppcheck";
         };
         markdown = {
-          formatter = "cbfmt";
+          formatter = ["cbfmt" "mdformat"];
         };
         python = {
           formatter = "black";
@@ -611,6 +611,14 @@
       sca2d
       */
       djlint
+      (with python3.pkgs;
+        mdformat.withPlugins [
+          mdformat-gfm
+          mdformat-frontmatter
+          mdformat-footnote
+          mdformat-tables
+          mdit-py-plugins
+        ])
     ];
 
     extraPlugins = with pkgs.vimPlugins; [
