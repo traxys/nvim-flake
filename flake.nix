@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-staging.url = "github:nixos/nixpkgs/staging";
     nixvim = {
       url = "github:nix-community/nixvim";
       #url = "/home/traxys/Documents/nixvim";
@@ -212,7 +211,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-staging,
     nixvim,
     neovim-flake,
     flake-utils,
@@ -220,10 +218,6 @@
   } @ inputs:
     flake-utils.lib.eachDefaultSystem (system:
       with builtins; let
-        pkgs-staging = import nixpkgs-staging {
-          inherit system;
-        };
-
         module = {
           imports = [
             ./config.nix
@@ -232,9 +226,7 @@
             ./plugins/lsp-signature.nix
             ./modules
           ];
-          package = neovim-flake.packages."${system}".neovim.override {
-            inherit (pkgs-staging) libvterm-neovim;
-          };
+          package = neovim-flake.packages."${system}".neovim;
         };
 
         inputsMatching = prefix:

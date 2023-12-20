@@ -745,22 +745,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-staging": {
-      "locked": {
-        "lastModified": 1702080166,
-        "narHash": "sha256-qY2IRgaTG8NGGuVRP3mq1fkd79r0sOqYuzmKrkVqRTU=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "92bc6ad75d3d8484a5fb733cd46943c0a27c2e8c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "staging",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-traxys": {
       "locked": {
         "lastModified": 1692884435,
@@ -1749,7 +1733,6 @@
         "new-plugin:vim-headerguard": "new-plugin:vim-headerguard",
         "nixfiles": "nixfiles",
         "nixpkgs": "nixpkgs_8",
-        "nixpkgs-staging": "nixpkgs-staging",
         "nixvim": "nixvim",
         "plugin:clangd_extensions-nvim": "plugin:clangd_extensions-nvim",
         "plugin:cmp-buffer": "plugin:cmp-buffer",
