@@ -42,12 +42,12 @@
               vim.notify("bigfile: disabling features", vim.log.levels.WARN)
 
               vim.cmd("TSBufDisable refactor.highlight_definitions")
-				      vim.g.matchup_matchparen_enabled = 0
-				      require("nvim-treesitter.configs").setup({
-					      matchup = {
-					        enable = false
-					      }
-				      })
+          vim.g.matchup_matchparen_enabled = 0
+          require("nvim-treesitter.configs").setup({
+           matchup = {
+             enable = false
+           }
+          })
             end
           end
         '';
@@ -93,9 +93,15 @@
 
     keymaps = let
       modeKeys = mode:
-        lib.attrsets.mapAttrsToList (key: action: {
-          inherit key action mode;
-        });
+        lib.attrsets.mapAttrsToList (key: action:
+          {
+            inherit key mode;
+          }
+          // (
+            if builtins.isString action
+            then {inherit action;}
+            else action
+          ));
       nm = modeKeys ["n"];
       vs = modeKeys ["v"];
     in
@@ -121,6 +127,10 @@
         "<leader>zo" = "<Cmd>ZkNotes { sort = { 'modified' } }<CR>";
         "<leader>zt" = "<Cmd>ZkTags<CR>";
         "<leader>zf" = "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>";
+        "yH" = {
+          action = "<Cmd>Telescope yank_history<CR>";
+          options.desc = "history";
+        };
       })
       ++ (vs {
         "<leader>zf" = "'<,'>ZkMatch<CR>";
@@ -323,9 +333,9 @@
     plugins.treesitter = {
       enable = true;
       indent = true;
-    
+
       nixvimInjections = true;
-    
+
       grammarPackages = with config.plugins.treesitter.package.passthru.builtGrammars; [
         arduino
         bash
@@ -617,6 +627,14 @@
     plugins.which-key.enable = true;
 
     plugins.leap.enable = true;
+
+    plugins.yanky = {
+      enable = true;
+      picker.telescope = {
+        useDefaultMappings = true;
+        enable = true;
+      };
+    };
 
     files."ftplugin/nix.lua" = {
       options = {
