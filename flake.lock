@@ -729,11 +729,11 @@
         "zsh-nix-shell": "zsh-nix-shell"
       },
       "locked": {
-        "lastModified": 1705797029,
-        "narHash": "sha256-Y5dqmzZFHM7t3CUmbzX77keK0lVLxyz7CKB5WPxTfiU=",
+        "lastModified": 1706193397,
+        "narHash": "sha256-ys0ygvU75p5LhSPZDtg1X1t1ZAgK/wr/8Lt18BLjG58=",
         "owner": "traxys",
         "repo": "Nixfiles",
-        "rev": "fe142e8b1937d50c970720f42aea1b091d8ec580",
+        "rev": "86795ab41c19162a434a40d9494e22d84d036cdb",
         "type": "github"
       },
       "original": {
@@ -913,11 +913,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1706111147,
-        "narHash": "sha256-4VtYk79oJExuHxwN/5NIzLBzq4VVcfbnXawJMUIXrrc=",
+        "lastModified": 1706194855,
+        "narHash": "sha256-effFnBs+PRF8oFlDohubkdMiF4TlW8Eik1aQrxz4SSA=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "ddce82d0d1fb88c957ecb7debed2ae6c63b60750",
+        "rev": "97889e309d69f8530ff0d2bcf001096658df0a17",
         "type": "github"
       },
       "original": {

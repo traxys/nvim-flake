@@ -245,7 +245,6 @@
             (final: prev: {
               inherit
                 (inputs.nixfiles.packages."${system}")
-                lemminx-bin
                 groovy-language-server
                 ;
               vimPlugins =

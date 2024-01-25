@@ -429,12 +429,6 @@
       enable = true;
 
       enabledServers = [
-        {
-          name = "lemminx";
-          extraOptions = {
-            cmd = ["${pkgs.lemminx-bin}/bin/lemminx-bin"];
-          };
-        }
         # {
         #   name = "groovyls";
         #   extraOptions = {
@@ -473,6 +467,7 @@
           };
         };
         taplo.enable = true;
+        lemminx.enable = true;
       };
     };
 
