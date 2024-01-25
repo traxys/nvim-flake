@@ -160,7 +160,8 @@
 
       toolPackages.mdformat = with pkgs.python3.pkgs;
         mdformat.withPlugins [
-          mdformat-gfm
+          # TODO: broken with update of mdformat
+          # mdformat-gfm
           mdformat-frontmatter
           mdformat-footnote
           mdformat-tables
