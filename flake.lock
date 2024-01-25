@@ -1501,19 +1501,19 @@
         "type": "github"
       }
     },
-    "plugin:rust-tools-nvim": {
+    "plugin:rustaceanvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1704259376,
-        "narHash": "sha256-kFane5ze7VDiOzF7jdmXkr50XQsNvdb+a9HQtybEVE0=",
-        "owner": "simrat39",
-        "repo": "rust-tools.nvim",
-        "rev": "676187908a1ce35ffcd727c654ed68d851299d3e",
+        "lastModified": 1706197441,
+        "narHash": "sha256-nv3Z32zYSsVT9NHgML3JU+mOSUaQuzIbbaOG5KL2c0g=",
+        "owner": "mrcjkb",
+        "repo": "rustaceanvim",
+        "rev": "87fc16de1360cda02470824a17e0073967bf29f1",
         "type": "github"
       },
       "original": {
-        "owner": "simrat39",
-        "repo": "rust-tools.nvim",
+        "owner": "mrcjkb",
+        "repo": "rustaceanvim",
         "type": "github"
       }
     },
@@ -1819,7 +1819,7 @@
         "plugin:plantuml-syntax": "plugin:plantuml-syntax",
         "plugin:plenary-nvim": "plugin:plenary-nvim",
         "plugin:popup-nvim": "plugin:popup-nvim",
-        "plugin:rust-tools-nvim": "plugin:rust-tools-nvim",
+        "plugin:rustaceanvim": "plugin:rustaceanvim",
         "plugin:skim-vim": "plugin:skim-vim",
         "plugin:telescope-nvim": "plugin:telescope-nvim",
         "plugin:telescope-ui-select-nvim": "plugin:telescope-ui-select-nvim",

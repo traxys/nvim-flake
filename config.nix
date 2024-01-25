@@ -473,13 +473,10 @@
 
     plugins.typst-vim.enable = true;
 
-    plugins.rust-tools = {
+    plugins.rustaceanvim = {
       enable = true;
-      inlayHints = {
-        maxLenAlign = true;
-      };
 
-      server = {
+      server.settings = {
         cargo.features = "all";
         checkOnSave = true;
         check.command = "clippy";
