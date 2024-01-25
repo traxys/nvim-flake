@@ -1597,6 +1597,22 @@
         "type": "github"
       }
     },
+    "plugin:vim-just": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1706157213,
+        "narHash": "sha256-OBc6VBtW9udPPgmcG4rAlwNaiEsVwUyrPd2ik5FJXRs=",
+        "owner": "NoahTheDuke",
+        "repo": "vim-just",
+        "rev": "6d95cd79c40d82d26f2ca887494d01e8a7e90d6e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NoahTheDuke",
+        "repo": "vim-just",
+        "type": "github"
+      }
+    },
     "plugin:vim-matchup": {
       "flake": false,
       "locked": {
@@ -1809,6 +1825,7 @@
         "plugin:telescope-ui-select-nvim": "plugin:telescope-ui-select-nvim",
         "plugin:tokyonight-nvim": "plugin:tokyonight-nvim",
         "plugin:trouble-nvim": "plugin:trouble-nvim",
+        "plugin:vim-just": "plugin:vim-just",
         "plugin:vim-matchup": "plugin:vim-matchup",
         "plugin:vim-snippets": "plugin:vim-snippets",
         "plugin:which-key-nvim": "plugin:which-key-nvim",

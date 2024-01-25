@@ -200,6 +200,10 @@
       url = "github:creativenull/efmls-configs-nvim";
       flake = false;
     };
+    "plugin:vim-just" = {
+      url = "github:NoahTheDuke/vim-just/";
+      flake = false;
+    };
 
     # Plugins that are not in nixpkgs
     "new-plugin:vim-headerguard" = {

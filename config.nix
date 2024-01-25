@@ -683,6 +683,7 @@
       telescope-ui-select-nvim
       vim-snippets
       markdown-preview-nvim
+      vim-just
     ];
   };
 }
