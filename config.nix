@@ -476,11 +476,20 @@
     plugins.rustaceanvim = {
       enable = true;
 
-      server.settings = {
-        cargo.features = "all";
-        checkOnSave = true;
-        check.command = "clippy";
-        rustc.source = "discover";
+      server = {
+        onAttach = ''
+          function(client, bufnr)
+            __lspOnAttach(client, bufnr)
+            vim.lsp.inlay_hint.enable(bufnr, true)
+          end
+        '';
+
+        settings = {
+          cargo.features = "all";
+          checkOnSave = true;
+          check.command = "clippy";
+          rustc.source = "discover";
+        };
       };
     };
 
