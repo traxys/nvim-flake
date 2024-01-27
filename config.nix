@@ -458,7 +458,13 @@
         };
         bashls.enable = true;
         dartls.enable = true;
-        clangd.enable = true;
+        clangd = {
+          enable = true;
+          onAttach.function = ''
+            require("clangd_extensions.inlay_hints").setup_autocmd()
+            require("clangd_extensions.inlay_hints").set_inlay_hints()
+          '';
+        };
         typst-lsp.enable = true;
         tsserver.enable = true;
         efm.extraOptions = {
