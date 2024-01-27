@@ -123,6 +123,12 @@
         "ge" = "<cmd>Telescope diagnostics bufnr=0<CR>";
         "gE" = "<cmd>Telescope diagnostics<CR>";
 
+        "<leader>h" = {
+          action = "<cmd>lua vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())<CR>";
+          options = {
+            desc = "toggle inlay hints";
+          };
+        };
         "<leader>zn" = "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>";
         "<leader>zo" = "<Cmd>ZkNotes { sort = { 'modified' } }<CR>";
         "<leader>zt" = "<Cmd>ZkTags<CR>";
@@ -458,13 +464,7 @@
         };
         bashls.enable = true;
         dartls.enable = true;
-        clangd = {
-          enable = true;
-          onAttach.function = ''
-            require("clangd_extensions.inlay_hints").setup_autocmd()
-            require("clangd_extensions.inlay_hints").set_inlay_hints()
-          '';
-        };
+        clangd.enable = true;
         typst-lsp.enable = true;
         tsserver.enable = true;
         efm.extraOptions = {
@@ -483,13 +483,6 @@
       enable = true;
 
       server = {
-        onAttach = ''
-          function(client, bufnr)
-            __lspOnAttach(client, bufnr)
-            vim.lsp.inlay_hint.enable(bufnr, true)
-          end
-        '';
-
         settings = {
           cargo.features = "all";
           checkOnSave = true;
