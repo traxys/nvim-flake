@@ -476,6 +476,12 @@
         lemminx.enable = true;
         ltex = {
           enable = true;
+          onAttach.function = ''
+            require("ltex_extra").setup{
+              load_langs = { "en-US", "fr-FR" },
+              path = ".ltex",
+            }
+          '';
           filetypes = [
             "bib"
             "gitcommit"
@@ -725,6 +731,7 @@
       vim-snippets
       markdown-preview-nvim
       vim-just
+      ltex_extra-nvim
     ];
   };
 }

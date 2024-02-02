@@ -1165,6 +1165,22 @@
         "type": "github"
       }
     },
+    "plugin:ltex_extra-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1706711740,
+        "narHash": "sha256-K0aRLktCP4kMLv2mrMjXcBwuWka2jdhCK6nCAug4U4I=",
+        "owner": "barreiroleo",
+        "repo": "ltex_extra.nvim",
+        "rev": "a1881daa92c74b3b9366bd5681b1b76de95476f7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "barreiroleo",
+        "repo": "ltex_extra.nvim",
+        "type": "github"
+      }
+    },
     "plugin:lualine-nvim": {
       "flake": false,
       "locked": {
@@ -1798,6 +1814,7 @@
         "plugin:inc-rename-nvim": "plugin:inc-rename-nvim",
         "plugin:indent-blankline-nvim": "plugin:indent-blankline-nvim",
         "plugin:lspkind-nvim": "plugin:lspkind-nvim",
+        "plugin:ltex_extra-nvim": "plugin:ltex_extra-nvim",
         "plugin:lualine-nvim": "plugin:lualine-nvim",
         "plugin:luasnip": "plugin:luasnip",
         "plugin:markdown-preview-nvim": "plugin:markdown-preview-nvim",

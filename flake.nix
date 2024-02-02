@@ -204,6 +204,10 @@
       url = "github:NoahTheDuke/vim-just/";
       flake = false;
     };
+    "plugin:ltex_extra-nvim" = {
+      url = "github:barreiroleo/ltex_extra.nvim";
+      flake = false;
+    };
 
     # Plugins that are not in nixpkgs
     "new-plugin:vim-headerguard" = {
