@@ -494,6 +494,7 @@
             "tex"
             "pandoc"
             "typst"
+            "mail"
           ];
         };
       };
