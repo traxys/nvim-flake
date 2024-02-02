@@ -70,7 +70,8 @@
       cot = ["menu" "menuone" "noselect"];
       updatetime = 100;
       colorcolumn = "100";
-      spell = true;
+      # Too many false positives
+      spell = false;
       listchars = "tab:>-,lead:·,nbsp:␣,trail:•";
       fsync = true;
 
