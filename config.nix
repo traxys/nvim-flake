@@ -482,6 +482,24 @@
           init_options = {
             documentFormatting = true;
           };
+          settings = {
+            logLevel = 1;
+            languages.meson = [
+              (helpers.mkRaw (helpers.toLuaObject {
+                prefix = "muon";
+                lintSource = "efm/muon";
+                lintCommand = "muon analyze -l";
+                lintWorkspace = true;
+                lintStdin = false;
+                LintIgnoreExitCode = true;
+                rootMarkers = ["meson_options.txt" ".git"];
+                lintFormats = [
+                  "%f:%l:%c: %trror %m"
+                  "%f:%l:%c: %tarning %m"
+                ];
+              }))
+            ];
+          };
         };
         taplo.enable = true;
         lemminx.enable = true;
@@ -736,6 +754,7 @@
       sca2d
       */
       djlint
+      muon
     ];
 
     extraPlugins = with pkgs.vimPlugins; [
