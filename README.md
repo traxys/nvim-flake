@@ -1,3 +1,5 @@
+Merged into [Nixfiles](https://github.com/traxys/Nixfiles/neovim)
+
 # My personal neovim configuration
 
 This is a neovim configuration using [Nixvim](https://github.com/pta2002/nixvim).
